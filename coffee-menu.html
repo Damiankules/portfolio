@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu — Meridian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ background:#000; color:#fff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; overflow-x:hidden; }
+  em{ font-family:'Instrument Serif',serif; font-style:italic; }
+  .serif{ font-family:'Instrument Serif',serif; }
+
+  .liquid-glass{
+    background:rgba(255,255,255,0.01);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    border:none;
+    box-shadow:inset 0 1px 1px rgba(255,255,255,0.1);
+    position:relative;
+    overflow:hidden;
+  }
+  .liquid-glass::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    padding:1.4px;
+    background:linear-gradient(180deg,
+      rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
+      rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
+      rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    pointer-events:none;
+  }
+
+  .fade-up{ opacity:0; transform:translateY(40px); transition:opacity .8s ease, transform .8s ease; }
+  .fade-up.visible{ opacity:1; transform:translateY(0); }
+  @media(prefers-reduced-motion:reduce){ .fade-up{ opacity:1; transform:none; transition:none; } }
+
+  /* ---------- ambient motion background ---------- */
+  .menu-hero{ position:relative; overflow:hidden; padding-bottom:40px; }
+  .ambient{
+    position:absolute; inset:0; width:100%; height:100%;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 30%, rgba(120,120,140,0.35), transparent 60%),
+      radial-gradient(ellipse 55% 45% at 80% 70%, rgba(90,100,130,0.30), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 50% 100%, rgba(60,60,80,0.4), transparent 65%),
+      #000;
+    animation:drift 18s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    0%{ background-position:0% 0%, 100% 100%, 50% 100%; }
+    100%{ background-position:10% 15%, 85% 80%, 55% 90%; }
+  }
+  @media(prefers-reduced-motion:reduce){ .ambient{ animation:none; } }
+
+  nav{ position:relative; z-index:20; padding:24px; }
+  .nav-pill{ max-width:900px; margin:0 auto; padding:12px 24px; border-radius:999px; display:flex; justify-content:space-between; align-items:center; }
+  .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; }
+  .brand span{ font-weight:600; font-size:1.1rem; }
+  .nav-links{ display:none; gap:32px; margin-left:32px; }
+  @media(min-width:760px){ .nav-links{ display:flex; } }
+  .nav-links a{ color:rgba(255,255,255,0.8); text-decoration:none; font-size:0.88rem; font-weight:500; transition:color .2s; }
+  .nav-links a:hover{ color:#fff; }
+  .nav-right{ display:flex; align-items:center; gap:16px; }
+  .cart-btn{ position:relative; width:42px; height:42px; border-radius:999px; border:none; color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .cart-count{ position:absolute; top:-4px; right:-4px; background:#fff; color:#000; font-size:0.68rem; font-weight:700; width:18px; height:18px; border-radius:999px; display:flex; align-items:center; justify-content:center; transform:scale(0); transition:transform .25s cubic-bezier(.34,1.56,.64,1); }
+  .cart-count.visible{ transform:scale(1); }
+  .login{ padding:9px 22px; border-radius:999px; color:#fff; font-size:0.88rem; font-weight:500; border:none; cursor:pointer; text-decoration:none; display:inline-block; }
+
+  .menu-header{ position:relative; z-index:10; max-width:1100px; margin:0 auto; padding:72px 24px 8px; text-align:center; }
+  .menu-header .label{ color:rgba(255,255,255,0.4); font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:20px; }
+  .menu-header h1{ font-family:'Instrument Serif',serif; font-size:clamp(2.6rem,7vw,5rem); font-weight:400; letter-spacing:-0.01em; line-height:1.1; margin-bottom:20px; }
+  .menu-header h1 em{ color:rgba(255,255,255,0.6); }
+  .menu-header p{ max-width:520px; margin:0 auto; font-size:0.95rem; line-height:1.7; color:rgba(255,255,255,0.6); }
+
+  /* ---------- tabs ---------- */
+  .tabs{ position:relative; z-index:10; max-width:1100px; margin:40px auto 0; padding:0 24px; display:flex; justify-content:center; gap:10px; }
+  .tab-btn{ padding:14px 30px; border-radius:999px; color:rgba(255,255,255,0.65); font-size:0.92rem; font-weight:500; border:none; cursor:pointer; background:rgba(255,255,255,0.02); transition:color .2s; }
+  .tab-btn:hover{ color:#fff; }
+  .tab-btn.active{ color:#000; background:#fff; }
+
+  /* ---------- filters (beans tab) ---------- */
+  .filters{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:44px; }
+  .filter-btn{ padding:11px 22px; border-radius:999px; color:rgba(255,255,255,0.7); font-size:0.85rem; font-weight:500; border:none; cursor:pointer; background:rgba(255,255,255,0.02); transition:color .2s; }
+  .filter-btn:hover{ color:#fff; }
+  .filter-btn.active{ color:#000; background:#fff; }
+
+  section{ background:#000; padding:60px 24px 120px; position:relative; }
+  .wrap{ max-width:1100px; margin:0 auto; }
+
+  .panel{ display:none; }
+  .panel.active{ display:block; }
+
+  /* ---------- product grid ---------- */
+  .menu-grid{ display:grid; grid-template-columns:1fr; gap:24px; }
+  @media(min-width:640px){ .menu-grid{ grid-template-columns:1fr 1fr; } }
+  @media(min-width:980px){ .menu-grid{ grid-template-columns:1fr 1fr 1fr; } }
+
+  .coffee-card{ border-radius:22px; padding:28px; display:flex; flex-direction:column; transition:opacity .3s ease, transform .3s ease; }
+  .coffee-card.hidden{ display:none; }
+  .coffee-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; gap:10px; }
+  .coffee-top.tag-only{ justify-content:flex-end; }
+  .coffee-origin{ text-transform:uppercase; letter-spacing:0.12em; color:rgba(255,255,255,0.4); font-size:0.7rem; }
+  .tag-pill{ font-size:0.68rem; padding:4px 11px; border-radius:999px; color:rgba(255,255,255,0.75); white-space:nowrap; }
+  .coffee-card h3{ font-family:'Instrument Serif',serif; font-size:1.7rem; font-weight:400; letter-spacing:-0.01em; margin-bottom:10px; }
+  .coffee-flavor{ font-size:0.86rem; line-height:1.6; color:rgba(255,255,255,0.55); margin-bottom:20px; flex:1; }
+  .coffee-divider{ width:100%; height:1px; background:rgba(255,255,255,0.1); margin-bottom:20px; }
+
+  .weight-toggle{ display:flex; gap:8px; margin-bottom:18px; }
+  .weight-btn{ flex:1; padding:9px 0; border-radius:999px; border:none; background:rgba(255,255,255,0.03); color:rgba(255,255,255,0.6); font-size:0.8rem; font-weight:500; cursor:pointer; transition:color .2s, background .2s; }
+  .weight-btn.active{ background:#fff; color:#000; }
+
+  .coffee-bottom{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .coffee-price{ font-family:'Instrument Serif',serif; font-size:1.6rem; }
+  .coffee-price span{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:0.8rem; color:rgba(255,255,255,0.4); margin-left:4px; }
+  .add-cart-btn{ padding:11px 20px; border-radius:999px; color:#fff; font-size:0.82rem; font-weight:500; border:none; cursor:pointer; white-space:nowrap; transition:background .2s, transform .15s; }
+  .add-cart-btn:hover{ background:rgba(255,255,255,0.06); }
+  .add-cart-btn.added{ background:#fff; color:#000; transform:scale(1.04); }
+
+  .empty-state{ text-align:center; padding:80px 24px; color:rgba(255,255,255,0.4); font-size:0.95rem; display:none; }
+  .empty-state.visible{ display:block; }
+</style>
+</head>
+<body>
+
+<section class="menu-hero">
+  <div class="ambient"></div>
+  <nav>
+    <div class="nav-pill liquid-glass">
+      <a href="meridian-landing.html" class="brand">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"></path><path d="M17 9h1.5a2.5 2.5 0 010 5H17"></path><path d="M8 3c0 .8-1 1-1 2s1 1.2 1 2M12 3c0 .8-1 1-1 2s1 1.2 1 2"></path></svg>
+        <span>Meridian</span>
+        <div class="nav-links">
+          <a href="coffee-menu.html#dine-in">Menu</a>
+          <a href="meridian-landing.html#palarnia">Palarnia</a>
+          <a href="meridian-landing.html#lokalizacje">Lokalizacje</a>
+        </div>
+      </a>
+      <div class="nav-right">
+        <button class="cart-btn liquid-glass" aria-label="Koszyk" id="cart-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7"><path d="M3 4h2l2.4 12.4a2 2 0 002 1.6h8.2a2 2 0 002-1.6L21 8H6"></path><circle cx="10" cy="21" r="1.2" fill="#fff" stroke="none"></circle><circle cx="17" cy="21" r="1.2" fill="#fff" stroke="none"></circle></svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <a href="meridian-landing.html#rezerwacja" class="login liquid-glass">Rezerwacja</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="menu-header">
+    <div class="label fade-up">Menu Meridian</div>
+    <h1 class="fade-up">Wybierz swój <em>rytuał.</em></h1>
+    <p class="fade-up">Kawa parzona na miejscu albo świeże ziarna do domu — wybierz zakładkę poniżej.</p>
+  </div>
+
+  <div class="tabs fade-up">
+    <button class="tab-btn liquid-glass" data-tab="dine-in" id="tab-dine-in">Kawa na miejscu</button>
+    <button class="tab-btn liquid-glass" data-tab="beans" id="tab-beans">Ziarna na wynos</button>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+
+    <!-- ---------- Kawa na miejscu ---------- -->
+    <div class="panel" id="panel-dine-in">
+      <div class="menu-grid">
+
+        <div class="coffee-card liquid-glass fade-up">
+          <div class="coffee-top tag-only"><span class="tag-pill liquid-glass">Espresso</span></div>
+          <h3>Espresso</h3>
+          <p class="coffee-flavor">Pojedyncza porcja, 30ml — intensywne, aksamitne i skoncentrowane.</p>
+          <div class="coffee-divider"></div>
+          <div class="coffee-bottom">
+            <div class="coffee-price">9 <span>zł</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up">
+          <div class="coffee-top tag-only"><span class="tag-pill liquid-glass">Espresso</span></div>
+          <h3>Espresso Doppio</h3>
+          <p class="coffee-flavor">Podwójna porcja espresso, 60ml — dla tych, którzy potrzebują więcej.</p>
+          <div class="coffee-divider"></div>
+          <div class="coffee-bottom">
+            <div class="coffee-price">12 <span>zł</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up">
+          <div class="coffee-top tag-only"><span class="tag-pill liquid-glass">Mleczna</span></div>
+          <h3>Cappuccino</h3>
+          <p class="coffee-flavor">Espresso, spienione mleko i lekka, jedwabista pianka.</p>
+          <div class="coffee-divider"></div>
+          <div class="coffee-bottom">
+            <div class="coffee-price">14 <span>zł</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up">
+          <div class="coffee-top tag-only"><span class="tag-pill liquid-glass">Mleczna</span></div>
+          <h3>Flat White</h3>
+          <p class="coffee-flavor">Podwójne espresso z aksamitnym, mikropianowym mlekiem.</p>
+          <div class="coffee-divider"></div>
+          <div class="coffee-bottom">
+            <div class="coffee-price">16 <span>zł</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up">
+          <div class="coffee-top tag-only"><span class="tag-pill liquid-glass">Mleczna</span></div>
+          <h3>Latte</h3>
+          <p class="coffee-flavor">Espresso z dużą ilością spienionego mleka — łagodna i delikatna.</p>
+          <div class="coffee-divider"></div>
+          <div class="coffee-bottom">
+            <div class="coffee-price">15 <span>zł</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up">
+          <div class="coffee-top tag-only"><span class="tag-pill liquid-glass">Mleczna</span></div>
+          <h3>Piccolo Latte</h3>
+          <p class="coffee-flavor">Mały latte na bazie pojedynczego espresso — mocniejszy charakter.</p>
+          <div class="coffee-divider"></div>
+          <div class="coffee-bottom">
+            <div class="coffee-price">12 <span>zł</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up">
+          <div class="coffee-top tag-only"><span class="tag-pill liquid-glass">Espresso</span></div>
+          <h3>Americano</h3>
+          <p class="coffee-flavor">Espresso wydłużone gorącą wodą — lekkie i klarowne.</p>
+          <div class="coffee-divider"></div>
+          <div class="coffee-bottom">
+            <div class="coffee-price">11 <span>zł</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up">
+          <div class="coffee-top tag-only"><span class="tag-pill liquid-glass">Filtr</span></div>
+          <h3>Filtr V60</h3>
+          <p class="coffee-flavor">Ręcznie parzona kawa, single-origin do wyboru z aktualnej karty.</p>
+          <div class="coffee-divider"></div>
+          <div class="coffee-bottom">
+            <div class="coffee-price">16 <span>zł</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up">
+          <div class="coffee-top tag-only"><span class="tag-pill liquid-glass">Filtr</span></div>
+          <h3>Chemex</h3>
+          <p class="coffee-flavor">Klarowna, delikatna kawa parzona dla dwóch osób — do dzielenia się.</p>
+          <div class="coffee-divider"></div>
+          <div class="coffee-bottom">
+            <div class="coffee-price">32 <span>zł</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up">
+          <div class="coffee-top tag-only"><span class="tag-pill liquid-glass">Zimna</span></div>
+          <h3>Cold Brew</h3>
+          <p class="coffee-flavor">Parzona na zimno przez 12 godzin — gładka, słodka i orzeźwiająca.</p>
+          <div class="coffee-divider"></div>
+          <div class="coffee-bottom">
+            <div class="coffee-price">15 <span>zł</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ---------- Ziarna na wynos ---------- -->
+    <div class="panel" id="panel-beans">
+      <div class="filters fade-up">
+        <button class="filter-btn liquid-glass active" data-roast="all">Wszystkie</button>
+        <button class="filter-btn liquid-glass" data-roast="light">Lekko palone</button>
+        <button class="filter-btn liquid-glass" data-roast="medium">Średnio palone</button>
+        <button class="filter-btn liquid-glass" data-roast="dark">Mocno palone</button>
+      </div>
+
+      <div class="menu-grid" id="coffee-grid">
+
+        <div class="coffee-card liquid-glass fade-up" data-roast="light" data-price-250="42" data-price-1000="150">
+          <div class="coffee-top">
+            <span class="coffee-origin">Etiopia</span>
+            <span class="tag-pill liquid-glass">Lekko palona</span>
+          </div>
+          <h3>Yirgacheffe</h3>
+          <p class="coffee-flavor">Cytrusowe, kwiatowe, herbaciane — jasny, aromatyczny profil z nutą bergamotki.</p>
+          <div class="coffee-divider"></div>
+          <div class="weight-toggle">
+            <button class="weight-btn active" data-weight="250">250g</button>
+            <button class="weight-btn" data-weight="1000">1kg</button>
+          </div>
+          <div class="coffee-bottom">
+            <div class="coffee-price"><span class="price-value">42</span> zł<span>/250g</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up" data-roast="medium" data-price-250="46" data-price-1000="165">
+          <div class="coffee-top">
+            <span class="coffee-origin">Kenia</span>
+            <span class="tag-pill liquid-glass">Średnio palona</span>
+          </div>
+          <h3>Kenia AA</h3>
+          <p class="coffee-flavor">Czarna porzeczka, pomidor, nuta winna — soczysta kwasowość i pełna słodycz.</p>
+          <div class="coffee-divider"></div>
+          <div class="weight-toggle">
+            <button class="weight-btn active" data-weight="250">250g</button>
+            <button class="weight-btn" data-weight="1000">1kg</button>
+          </div>
+          <div class="coffee-bottom">
+            <div class="coffee-price"><span class="price-value">46</span> zł<span>/250g</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up" data-roast="medium" data-price-250="38" data-price-1000="135">
+          <div class="coffee-top">
+            <span class="coffee-origin">Kolumbia</span>
+            <span class="tag-pill liquid-glass">Średnio palona</span>
+          </div>
+          <h3>Huila</h3>
+          <p class="coffee-flavor">Karmel, czerwone jabłko, orzech laskowy — zbalansowana, przystępna filiżanka.</p>
+          <div class="coffee-divider"></div>
+          <div class="weight-toggle">
+            <button class="weight-btn active" data-weight="250">250g</button>
+            <button class="weight-btn" data-weight="1000">1kg</button>
+          </div>
+          <div class="coffee-bottom">
+            <div class="coffee-price"><span class="price-value">38</span> zł<span>/250g</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up" data-roast="dark" data-price-250="34" data-price-1000="120">
+          <div class="coffee-top">
+            <span class="coffee-origin">Brazylia</span>
+            <span class="tag-pill liquid-glass">Mocno palona</span>
+          </div>
+          <h3>Cerrado</h3>
+          <p class="coffee-flavor">Czekolada, orzechy, karmel — niska kwasowość i ciężkie, słodkie body.</p>
+          <div class="coffee-divider"></div>
+          <div class="weight-toggle">
+            <button class="weight-btn active" data-weight="250">250g</button>
+            <button class="weight-btn" data-weight="1000">1kg</button>
+          </div>
+          <div class="coffee-bottom">
+            <div class="coffee-price"><span class="price-value">34</span> zł<span>/250g</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up" data-roast="medium" data-price-250="40" data-price-1000="145">
+          <div class="coffee-top">
+            <span class="coffee-origin">Gwatemala</span>
+            <span class="tag-pill liquid-glass">Średnio palona</span>
+          </div>
+          <h3>Huehuetenango</h3>
+          <p class="coffee-flavor">Śliwka, brązowy cukier, kakao — aksamitna struktura z długim finiszem.</p>
+          <div class="coffee-divider"></div>
+          <div class="weight-toggle">
+            <button class="weight-btn active" data-weight="250">250g</button>
+            <button class="weight-btn" data-weight="1000">1kg</button>
+          </div>
+          <div class="coffee-bottom">
+            <div class="coffee-price"><span class="price-value">40</span> zł<span>/250g</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up" data-roast="light" data-price-250="44" data-price-1000="158">
+          <div class="coffee-top">
+            <span class="coffee-origin">Rwanda</span>
+            <span class="tag-pill liquid-glass">Lekko palona</span>
+          </div>
+          <h3>Nyamasheke</h3>
+          <p class="coffee-flavor">Malina, hibiskus, limonka — żywa, soczysta kwasowość o kwiatowym finiszu.</p>
+          <div class="coffee-divider"></div>
+          <div class="weight-toggle">
+            <button class="weight-btn active" data-weight="250">250g</button>
+            <button class="weight-btn" data-weight="1000">1kg</button>
+          </div>
+          <div class="coffee-bottom">
+            <div class="coffee-price"><span class="price-value">44</span> zł<span>/250g</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up" data-roast="light" data-price-250="39" data-price-1000="140">
+          <div class="coffee-top">
+            <span class="coffee-origin">Peru</span>
+            <span class="tag-pill liquid-glass">Lekko palona</span>
+          </div>
+          <h3>Cajamarca</h3>
+          <p class="coffee-flavor">Brzoskwinia, miód, migdał — delikatna słodycz i miękka, okrągła kwasowość.</p>
+          <div class="coffee-divider"></div>
+          <div class="weight-toggle">
+            <button class="weight-btn active" data-weight="250">250g</button>
+            <button class="weight-btn" data-weight="1000">1kg</button>
+          </div>
+          <div class="coffee-bottom">
+            <div class="coffee-price"><span class="price-value">39</span> zł<span>/250g</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up" data-roast="dark" data-price-250="37" data-price-1000="132">
+          <div class="coffee-top">
+            <span class="coffee-origin">Indonezja</span>
+            <span class="tag-pill liquid-glass">Mocno palona</span>
+          </div>
+          <h3>Sumatra Mandheling</h3>
+          <p class="coffee-flavor">Ziemia, tytoń, gorzka czekolada — gęste body i ziemisty, śmiały charakter.</p>
+          <div class="coffee-divider"></div>
+          <div class="weight-toggle">
+            <button class="weight-btn active" data-weight="250">250g</button>
+            <button class="weight-btn" data-weight="1000">1kg</button>
+          </div>
+          <div class="coffee-bottom">
+            <div class="coffee-price"><span class="price-value">37</span> zł<span>/250g</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up" data-roast="medium" data-price-250="36" data-price-1000="128">
+          <div class="coffee-top">
+            <span class="coffee-origin">Meksyk</span>
+            <span class="tag-pill liquid-glass">Średnio palona</span>
+          </div>
+          <h3>Chiapas</h3>
+          <p class="coffee-flavor">Orzech pekan, brązowy cukier, jabłko — łagodna, klasyczna filiżanka na co dzień.</p>
+          <div class="coffee-divider"></div>
+          <div class="weight-toggle">
+            <button class="weight-btn active" data-weight="250">250g</button>
+            <button class="weight-btn" data-weight="1000">1kg</button>
+          </div>
+          <div class="coffee-bottom">
+            <div class="coffee-price"><span class="price-value">36</span> zł<span>/250g</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+        <div class="coffee-card liquid-glass fade-up" data-roast="dark" data-price-250="41" data-price-1000="148">
+          <div class="coffee-top">
+            <span class="coffee-origin">Kostaryka</span>
+            <span class="tag-pill liquid-glass">Mocno palona</span>
+          </div>
+          <h3>Tarrazú</h3>
+          <p class="coffee-flavor">Gorzka pomarańcza, melasa, orzech — intensywna, rozgrzewająca filiżanka.</p>
+          <div class="coffee-divider"></div>
+          <div class="weight-toggle">
+            <button class="weight-btn active" data-weight="250">250g</button>
+            <button class="weight-btn" data-weight="1000">1kg</button>
+          </div>
+          <div class="coffee-bottom">
+            <div class="coffee-price"><span class="price-value">41</span> zł<span>/250g</span></div>
+            <button class="add-cart-btn liquid-glass">Dodaj do koszyka</button>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="empty-state" id="empty-state">Brak kaw w tej kategorii palenia.</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const els = document.querySelectorAll('.fade-up');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.15, rootMargin: '-60px' });
+  els.forEach(el => io.observe(el));
+
+  /* ---------- tabs ---------- */
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const panels = { 'dine-in': document.getElementById('panel-dine-in'), 'beans': document.getElementById('panel-beans') };
+
+  function activateTab(tab, updateHash){
+    if(tab !== 'dine-in' && tab !== 'beans') tab = 'dine-in';
+    tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    Object.keys(panels).forEach(key => panels[key].classList.toggle('active', key === tab));
+    if(updateHash) history.replaceState(null, '', '#' + tab);
+  }
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => activateTab(btn.dataset.tab, true));
+  });
+
+  activateTab(location.hash.replace('#', ''), false);
+
+  /* ---------- weight toggle: switch displayed price per card ---------- */
+  document.querySelectorAll('#coffee-grid .coffee-card').forEach(card => {
+    const priceValue = card.querySelector('.price-value');
+    const priceUnit = card.querySelector('.coffee-price span');
+    card.querySelectorAll('.weight-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        card.querySelectorAll('.weight-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const weight = btn.dataset.weight;
+        priceValue.textContent = card.dataset[weight === '250' ? 'price250' : 'price1000'];
+        priceUnit.textContent = weight === '250' ? '/250g' : '/1kg';
+      });
+    });
+  });
+
+  /* ---------- add to cart ---------- */
+  let cartCount = 0;
+  const cartCountEl = document.getElementById('cart-count');
+  document.querySelectorAll('.add-cart-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      cartCount++;
+      cartCountEl.textContent = cartCount;
+      cartCountEl.classList.add('visible');
+      const original = btn.textContent;
+      btn.textContent = 'Dodano ✓';
+      btn.classList.add('added');
+      setTimeout(() => { btn.textContent = original; btn.classList.remove('added'); }, 1200);
+    });
+  });
+
+  /* ---------- roast filters ---------- */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const beanCards = document.querySelectorAll('#coffee-grid .coffee-card');
+  const emptyState = document.getElementById('empty-state');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const roast = btn.dataset.roast;
+      let visibleCount = 0;
+      beanCards.forEach(card => {
+        const matches = roast === 'all' || card.dataset.roast === roast;
+        card.classList.toggle('hidden', !matches);
+        if(matches) visibleCount++;
+      });
+      emptyState.classList.toggle('visible', visibleCount === 0);
+    });
+  });
+</script>
+
+</body>
+</html>

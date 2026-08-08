@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian — Specialty Coffee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ background:#000; color:#fff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; overflow-x:hidden; }
+  em{ font-family:'Instrument Serif',serif; font-style:italic; }
+  .serif{ font-family:'Instrument Serif',serif; }
+
+  .liquid-glass{
+    background:rgba(255,255,255,0.01);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    border:none;
+    box-shadow:inset 0 1px 1px rgba(255,255,255,0.1);
+    position:relative;
+    overflow:hidden;
+  }
+  .liquid-glass::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    padding:1.4px;
+    background:linear-gradient(180deg,
+      rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
+      rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
+      rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    pointer-events:none;
+  }
+
+  .fade-up{ opacity:0; transform:translateY(40px); transition:opacity .8s ease, transform .8s ease; }
+  .fade-up.visible{ opacity:1; transform:translateY(0); }
+  @media(prefers-reduced-motion:reduce){ .fade-up{ opacity:1; transform:none; transition:none; } }
+
+  /* ---------- ambient motion background (replaces external hero video) ---------- */
+  .hero{ position:relative; min-height:100vh; overflow:hidden; display:flex; flex-direction:column; }
+  .ambient{
+    position:absolute; inset:0; width:100%; height:100%;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 30%, rgba(120,120,140,0.35), transparent 60%),
+      radial-gradient(ellipse 55% 45% at 80% 70%, rgba(90,100,130,0.30), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 50% 100%, rgba(60,60,80,0.4), transparent 65%),
+      #000;
+    animation:drift 18s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    0%{ background-position:0% 0%, 100% 100%, 50% 100%; }
+    100%{ background-position:10% 15%, 85% 80%, 55% 90%; }
+  }
+  @media(prefers-reduced-motion:reduce){ .ambient{ animation:none; } }
+
+  nav{ position:relative; z-index:20; padding:24px; }
+  .nav-pill{ max-width:900px; margin:0 auto; padding:12px 24px; border-radius:999px; display:flex; justify-content:space-between; align-items:center; }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand span{ font-weight:600; font-size:1.1rem; }
+  .nav-links{ display:none; gap:32px; margin-left:32px; }
+  @media(min-width:760px){ .nav-links{ display:flex; } }
+  .nav-links a{ color:rgba(255,255,255,0.8); text-decoration:none; font-size:0.88rem; font-weight:500; transition:color .2s; }
+  .nav-links a:hover{ color:#fff; }
+  .nav-right{ display:flex; align-items:center; gap:20px; }
+  .signup{ background:none; border:none; color:#fff; font-size:0.88rem; font-weight:500; cursor:pointer; }
+  .login{ padding:9px 22px; border-radius:999px; color:#fff; font-size:0.88rem; font-weight:500; border:none; cursor:pointer; text-decoration:none; display:inline-block; }
+
+  .hero-content{ position:relative; z-index:10; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:48px 24px; text-align:center; transform:translateY(-8%); }
+  .hero-content h1{ font-family:'Instrument Serif',serif; font-size:clamp(3rem,10vw,7rem); font-weight:400; letter-spacing:-0.01em; white-space:nowrap; margin-bottom:36px; }
+
+  .reservation-pill{ max-width:620px; width:100%; padding:10px; border-radius:28px; display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:14px; }
+  .reservation-pill input{ background:none; border:none; outline:none; color:#fff; font-size:0.92rem; padding:8px 14px; color-scheme:dark; }
+  .reservation-pill input::placeholder{ color:rgba(255,255,255,0.4); }
+  .rp-name{ flex:2 1 160px; }
+  .rp-date{ flex:1 1 130px; }
+  .rp-guests{ flex:0 1 80px; }
+  .reservation-pill button{ background:#fff; border:none; border-radius:999px; width:42px; height:42px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; margin-left:auto; }
+  .reservation-status{ display:none; font-size:0.85rem; line-height:1.5; color:rgba(255,255,255,0.75); max-width:460px; padding:0 16px; margin-bottom:14px; }
+
+  .hero-sub{ font-size:0.88rem; line-height:1.6; max-width:420px; padding:0 16px; color:#fff; margin-bottom:30px; }
+  .manifesto{ padding:13px 30px; border-radius:999px; color:#fff; font-size:0.88rem; font-weight:500; cursor:pointer; border:none; transition:background .2s; text-decoration:none; display:inline-block; }
+  .manifesto:hover{ background:rgba(255,255,255,0.05); }
+
+  .social-row{ position:relative; z-index:10; display:flex; justify-content:center; gap:16px; padding-bottom:48px; }
+  .social-row button{ width:48px; height:48px; border-radius:999px; border:none; color:rgba(255,255,255,0.8); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+  .social-row button:hover{ color:#fff; background:rgba(255,255,255,0.05); }
+
+  section{ background:#000; padding:100px 24px; position:relative; overflow:hidden; }
+  .wrap{ max-width:1100px; margin:0 auto; }
+
+  .about{ padding-top:130px; padding-bottom:56px; }
+  .about::before{ content:''; position:absolute; inset:0; background:radial-gradient(ellipse at top, rgba(255,255,255,0.03) 0%, transparent 70%); }
+  .label{ position:relative; z-index:2; color:rgba(255,255,255,0.4); font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:20px; }
+  .about h2{ position:relative; z-index:2; font-size:clamp(2rem,6vw,4.2rem); line-height:1.1; letter-spacing:-0.01em; font-weight:400; }
+  .about h2 em{ color:rgba(255,255,255,0.6); }
+  .about-sub{ position:relative; z-index:2; margin-top:28px; max-width:620px; font-size:1.05rem; line-height:1.7; color:rgba(255,255,255,0.6); }
+
+  .video-frame{ border-radius:24px; overflow:hidden; aspect-ratio:16/9; position:relative; max-width:1100px; margin:24px auto 0; }
+  .video-placeholder{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+    background:#0a0a0c;
+  }
+  .video-overlay{ position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.6), transparent 55%); }
+  .video-bottom{ position:absolute; bottom:0; left:0; right:0; padding:24px; display:flex; flex-direction:column; gap:20px; }
+  @media(min-width:760px){ .video-bottom{ flex-direction:row; align-items:flex-end; justify-content:space-between; padding:40px; } }
+  .approach-card{ border-radius:18px; padding:28px; max-width:400px; }
+  .approach-card .label{ font-size:0.72rem; margin-bottom:10px; }
+  .approach-card p{ font-size:0.95rem; line-height:1.6; color:#fff; }
+  .explore-btn{ padding:13px 30px; border-radius:999px; color:#fff; font-size:0.88rem; font-weight:500; border:none; cursor:pointer; transition:transform .2s; white-space:nowrap; text-decoration:none; display:inline-block; }
+  .explore-btn:hover{ transform:scale(1.05); }
+
+  .philosophy h2{ font-size:clamp(2.4rem,8vw,5.5rem); letter-spacing:-0.01em; font-weight:400; margin-bottom:70px; }
+  .philosophy h2 em{ color:rgba(255,255,255,0.4); }
+  .phil-grid{ display:grid; grid-template-columns:1fr; gap:40px; }
+  @media(min-width:860px){ .phil-grid{ grid-template-columns:1fr 1fr; gap:48px; } }
+  .phil-video{ border-radius:24px; overflow:hidden; aspect-ratio:4/3; position:relative; }
+  .phil-text-block:not(:last-child){ margin-bottom:0; }
+  .divider{ width:100%; height:1px; background:rgba(255,255,255,0.1); margin:28px 0; }
+  .phil-text-block p{ font-size:clamp(1rem,1.6vw,1.15rem); line-height:1.7; color:rgba(255,255,255,0.7); }
+
+  .services-header{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:44px; }
+  .services-header h2{ font-size:clamp(1.8rem,5vw,3rem); font-weight:400; letter-spacing:-0.01em; }
+  .services-header span{ color:rgba(255,255,255,0.4); font-size:0.9rem; display:none; }
+  @media(min-width:760px){ .services-header span{ display:inline; } }
+  .services-grid{ display:grid; grid-template-columns:1fr; gap:24px; }
+  @media(min-width:760px){ .services-grid{ grid-template-columns:1fr 1fr; gap:32px; } }
+  .service-card{ border-radius:24px; overflow:hidden; }
+  .service-video{ aspect-ratio:16/9; position:relative; overflow:hidden; }
+  .service-video .video-placeholder{ transition:transform .7s ease; }
+  .service-card:hover .video-placeholder{ transform:scale(1.05); }
+  .service-body{ padding:28px 32px; }
+  .service-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; }
+  .service-tag{ text-transform:uppercase; letter-spacing:0.14em; color:rgba(255,255,255,0.4); font-size:0.72rem; }
+  .arrow-circle{ width:36px; height:36px; border-radius:999px; display:flex; align-items:center; justify-content:center; flex-shrink:0; text-decoration:none; transition:transform .2s; }
+  a.arrow-circle:hover{ transform:scale(1.1); }
+  .service-body h3{ font-size:clamp(1.3rem,3vw,1.6rem); font-weight:400; margin-bottom:12px; letter-spacing:-0.01em; }
+  .service-body p{ font-size:0.9rem; line-height:1.6; color:rgba(255,255,255,0.5); }
+
+  .locations-grid{ display:grid; grid-template-columns:1fr; gap:24px; margin-top:44px; }
+  @media(min-width:760px){ .locations-grid{ grid-template-columns:1fr 1fr; gap:32px; } }
+  .location-card{ border-radius:24px; padding:32px; }
+  .location-card h3{ font-size:1.4rem; font-weight:400; margin-bottom:14px; letter-spacing:-0.01em; }
+  .location-card p{ font-size:0.9rem; line-height:1.7; color:rgba(255,255,255,0.6); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="ambient"></div>
+  <nav>
+    <div class="nav-pill liquid-glass">
+      <div class="brand">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5V8z"></path><path d="M17 9h1.5a2.5 2.5 0 010 5H17"></path><path d="M8 3c0 .8-1 1-1 2s1 1.2 1 2M12 3c0 .8-1 1-1 2s1 1.2 1 2"></path></svg>
+        <span>Meridian</span>
+        <div class="nav-links">
+          <a href="#menu">Menu</a>
+          <a href="#palarnia">Palarnia</a>
+          <a href="#lokalizacje">Lokalizacje</a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="signup">Zamów online</button>
+        <a href="#rezerwacja" class="login liquid-glass">Rezerwacja</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero-content" id="rezerwacja">
+    <h1>Znajdź swój <em>rytuał.</em></h1>
+    <form class="reservation-pill liquid-glass" id="reservation-form">
+      <input class="rp-name" type="text" placeholder="Imię i nazwisko" required>
+      <input class="rp-date" type="date" required>
+      <input class="rp-guests" type="number" min="1" max="12" placeholder="Osoby" required>
+      <button type="submit" aria-label="Zarezerwuj stolik"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+    </form>
+    <p class="reservation-status" id="reservation-status"></p>
+    <p class="hero-sub">Zarezerwuj stolik i ciesz się kawą parzoną z precyzją, z ziaren palonych na miejscu każdego tygodnia.</p>
+    <a href="#philosophy" class="manifesto liquid-glass">Nasza filozofia</a>
+  </div>
+
+  <div class="social-row">
+    <button class="liquid-glass" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"></circle></svg></button>
+    <button class="liquid-glass" aria-label="X / Twitter"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 4s-.7 2.1-2 3.4c1.6 9.4-8.4 16.1-16.5 11.1 2.3.1 4.6-.6 6.3-2C6 15.9 3.9 13.3 3.5 10c1 .5 2.1.8 3.2.7C3.8 8.9 2.9 5.5 4.5 3c2.4 3 6 5 10 5.2-.7-3 2.4-5.6 5.2-4.1 1 0 1.9-.4 2.6-1-.3 1.1-1 2-2 2.6.9-.1 1.8-.4 2.7-.7z"></path></svg></button>
+    <button class="liquid-glass" aria-label="Strona www"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.5 2.5 3.8 5.6 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.6-3.8-9s1.3-6.5 3.8-9z"></path></svg></button>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="label fade-up">O nas</div>
+    <h2 class="fade-up"><em>Precyzja</em> w każdej filiżance dla<br class="br-desktop"> <em>podniebienia, które czuje różnicę.</em></h2>
+    <p class="about-sub fade-up">Wierzymy, że dobra kawa zaczyna się długo przed parzeniem — od wyboru plantacji, przez selekcję ziaren single-origin, po precyzyjną ekstrakcję w każdej filiżance. Ważymy dawki, mierzymy temperaturę i czas — bo każdy detal wpływa na smak.</p>
+  </div>
+</section>
+
+<section id="palarnia" style="padding-top:24px; padding-bottom:128px;">
+  <div class="video-frame fade-up">
+    <img class="video-placeholder" src="images/mike-kenneally-TD4DBagg2wE-unsplash.jpg" alt="Świeżo palone ziarna kawy">
+    <div class="video-overlay"></div>
+    <div class="video-bottom">
+      <div class="approach-card liquid-glass">
+        <div class="label">Nasza palarnia</div>
+        <p>Palimy ziarno małymi partiami, dobierając profil wypału do charakteru każdego single-origin — tak, by uwydatnić naturalną słodycz i czystość smaku, a nie ją zamaskować.</p>
+      </div>
+      <a href="#menu" class="explore-btn liquid-glass">Poznaj proces palenia</a>
+    </div>
+  </div>
+</section>
+
+<section class="philosophy" id="philosophy">
+  <div class="wrap">
+    <h2 class="fade-up">Ziarno <em>x</em> Rzemiosło</h2>
+    <div class="phil-grid">
+      <div class="phil-video fade-up"><img class="video-placeholder" src="images/pete-willis-QfTpbOey94s-unsplash.jpg" alt="Barysta wykonujący latte art"></div>
+      <div class="fade-up">
+        <div class="phil-text-block">
+          <div class="label">Selekcja ziaren</div>
+          <p>Współpracujemy bezpośrednio z plantatorami, wybierając partie single-origin za ich charakter, sezonowość i jakość zbioru. Traceability i uczciwe relacje z rolnikami to dla nas standard, nie dodatek.</p>
+        </div>
+        <div class="divider"></div>
+        <div class="phil-text-block">
+          <div class="label">Rzemiosło baristów</div>
+          <p>Nasi baryści kalibrują każdy ekspres i młynek codziennie rano, ważą dawki co do dziesiątej części grama i dopracowują czas ekstrakcji, by każda filiżanka smakowała dokładnie tak, jak powinna.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="services-header fade-up">
+      <h2>Co oferujemy</h2>
+      <span>Nasza oferta</span>
+    </div>
+    <div class="services-grid">
+      <div class="service-card liquid-glass fade-up">
+        <div class="service-video"><img class="video-placeholder" src="images/nathan-dumlao-6VhPY27jdps-unsplash.jpg" alt="Wspólne picie kawy przy stoliku"><div class="video-overlay"></div></div>
+        <div class="service-body">
+          <div class="service-top">
+            <span class="service-tag">Na miejscu</span>
+            <a href="coffee-menu.html#dine-in" class="arrow-circle liquid-glass" aria-label="Zobacz menu kawiarni na miejscu"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"></path></svg></a>
+          </div>
+          <h3>Kawa na miejscu</h3>
+          <p>Espresso bar z sezonową kartą single-origin, alternatywne metody parzenia (Chemex, V60, AeroPress) i baryści, którzy chętnie doradzą, co dziś wybrać.</p>
+        </div>
+      </div>
+      <div class="service-card liquid-glass fade-up">
+        <div class="service-video"><img class="video-placeholder" src="images/rr-abrot-pNIgH0y3upM-unsplash.jpg" alt="Wnętrze kawiarni Meridian z ladą"><div class="video-overlay"></div></div>
+        <div class="service-body">
+          <div class="service-top">
+            <span class="service-tag">Na wynos</span>
+            <a href="coffee-menu.html#beans" class="arrow-circle liquid-glass" aria-label="Zobacz katalog kaw na wynos"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"></path></svg></a>
+          </div>
+          <h3>Ziarna na wynos</h3>
+          <p>Świeżo palone ziarna w paczkach 250g i 1kg, z datą palenia na etykiecie i rekomendacją parametrów parzenia dobraną do Twojej metody.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="locations-grid" id="lokalizacje">
+      <div class="location-card liquid-glass fade-up">
+        <h3>Meridian — Śródmieście</h3>
+        <p>ul. Mokotowska 12, Warszawa<br>Pon–Pt 7:30–19:00, Sob–Ndz 9:00–18:00</p>
+      </div>
+      <div class="location-card liquid-glass fade-up">
+        <h3>Meridian — Powiśle</h3>
+        <p>ul. Dobra 4, Warszawa<br>Codziennie 8:00–20:00</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const els = document.querySelectorAll('.fade-up');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.15, rootMargin: '-60px' });
+  els.forEach(el => io.observe(el));
+
+  const reservationForm = document.getElementById('reservation-form');
+  const reservationStatus = document.getElementById('reservation-status');
+  reservationForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = reservationForm.querySelector('.rp-name').value;
+    const date = reservationForm.querySelector('.rp-date').value;
+    const guests = reservationForm.querySelector('.rp-guests').value;
+    reservationStatus.textContent = `Dziękujemy, ${name}! Rezerwacja na ${date} dla ${guests} os. przyjęta — potwierdzimy telefonicznie.`;
+    reservationStatus.style.display = 'block';
+    reservationForm.reset();
+  });
+</script>
+
+</body>
+</html>
