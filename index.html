@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Damian Kules</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{ background:#0A0A0A; color:#EDEDED; font-family:'Inter',sans-serif; min-height:100vh; }
+  .wrap{ max-width:900px; margin:0 auto; padding:80px 24px 60px; }
+  h1{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:clamp(2rem,6vw,3.2rem); margin-bottom:12px; letter-spacing:-0.01em; }
+  .sub{ color:rgba(237,237,237,0.55); font-size:1rem; margin-bottom:56px; max-width:520px; line-height:1.6; }
+  .grid{ display:grid; grid-template-columns:1fr; gap:20px; }
+  @media(min-width:640px){ .grid{ grid-template-columns:1fr 1fr; } }
+  a.card{ display:block; text-decoration:none; color:inherit; padding:28px; border:1px solid rgba(237,237,237,0.12); border-radius:16px; transition:border-color .2s, transform .2s; }
+  a.card:hover{ border-color:rgba(237,237,237,0.4); transform:translateY(-3px); }
+  .tag{ font-family:'Space Grotesk',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:#8A8A8A; margin-bottom:10px; }
+  .card h2{ font-family:'Space Grotesk',sans-serif; font-size:1.4rem; margin-bottom:8px; }
+  .card p{ font-size:0.88rem; color:rgba(237,237,237,0.55); line-height:1.5; }
+  footer{ text-align:center; padding:40px 24px; color:rgba(237,237,237,0.35); font-size:0.8rem; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Portfolio</h1>
+    <p class="sub">Wybór projektów koncepcyjnych — landing page'e budowane z naciskiem na wyrazisty, dopasowany do marki design, nie generyczne szablony.</p>
+    <div class="grid">
+      <a class="card" href="asme-landing.html">
+        <div class="tag">Agencja / SaaS</div>
+        <h2>Asme</h2>
+        <p>Liquid-glass landing page z animowanym tłem i efektem szkła.</p>
+      </a>
+      <a class="card" href="meridian-landing.html">
+        <div class="tag">Kawiarnia</div>
+        <h2>Meridian Coffee</h2>
+        <p>Specialty coffee brand — rezerwacje, menu, lokalizacje.</p>
+      </a>
+      <a class="card" href="coffee-menu.html">
+        <div class="tag">Kawiarnia — Menu</div>
+        <h2>Meridian — Menu</h2>
+        <p>Katalog kaw na miejscu i ziaren na wynos z filtrami.</p>
+      </a>
+    </div>
+  </div>
+  <footer>Portfolio koncepcyjne — projekty demonstracyjne.</footer>
+</body>
+</html>
