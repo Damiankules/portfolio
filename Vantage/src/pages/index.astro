@@ -12,25 +12,31 @@ const reader = createReader(process.cwd(), keystaticConfig);
 const home = (await reader.singletons.home.read()) ?? {
   announcement: 'START GROWING WITH VANTAGE TODAY!',
   announcementCta: 'GET STARTED',
-  badge: 'NEW',
-  badgeText: 'Introducing the all-new Vantage™',
-  heading: 'Step into the new era',
-  headingMuted: 'of brand presence',
+  badge: 'Astro Template',
+  heading: 'Your ally in efficient',
+  headingMuted: '& intelligent brand.',
   description:
-    'Vantage™ blends next-gen design systems with powerful flexibility — crafted to give bold brands the edge they deserve.',
+    'Discover a new standard of innovation and design, where technology and creativity work hand in hand to elevate your brand.',
   ctaLabel: 'Buy Template',
+  secondaryCtaLabel: 'Explore benefits',
+  testimonialQuote: 'With Vantage™ we’ve really made a mark in the market.',
+  testimonialName: 'Jordan Avery',
+  testimonialTitle: 'Founder of Northline Goods',
 };
 ---
 
-<Layout title="Vantage™ — Step into the new era of brand presence">
+<Layout title="Vantage™ — Your ally in efficient & intelligent brand">
   <AnnouncementBar text={home.announcement} cta={home.announcementCta} />
   <Header ctaLabel={home.ctaLabel} />
   <Hero
     badge={home.badge}
-    badgeText={home.badgeText}
     heading={home.heading}
     headingMuted={home.headingMuted}
     description={home.description}
     ctaLabel={home.ctaLabel}
+    secondaryCtaLabel={home.secondaryCtaLabel}
+    testimonialQuote={home.testimonialQuote}
+    testimonialName={home.testimonialName}
+    testimonialTitle={home.testimonialTitle}
   />
 </Layout>

@@ -19,30 +19,43 @@ export default config({
           defaultValue: 'GET STARTED',
         }),
         badge: fields.text({
-          label: 'Hero badge label',
-          defaultValue: 'NEW',
-        }),
-        badgeText: fields.text({
           label: 'Hero badge text',
-          defaultValue: 'Introducing the all-new Vantage™',
+          defaultValue: 'Astro Template',
         }),
         heading: fields.text({
-          label: 'Hero heading (dark line)',
-          defaultValue: 'Step into the new era',
+          label: 'Hero heading (white line)',
+          defaultValue: 'Your ally in efficient',
         }),
         headingMuted: fields.text({
           label: 'Hero heading (muted line)',
-          defaultValue: 'of brand presence',
+          defaultValue: '& intelligent brand.',
         }),
         description: fields.text({
           label: 'Hero description',
           multiline: true,
           defaultValue:
-            'Vantage™ blends next-gen design systems with powerful flexibility — crafted to give bold brands the edge they deserve.',
+            'Discover a new standard of innovation and design, where technology and creativity work hand in hand to elevate your brand.',
         }),
         ctaLabel: fields.text({
-          label: 'CTA button label',
+          label: 'Primary CTA label',
           defaultValue: 'Buy Template',
+        }),
+        secondaryCtaLabel: fields.text({
+          label: 'Secondary CTA label',
+          defaultValue: 'Explore benefits',
+        }),
+        testimonialQuote: fields.text({
+          label: 'Testimonial quote',
+          multiline: true,
+          defaultValue: 'With Vantage™ we’ve really made a mark in the market.',
+        }),
+        testimonialName: fields.text({
+          label: 'Testimonial name',
+          defaultValue: 'Jordan Avery',
+        }),
+        testimonialTitle: fields.text({
+          label: 'Testimonial title',
+          defaultValue: 'Founder of Northline Goods',
         }),
       },
     }),

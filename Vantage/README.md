@@ -21,19 +21,15 @@ npm run preview
 
 ## Hero background
 
-The animated hero background (`src/components/FluidBackground.astro`) is a real-time WebGL fluid simulation — colorful "paint" that swirls and blends, matching the reference screenshot's look. It's vendored from [PavelDoGreat/WebGL-Fluid-Simulation](https://github.com/PavelDoGreat/WebGL-Fluid-Simulation) (**MIT license**, free for commercial use) into `src/lib/fluid-simulation.js`, with:
+The hero background (`src/components/TreeScene.astro`) is a real, live 3D scene rendered with [Three.js](https://threejs.org/): a procedurally generated tree on a pedestal against a blue sky gradient, slowly rotating. The tree geometry comes from [EZ-Tree](https://github.com/dgreenheck/ez-tree) (**MIT license**, free for commercial use) — a free, legal stand-in for the reference screenshot's (licensed) 3D tree render, built from the `Oak Small` preset with tweaked bark/leaf tint and gnarliness.
 
-- demo-page-only glue removed (mobile promo popup, app-store links, dat.GUI debug panel, Google Analytics calls — none of it applies to this site),
-- background color and palette tuned to the Vantage cream/orange/purple/lime look instead of the original's black background + full-rainbow neon,
-- a periodic auto-splat loop so it keeps animating on its own (dragging on it still works too, as in the original demo).
-
-The MIT license text is kept intact at the top of `src/lib/fluid-simulation.js` per its terms. If you'd rather use the actual purchased template's video/animation file, drop it into `public/` and swap `<FluidBackground />` in `src/components/Hero.astro` for a `<video>`/`<canvas>` pointing at it.
+If you'd rather use the actual purchased template's video/3D export, drop it into `public/` and swap `<TreeScene />` in `src/components/Hero.astro` for a `<video>`/`<canvas>` pointing at it.
 
 ## Content editing
 
 Editable via Keystatic UI at `/keystatic`:
 
 - Announcement bar text + CTA
-- Hero badge, heading (two lines), description, CTA label
+- Hero badge, heading (two lines), description, primary/secondary CTA labels, testimonial quote/name/title
 
 Nav links are currently static in `src/components/Header.astro` (Menu, Our Story, Pricing, Contact, Stories, FAQ) — ask if you'd like these moved into Keystatic as well.

@@ -1,0 +1,135 @@
+---
+// Hero background: a real 3D bonsai-style tree rendered with Three.js, using
+// EZ-Tree (github.com/dgreenheck/ez-tree, MIT license) for the procedural
+// tree geometry — a free, legal stand-in for the reference screenshot's
+// (licensed) 3D tree render, on a pedestal against a blue sky gradient.
+---
+
+<canvas id="tree-canvas" class="absolute inset-0 h-full w-full"></canvas>
+
+<script>
+  import * as THREE from 'three';
+  import { Tree, TreePreset } from '@dgreenheck/ez-tree';
+
+  const canvas = document.getElementById('tree-canvas') as HTMLCanvasElement;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  const scene = new THREE.Scene();
+
+  // Sky gradient background, painted onto a canvas texture.
+  const skyCanvas = document.createElement('canvas');
+  skyCanvas.width = 2;
+  skyCanvas.height = 256;
+  const skyCtx = skyCanvas.getContext('2d')!;
+  const gradient = skyCtx.createLinearGradient(0, 0, 0, 256);
+  gradient.addColorStop(0, '#3a4d8f');
+  gradient.addColorStop(0.55, '#8aa0d6');
+  gradient.addColorStop(1, '#dbe4f5');
+  skyCtx.fillStyle = gradient;
+  skyCtx.fillRect(0, 0, 2, 256);
+  const skyTexture = new THREE.CanvasTexture(skyCanvas);
+  scene.background = skyTexture;
+
+  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 200);
+
+  const hemiLight = new THREE.HemisphereLight(0xdce6ff, 0x3a3226, 0.9);
+  scene.add(hemiLight);
+
+  const sunLight = new THREE.DirectionalLight(0xfff2d9, 1.4);
+  sunLight.castShadow = true;
+  sunLight.shadow.mapSize.set(1024, 1024);
+  scene.add(sunLight);
+
+  const rig = new THREE.Group();
+  scene.add(rig);
+
+  // Pedestal (rough concrete-block look).
+  const pedestalHeight = 2.1;
+  const pedestal = new THREE.Mesh(
+    new THREE.CylinderGeometry(1.15, 1.35, pedestalHeight, 6, 1),
+    new THREE.MeshStandardMaterial({ color: 0xb9b6ae, roughness: 0.95, flatShading: true })
+  );
+  pedestal.position.y = pedestalHeight / 2;
+  pedestal.castShadow = true;
+  pedestal.receiveShadow = true;
+  rig.add(pedestal);
+
+  const tree = new Tree();
+  Object.assign(tree.options, TreePreset['Oak Small']);
+  tree.options.seed = 8842;
+  tree.options.bark.tint = 0x8a6a4f;
+  tree.options.bark.textured = true;
+  tree.options.branch.gnarliness[0] = 0.35;
+  tree.options.branch.gnarliness[1] = 0.3;
+  tree.options.branch.twist[0] = 0.25;
+  tree.options.leaves.tint = 0xf6f2ea;
+  tree.options.leaves.count = Math.round(tree.options.leaves.count * 0.7);
+  tree.generate();
+  tree.traverse((obj) => {
+    // @ts-ignore - Mesh-specific properties
+    obj.castShadow = true;
+  });
+  tree.position.y = pedestalHeight;
+  tree.scale.setScalar(0.16);
+  rig.add(tree);
+
+  // EZ-Tree presets aren't normalized to a fixed scale, so frame the camera
+  // from the actual generated bounding box instead of hard-coded distances.
+  rig.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(rig);
+  const size = new THREE.Vector3();
+  const center = new THREE.Vector3();
+  box.getSize(size);
+  box.getCenter(center);
+  const fitHeight = size.y / (2 * Math.tan((camera.fov * Math.PI) / 360));
+  const distance = Math.max(fitHeight, size.x / 2) * 1.5;
+  const lookTarget = new THREE.Vector3(center.x, box.min.y + size.y * 0.42, center.z);
+  camera.position.set(
+    center.x + distance * 0.32,
+    box.min.y + size.y * 0.3,
+    center.z + distance * 0.92
+  );
+  camera.lookAt(lookTarget);
+  scene.fog = new THREE.Fog(0x8aa0d6, distance * 0.9, distance * 3.2);
+
+  const shadowExtent = Math.max(size.x, size.z) * 0.9;
+  sunLight.position.set(center.x - shadowExtent, box.max.y + shadowExtent, center.z + shadowExtent * 0.6);
+  sunLight.target.position.copy(center);
+  scene.add(sunLight.target);
+  sunLight.shadow.camera.left = -shadowExtent;
+  sunLight.shadow.camera.right = shadowExtent;
+  sunLight.shadow.camera.top = shadowExtent;
+  sunLight.shadow.camera.bottom = -shadowExtent;
+  sunLight.shadow.camera.far = shadowExtent * 4;
+  sunLight.shadow.camera.updateProjectionMatrix();
+
+  function resize() {
+    const { clientWidth, clientHeight } = canvas;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(clientWidth, clientHeight, false);
+    camera.aspect = clientWidth / Math.max(clientHeight, 1);
+    camera.updateProjectionMatrix();
+  }
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let lastResizeCheck = 0;
+
+  function frame(now: number) {
+    if (now - lastResizeCheck > 200) {
+      resize();
+      lastResizeCheck = now;
+    }
+    if (!prefersReducedMotion) {
+      rig.rotation.y = Math.sin(now * 0.00012) * 0.35 + now * 0.00004;
+    }
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+
+  resize();
+  requestAnimationFrame(frame);
+</script>
