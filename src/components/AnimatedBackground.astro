@@ -26,104 +26,54 @@
   >
   </div>
 
-  <canvas id="vantage-network" class="absolute inset-0 h-full w-full opacity-70"></canvas>
+  <div id="vantage-particles" class="absolute inset-0 h-full w-full opacity-70"></div>
 </div>
 
 <script>
-  const canvas = document.getElementById('vantage-network') as HTMLCanvasElement | null;
-  if (canvas) {
-    const ctx = canvas.getContext('2d');
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  import { tsParticles } from '@tsparticles/engine';
+  import { loadSlim } from '@tsparticles/slim';
 
-    if (ctx && !prefersReducedMotion) {
-      let width = 0;
-      let height = 0;
-      let dpr = Math.min(window.devicePixelRatio || 1, 2);
-      let visible = true;
+  const container = document.getElementById('vantage-particles');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      type Node = { x: number; y: number; vx: number; vy: number };
-      let nodes: Node[] = [];
+  if (container && !prefersReducedMotion) {
+    await loadSlim(tsParticles);
 
-      const NODE_COUNT = 46;
-      const LINK_DISTANCE = 140;
-
-      function resize() {
-        if (!canvas) return;
-        width = canvas.clientWidth;
-        height = canvas.clientHeight;
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        ctx?.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-
-      function seed() {
-        nodes = Array.from({ length: NODE_COUNT }, () => ({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
-        }));
-      }
-
-      function step() {
-        if (!ctx || !visible) {
-          requestAnimationFrame(step);
-          return;
-        }
-        ctx.clearRect(0, 0, width, height);
-
-        for (const node of nodes) {
-          node.x += node.vx;
-          node.y += node.vy;
-          if (node.x < 0 || node.x > width) node.vx *= -1;
-          if (node.y < 0 || node.y > height) node.vy *= -1;
-        }
-
-        for (let i = 0; i < nodes.length; i++) {
-          for (let j = i + 1; j < nodes.length; j++) {
-            const a = nodes[i];
-            const b = nodes[j];
-            const dx = a.x - b.x;
-            const dy = a.y - b.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < LINK_DISTANCE) {
-              ctx.strokeStyle = `rgba(125, 214, 255, ${0.14 * (1 - dist / LINK_DISTANCE)})`;
-              ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        for (const node of nodes) {
-          ctx.fillStyle = 'rgba(142, 245, 208, 0.55)';
-          ctx.beginPath();
-          ctx.arc(node.x, node.y, 1.6, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        requestAnimationFrame(step);
-      }
-
-      const io = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) visible = entry.isIntersecting;
+    await tsParticles.load({
+      id: 'vantage-particles',
+      options: {
+        fullScreen: { enable: false },
+        background: { color: { value: 'transparent' } },
+        fpsLimit: 60,
+        detectRetina: true,
+        pauseOnBlur: true,
+        pauseOnOutsideViewport: true,
+        particles: {
+          number: { value: 46, density: { enable: true, width: 1440, height: 900 } },
+          color: { value: '#8ef5d0' },
+          shape: { type: 'circle' },
+          opacity: { value: 0.55 },
+          size: { value: 1.6 },
+          links: {
+            enable: true,
+            distance: 140,
+            color: '#7dd6ff',
+            opacity: 0.16,
+            width: 1,
+          },
+          move: {
+            enable: true,
+            speed: 0.4,
+            direction: 'none',
+            random: true,
+            straight: false,
+            outModes: { default: 'bounce' },
+          },
         },
-        { threshold: 0 }
-      );
-      io.observe(canvas);
-
-      resize();
-      seed();
-      requestAnimationFrame(step);
-
-      window.addEventListener('resize', () => {
-        resize();
-        seed();
-      });
-    }
+        interactivity: {
+          events: { onHover: { enable: false }, onClick: { enable: false } },
+        },
+      },
+    });
   }
 </script>
