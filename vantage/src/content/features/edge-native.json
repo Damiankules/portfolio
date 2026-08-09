@@ -1,0 +1,6 @@
+{
+  "title": "Edge-Native Delivery",
+  "description": "Ship compute to the nearest node automatically, so every request feels local no matter where it starts.",
+  "icon": "grid",
+  "order": 2
+}

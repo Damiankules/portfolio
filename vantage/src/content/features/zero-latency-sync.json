@@ -1,0 +1,6 @@
+{
+  "title": "Zero-Latency Sync",
+  "description": "State propagates across every client in milliseconds, so teams never argue about whose screen is stale.",
+  "icon": "orbit",
+  "order": 5
+}

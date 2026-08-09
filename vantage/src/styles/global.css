@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-vg-bg: #05070c;
+  --color-vg-bg-raised: #0b0f1a;
+  --color-vg-ink: #eef1fb;
+  --color-vg-muted: #8993ad;
+  --color-vg-line: #1c2333;
+
+  --color-vg-blue: #4f7bff;
+  --color-vg-violet: #8b5cf6;
+  --color-vg-cyan: #29e0c9;
+}
+
+@layer base {
+  html {
+    background: var(--color-vg-bg);
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--color-vg-bg);
+    color: var(--color-vg-ink);
+    font-family: var(--font-body);
+  }
+}
+
+@layer components {
+  .text-gradient-vantage {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-vg-blue) 0%,
+      var(--color-vg-violet) 55%,
+      var(--color-vg-cyan) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+}
+
+/* ---------- Scroll / entrance reveal ---------- */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Perspective grid horizon ---------- */
+
+.vg-grid-horizon {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  perspective: 600px;
+  perspective-origin: 50% 100%;
+  mask-image: linear-gradient(to top, black 0%, black 35%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to top, black 0%, black 35%, transparent 85%);
+}
+
+.vg-grid-horizon::before {
+  content: "";
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: -10%;
+  height: 160%;
+  background-image:
+    linear-gradient(rgba(79, 123, 255, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 123, 255, 0.35) 1px, transparent 1px);
+  background-size: 56px 56px;
+  transform: rotateX(72deg);
+  transform-origin: bottom center;
+  animation: vg-grid-drift 14s linear infinite;
+}
+
+@keyframes vg-grid-drift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 0 56px, 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vg-grid-horizon::before {
+    animation: none;
+  }
+}
+
+/* ---------- Floating particles ---------- */
+
+.vg-particle {
+  position: absolute;
+  bottom: -5%;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(238, 241, 251, 0.9) 0%, rgba(238, 241, 251, 0) 70%);
+  animation: vg-particle-rise linear infinite;
+  animation-delay: var(--p-delay, 0s);
+}
+
+@keyframes vg-particle-rise {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--p-opacity, 0.6);
+  }
+  90% {
+    opacity: var(--p-opacity, 0.6);
+  }
+  100% {
+    transform: translateY(-110vh) translateX(var(--p-drift, 20px));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vg-particle {
+    animation: none;
+    display: none;
+  }
+}
+
+/* ---------- CTA glow ---------- */
+
+.vg-btn-primary {
+  position: relative;
+  isolation: isolate;
+}
+
+.vg-btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(100deg, var(--color-vg-blue), var(--color-vg-violet), var(--color-vg-cyan));
+  opacity: 0.55;
+  filter: blur(16px);
+  transition: opacity 0.3s ease;
+}
+
+.vg-btn-primary:hover::before {
+  opacity: 0.9;
+}

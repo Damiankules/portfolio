@@ -1,0 +1,34 @@
+---
+const particleCount = 22;
+const particles = Array.from({ length: particleCount }, (_, i) => {
+  const size = 2 + Math.random() * 3;
+  return {
+    size,
+    left: Math.random() * 100,
+    duration: 14 + Math.random() * 16,
+    delay: -(Math.random() * 20),
+    drift: Math.round((Math.random() - 0.5) * 80),
+    opacity: 0.25 + Math.random() * 0.45,
+  };
+});
+---
+
+<div class="absolute inset-0 -z-10 overflow-hidden bg-vg-bg" aria-hidden="true">
+  <canvas id="vg-aurora" class="absolute inset-0 h-full w-full" style="filter: blur(64px) saturate(130%);"></canvas>
+
+  <div class="vg-grid-horizon"></div>
+
+  <div class="pointer-events-none absolute inset-0">
+    {particles.map((p) => (
+      <span
+        class="vg-particle"
+        style={`width:${p.size}px; height:${p.size}px; left:${p.left}%; animation-duration:${p.duration}s; --p-delay:${p.delay}s; --p-drift:${p.drift}px; --p-opacity:${p.opacity};`}
+      />
+    ))}
+  </div>
+
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-vg-bg"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(79,123,255,0.12),transparent_60%)]"></div>
+</div>
+
+<script src="../scripts/aurora-field.js"></script>

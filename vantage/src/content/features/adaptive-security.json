@@ -1,0 +1,6 @@
+{
+  "title": "Adaptive Security",
+  "description": "Policy that learns from behavior, not just rules — access tightens automatically the moment risk rises.",
+  "icon": "shield",
+  "order": 1
+}

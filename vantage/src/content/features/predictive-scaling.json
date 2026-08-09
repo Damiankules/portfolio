@@ -1,0 +1,6 @@
+{
+  "title": "Predictive Scaling",
+  "description": "Capacity is forecast from real usage trends and provisioned ahead of demand, not after it spikes.",
+  "icon": "bolt",
+  "order": 3
+}

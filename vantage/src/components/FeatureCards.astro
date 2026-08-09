@@ -1,0 +1,58 @@
+---
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+import Icon from './Icon.astro';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const rawFeatures = await reader.collections.features.all();
+
+const features = rawFeatures
+  .map((f) => f.entry)
+  .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+---
+
+<section id="features" class="relative border-t border-vg-line bg-vg-bg py-28">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <p data-reveal class="text-sm font-semibold uppercase tracking-[0.2em] text-vg-cyan">
+        Built for scale
+      </p>
+      <h2
+        data-reveal
+        data-reveal-delay="80"
+        class="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl"
+      >
+        Everything your platform team stopped hoping for
+      </h2>
+      <p data-reveal data-reveal-delay="160" class="mt-4 text-vg-muted">
+        Six primitives, one control plane — each one built to disappear into the background
+        until the moment it matters.
+      </p>
+    </div>
+
+    <div class="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {features.map((feature, i) => (
+        <article
+          data-reveal
+          data-reveal-delay={String((i % 3) * 90)}
+          class="group relative overflow-hidden rounded-2xl border border-vg-line bg-vg-bg-raised p-7 transition-colors hover:border-vg-blue/50"
+        >
+          <div
+            class="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-vg-blue/0 blur-2xl transition-colors duration-500 group-hover:bg-vg-blue/20"
+          ></div>
+
+          <div class="relative flex h-11 w-11 items-center justify-center rounded-xl border border-vg-line bg-vg-bg text-vg-cyan">
+            <Icon name={feature.icon} />
+          </div>
+
+          <h3 class="relative mt-5 font-display text-lg font-semibold text-vg-ink">
+            {feature.title}
+          </h3>
+          <p class="relative mt-2 text-sm leading-relaxed text-vg-muted">
+            {feature.description}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

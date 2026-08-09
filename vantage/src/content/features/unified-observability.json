@@ -1,0 +1,6 @@
+{
+  "title": "Unified Observability",
+  "description": "Logs, traces, and metrics resolved into a single timeline, so root cause is a click, not a hunt.",
+  "icon": "layers",
+  "order": 4
+}

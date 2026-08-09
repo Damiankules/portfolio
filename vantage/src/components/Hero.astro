@@ -1,0 +1,98 @@
+---
+import AnimatedBackground from './AnimatedBackground.astro';
+
+const stats = [
+  { value: '99.99%', label: 'platform uptime' },
+  { value: '38ms', label: 'p95 event latency' },
+  { value: '12k+', label: 'teams on Vantage' },
+];
+---
+
+<section class="relative isolate min-h-screen overflow-hidden">
+  <AnimatedBackground />
+
+  <header class="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-8">
+    <a href="/" class="flex items-center gap-2 font-display text-lg font-semibold tracking-tight">
+      <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-vg-blue via-vg-violet to-vg-cyan text-sm font-bold text-vg-bg">
+        V
+      </span>
+      Vantage
+    </a>
+
+    <nav class="hidden items-center gap-8 text-sm text-vg-muted md:flex">
+      <a href="#features" class="transition-colors hover:text-vg-ink">Platform</a>
+      <a href="#features" class="transition-colors hover:text-vg-ink">Solutions</a>
+      <a href="#" class="transition-colors hover:text-vg-ink">Docs</a>
+      <a href="#" class="transition-colors hover:text-vg-ink">Pricing</a>
+    </nav>
+
+    <a
+      href="#"
+      class="rounded-full border border-vg-line px-4 py-2 text-sm font-medium text-vg-ink transition-colors hover:border-vg-blue/60 hover:bg-vg-bg-raised"
+    >
+      Sign in
+    </a>
+  </header>
+
+  <div class="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pb-28 pt-16 text-center sm:pt-24 lg:px-8">
+    <div
+      data-reveal="load"
+      data-reveal-delay="0"
+      class="mb-8 inline-flex items-center gap-2 rounded-full border border-vg-line bg-vg-bg-raised/80 px-4 py-1.5 text-xs font-medium text-vg-muted backdrop-blur"
+    >
+      <span class="relative flex h-1.5 w-1.5">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-vg-cyan opacity-75"></span>
+        <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-vg-cyan"></span>
+      </span>
+      Introducing Vantage 2.0 — now with predictive scaling
+    </div>
+
+    <h1
+      data-reveal="load"
+      data-reveal-delay="90"
+      class="font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
+    >
+      See the whole system.
+      <br />
+      <span class="text-gradient-vantage">Not just the dashboard.</span>
+    </h1>
+
+    <p
+      data-reveal="load"
+      data-reveal-delay="180"
+      class="mt-6 max-w-2xl text-balance text-lg leading-relaxed text-vg-muted sm:text-xl"
+    >
+      Vantage unifies telemetry, security, and scaling into one live control plane —
+      so your team reacts to what's actually happening, not what the last dashboard refresh showed.
+    </p>
+
+    <div data-reveal="load" data-reveal-delay="270" class="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+      <a
+        href="#"
+        class="vg-btn-primary rounded-full bg-vg-ink px-7 py-3 text-sm font-semibold text-vg-bg transition-transform hover:-translate-y-0.5"
+      >
+        Start free trial
+      </a>
+      <a
+        href="#features"
+        class="rounded-full border border-vg-line px-7 py-3 text-sm font-semibold text-vg-ink transition-colors hover:border-vg-blue/60 hover:bg-vg-bg-raised"
+      >
+        Explore the platform →
+      </a>
+    </div>
+
+    <dl
+      data-reveal="load"
+      data-reveal-delay="360"
+      class="mt-20 grid grid-cols-1 gap-8 border-t border-vg-line pt-10 sm:grid-cols-3 sm:gap-4"
+    >
+      {stats.map((stat) => (
+        <div class="flex flex-col items-center">
+          <dt class="sr-only">{stat.label}</dt>
+          <dd class="font-display text-3xl font-semibold text-vg-ink">{stat.value}</dd>
+          <dd class="mt-1 text-sm text-vg-muted">{stat.label}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
