@@ -1,0 +1,49 @@
+---
+import FluidBackground from './FluidBackground.astro';
+
+interface Props {
+  badge: string;
+  badgeText: string;
+  heading: string;
+  headingMuted: string;
+  description: string;
+  ctaLabel: string;
+}
+
+const { badge, badgeText, heading, headingMuted, description, ctaLabel } = Astro.props;
+---
+
+<section class="relative mx-auto mt-4 h-[640px] w-full max-w-6xl overflow-hidden rounded-[2rem]">
+  <FluidBackground />
+
+  <div class="absolute inset-x-4 bottom-4 flex flex-col gap-4 md:inset-x-6 md:bottom-6 md:flex-row md:items-end">
+    <div class="flex-1 rounded-3xl bg-white/95 p-6 backdrop-blur md:p-8">
+      <span class="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-700">
+        <span class="rounded-full bg-neutral-900 px-2 py-0.5 text-[10px] font-bold text-white">{badge}</span>
+        {badgeText}
+        <svg width="8" height="8" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+          <path d="M2 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </span>
+      <h1 class="mt-4 text-4xl font-bold leading-[1.05] text-neutral-900 md:text-5xl">
+        {heading}
+        <span class="block text-neutral-400">{headingMuted}</span>
+      </h1>
+    </div>
+
+    <div class="flex w-full flex-col gap-4 md:w-72">
+      <div class="rounded-3xl bg-white/95 p-6 text-sm leading-relaxed text-neutral-600 backdrop-blur">
+        {description}
+      </div>
+      <a
+        href="#buy"
+        class="flex items-center justify-center gap-2 rounded-3xl bg-lime px-6 py-4 text-sm font-semibold text-neutral-900 transition hover:bg-lime-dark"
+      >
+        {ctaLabel}
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
