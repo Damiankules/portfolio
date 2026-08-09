@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --color-lime: #d4f34a;
+  --color-lime-dark: #b9e01f;
+}
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  background-color: #f4f4f2;
+}

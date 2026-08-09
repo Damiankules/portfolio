@@ -1,0 +1,13 @@
+---
+interface Props {
+  text: string;
+  cta: string;
+}
+
+const { text, cta } = Astro.props;
+---
+
+<div class="bg-lime px-4 py-2 text-center text-xs font-semibold tracking-wide text-neutral-900">
+  {text}{' '}
+  <a href="#buy" class="underline underline-offset-2">{cta}</a>
+</div>

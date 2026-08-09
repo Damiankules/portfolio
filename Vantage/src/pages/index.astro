@@ -1,0 +1,36 @@
+---
+export const prerender = true;
+
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+import Layout from '../layouts/Layout.astro';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const home = (await reader.singletons.home.read()) ?? {
+  announcement: 'START GROWING WITH VANTAGE TODAY!',
+  announcementCta: 'GET STARTED',
+  badge: 'NEW',
+  badgeText: 'Introducing the all-new Vantage™',
+  heading: 'Step into the new era',
+  headingMuted: 'of brand presence',
+  description:
+    'Vantage™ blends next-gen design systems with powerful flexibility — crafted to give bold brands the edge they deserve.',
+  ctaLabel: 'Buy Template',
+};
+---
+
+<Layout title="Vantage™ — Step into the new era of brand presence">
+  <AnnouncementBar text={home.announcement} cta={home.announcementCta} />
+  <Header ctaLabel={home.ctaLabel} />
+  <Hero
+    badge={home.badge}
+    badgeText={home.badgeText}
+    heading={home.heading}
+    headingMuted={home.headingMuted}
+    description={home.description}
+    ctaLabel={home.ctaLabel}
+  />
+</Layout>
