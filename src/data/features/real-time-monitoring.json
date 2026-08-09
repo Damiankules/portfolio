@@ -1,0 +1,6 @@
+{
+  "title": "Monitoring w czasie rzeczywistym",
+  "description": "Śledź metryki infrastruktury i produktu na żywo, z alertami zanim problem zauważy klient.",
+  "icon": "pulse",
+  "order": 1
+}

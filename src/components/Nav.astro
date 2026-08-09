@@ -1,0 +1,52 @@
+---
+const links = [
+  { label: 'Produkt', href: '#features' },
+  { label: 'Możliwości', href: '#capabilities' },
+  { label: 'Dokumentacja', href: '#' },
+  { label: 'Cennik', href: '#' },
+];
+---
+
+<div class="w-full border-b border-white/10 bg-void-950/60 py-2 text-center text-xs tracking-wide text-white/70">
+  <span class="font-mono uppercase text-vantage-400">Vantage 2.0</span>
+  <span class="mx-2 text-white/30">·</span>
+  <span>Nowy silnik automatyzacji jest już dostępny</span>
+  <a href="#start" class="ml-2 font-semibold text-vantage-400 underline underline-offset-2 hover:text-vantage-500"
+    >Zobacz szczegóły →</a
+  >
+</div>
+
+<header class="relative z-20 w-full border-b border-white/5">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
+    <a href="/" class="flex items-center gap-2 font-display text-lg font-semibold tracking-tight text-white">
+      <span class="relative flex h-7 w-7 items-center justify-center rounded-md border border-vantage-500/40 bg-vantage-500/10">
+        <span class="absolute h-2 w-2 rounded-full bg-vantage-400 animate-pulse-slow"></span>
+        <span class="h-3 w-3 rotate-45 border border-vantage-400/70"></span>
+      </span>
+      Vantage
+    </a>
+
+    <div class="hidden items-center gap-8 md:flex">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm text-white/60 transition-colors hover:text-white"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a href="#" class="hidden text-sm text-white/70 hover:text-white sm:block">Zaloguj się</a>
+      <a
+        href="#start"
+        class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-void-950 transition-transform hover:scale-[1.03] hover:bg-vantage-400"
+      >
+        Rozpocznij
+      </a>
+    </div>
+  </nav>
+</header>

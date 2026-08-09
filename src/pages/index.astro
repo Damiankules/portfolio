@@ -1,0 +1,46 @@
+---
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import FeaturesSection from '../components/FeaturesSection.astro';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+
+const hero = await reader.singletons.hero.read();
+const featureEntries = await reader.collections.features.all();
+
+const features = featureEntries
+  .map(({ entry }) => ({
+    title: entry.title,
+    description: entry.description,
+    icon: entry.icon,
+    order: entry.order ?? 0,
+  }))
+  .sort((a, b) => a.order - b.order);
+---
+
+<Layout title="Vantage — Platforma dla nowoczesnych zespołów technologicznych">
+  <Nav />
+  <main>
+    {
+      hero && (
+        <Hero
+          eyebrow={hero.eyebrow}
+          headingTop={hero.headingTop}
+          headingBottom={hero.headingBottom}
+          subheading={hero.subheading}
+          primaryCtaLabel={hero.primaryCtaLabel}
+          primaryCtaHref={hero.primaryCtaHref}
+          secondaryCtaLabel={hero.secondaryCtaLabel}
+          secondaryCtaHref={hero.secondaryCtaHref}
+          statLabel={hero.statLabel}
+          statValue={hero.statValue}
+          statCaption={hero.statCaption}
+        />
+      )
+    }
+    <FeaturesSection features={features} />
+  </main>
+</Layout>

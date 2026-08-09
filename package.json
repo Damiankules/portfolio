@@ -1,0 +1,35 @@
+{
+  "name": "vantage",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Damiankules/portfolio.git"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/node": "^9.5.5",
+    "@astrojs/react": "^6.0.2",
+    "@astrojs/tailwind": "^6.0.2",
+    "@keystatic/astro": "^5.2.0",
+    "@keystatic/core": "^0.6.4",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "astro": "^5.18.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0"
+  }
+}

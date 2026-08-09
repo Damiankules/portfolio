@@ -1,0 +1,40 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  icon: 'pulse' | 'shield' | 'layers' | 'bolt' | 'globe' | 'terminal';
+  delay?: number;
+}
+
+const { title, description, icon, delay = 0 } = Astro.props;
+---
+
+<div
+  class="feature-card reveal group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-colors duration-300 hover:border-vantage-500/40"
+  data-delay={delay}
+>
+  <div
+    class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+    style="background: radial-gradient(240px circle at var(--x, 50%) var(--y, 50%), rgba(79,195,255,0.12), transparent 70%);"
+  >
+  </div>
+
+  <div class="relative flex h-11 w-11 items-center justify-center rounded-xl border border-vantage-500/30 bg-vantage-500/10 text-vantage-400">
+    <Icon name={icon} class="h-5 w-5" />
+  </div>
+
+  <h3 class="relative mt-5 font-display text-lg font-semibold text-white">{title}</h3>
+  <p class="relative mt-2 text-sm leading-relaxed text-white/55">{description}</p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.feature-card').forEach((card) => {
+    card.addEventListener('pointermove', (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--y', `${e.clientY - rect.top}px`);
+    });
+  });
+</script>

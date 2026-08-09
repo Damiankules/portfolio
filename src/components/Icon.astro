@@ -1,0 +1,30 @@
+---
+interface Props {
+  name: 'pulse' | 'shield' | 'layers' | 'bolt' | 'globe' | 'terminal';
+  class?: string;
+}
+
+const { name, class: className = 'h-5 w-5' } = Astro.props;
+
+const paths: Record<Props['name'], string> = {
+  pulse: 'M3 12h4l2-7 4 14 2-7h6',
+  shield: 'M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z',
+  layers: 'M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 8.5l9 5 9-5',
+  bolt: 'M13 2 4 14h6l-1 8 9-12h-6l1-8z',
+  globe: 'M12 3a9 9 0 100 18 9 9 0 000-18zM3.6 9h16.8M3.6 15h16.8M12 3c2.2 2.4 3.4 5.6 3.4 9s-1.2 6.6-3.4 9c-2.2-2.4-3.4-5.6-3.4-9s1.2-6.6 3.4-9z',
+  terminal: 'M4 5h16v14H4V5zM7 9l3 3-3 3M13 15h4',
+};
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+>
+  <path d={paths[name]}></path>
+</svg>
