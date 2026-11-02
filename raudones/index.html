@@ -222,12 +222,68 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
 /* MOBILE CALL BAR */
 .callbar{display:none}
 
+
+/* ===== ANIMACJE ===== */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--berry);transform-origin:0 50%;transform:scaleX(0);z-index:70}
+/* hero – tekst wjeżdża po kolei */
+.hero .anim{opacity:0;transform:translateY(26px);animation:fadeUp .9s cubic-bezier(.2,.7,.2,1) forwards}
+.hero .a1{animation-delay:.2s}.hero .a2{animation-delay:.35s}.hero .a3{animation-delay:.55s}.hero .a4{animation-delay:.75s}.hero .a5{animation-delay:1s}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+.hero h1 em{display:inline-block;background:linear-gradient(90deg,#f3c9b8 0%,#fff3ec 50%,#f3c9b8 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s ease-in-out 1.6s infinite}
+@keyframes shine{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+/* linia przy „eyebrow” rośnie */
+.reveal .eyebrow::before,.hero .eyebrow::before{transform:scaleX(0);transform-origin:left;transition:transform .9s .25s cubic-bezier(.2,.7,.2,1)}
+.reveal.in .eyebrow::before{transform:scaleX(1)}
+.hero .eyebrow::before{animation:lineGrow .9s .5s forwards}
+@keyframes lineGrow{to{transform:scaleX(1)}}
+/* menu – podkreślenie */
+.nav-links a:not(.btn){position:relative}
+.nav-links a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .35s}
+.nav-links a:not(.btn):hover::after{transform:scaleX(1);transform-origin:left}
+/* przyciski – strzałka i połysk */
+.btn svg{transition:transform .3s}
+.btn:hover svg{transform:translateX(4px)}
+.btn-primary{position:relative;overflow:hidden}
+.btn-primary::after{content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg)}
+.btn-primary:hover::after{left:130%;transition:left .7s}
+/* kółko „Gamtos apsuptyje” delikatnie pływa */
+.about-badge{animation:floatY 5s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(4deg)}}
+/* ikonki w kafelkach faktów */
+.fact{transition:transform .3s,box-shadow .3s}
+.fact:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.fact:hover .fact-ico{background:var(--berry);color:#fff}
+.fact-ico{transition:background .3s,color .3s}
+/* elementy pojawiają się po kolei */
+.stagger>*{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.stagger.in>*{opacity:1;transform:none}
+/* telefon w kontaktach lekko „dzwoni” */
+.c-item:hover .c-ico svg{animation:ring .6s ease}
+@keyframes ring{0%,100%{transform:rotate(0)}20%{transform:rotate(-14deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(5deg)}}
+/* pinezka na mapie skacze */
+.map-fallback svg{animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+/* lightbox – płynne wejście */
+.lightbox.open{animation:fadeIn .3s ease}
+.lightbox.open img{animation:zoomIn .4s cubic-bezier(.2,.7,.2,1)}
+@keyframes fadeIn{from{opacity:0}}
+@keyframes zoomIn{from{opacity:0;transform:scale(.94)}}
+/* galeria – zdjęcia przy filtrowaniu */
+.g-item.pop{animation:popIn .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes popIn{from{opacity:0;transform:scale(.95)}}
+/* lista okazji – mała strzałka */
+.occ-list li{position:relative}
+.occ-list li::before{content:"→";position:absolute;left:-4px;opacity:0;transition:.3s;color:var(--berry);font-family:var(--sans);font-size:1.1rem}
+.occ-list li:hover::before{opacity:1;left:-14px}
+
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .reveal{opacity:1;transform:none}
+  .reveal,.stagger>*,.hero .anim{opacity:1!important;transform:none!important}
+  .hero h1 em{color:#f3c9b8;background:none}
+  .progress{display:none}
   html{scroll-behavior:auto}
 }
 
@@ -281,6 +337,8 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
 </head>
 <body>
 
+<div class="progress" id="progress" aria-hidden="true"></div>
+
 <!-- NAV -->
 <header class="nav" id="nav">
   <div class="container">
@@ -303,10 +361,10 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
   <div class="container">
     <div class="hero-grid">
       <div>
-        <span class="eyebrow">Sodyba Vilniaus rajone</span>
-        <h1>Sodybos nuoma visoms Jūsų <em>šventėms</em></h1>
-        <p>Puikiai įrengta sodyba su pirtimi, kubilu ir tvenkiniu – vieta, kur šventės virsta prisiminimais, o laikas gamtoje sulėtėja.</p>
-        <div class="hero-actions">
+        <span class="eyebrow anim a1">Sodyba Vilniaus rajone</span>
+        <h1 class="anim a2">Sodybos nuoma visoms Jūsų <em>šventėms</em></h1>
+        <p class="anim a3">Puikiai įrengta sodyba su pirtimi, kubilu ir tvenkiniu – vieta, kur šventės virsta prisiminimais, o laikas gamtoje sulėtėja.</p>
+        <div class="hero-actions anim a4">
           <a href="#kontaktai" class="btn btn-primary">Sodybos rezervacija
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <a href="https://www.google.lt/maps/dir//55.008344,25.345127/@55.0083471,25.3429383,17z" target="_blank" rel="noopener" class="btn btn-ghost">
@@ -314,7 +372,7 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
             Google Maps maršrutas</a>
         </div>
       </div>
-      <aside class="hero-card">
+      <aside class="hero-card anim a5">
         <h3>Sodyboje rasite</h3>
         <ul>
           <li>Pokylių salę su židiniu</li>
@@ -345,7 +403,7 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
       <p class="lead">Raudonės sodyba – jauki medinė sodyba Vilniaus rajone, apsupta žalių pievų, medžių ir tvenkinio.</p>
       <p>Viduje laukia šviesi salė su ilgu vaišių stalu, kokliais išklota krosnis su gyva ugnimi, įrengta virtuvė ir patogūs kambariai nakvynei. Lauke – erdvi veja, terasa, lieptas su gultais, pavėsinė prie vandens ir vasaros pramogos.</p>
       <p>Nesvarbu, ar planuojate vestuves, gimtadienį, krikštynas, ar komandos išvyką – čia rasite viską, kad galėtumėte tiesiog mėgautis laiku su savo žmonėmis.</p>
-      <div class="about-facts">
+      <div class="about-facts stagger">
         <div class="fact"><div class="fact-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c2 3 5 5 5 9a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-8z"/></svg></div><div><b>Pirtis ir kubilas</b><small>Atsipalaidavimui</small></div></div>
         <div class="fact"><div class="fact-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 16c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M2 20c2 0 2-1.5 4-1.5s2 1.5 4 1.5 2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M8 12V5l8-2v9"/></svg></div><div><b>Tvenkinys</b><small>Lieptas, gultai, pavėsinė</small></div></div>
         <div class="fact"><div class="fact-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="10" rx="1"/><path d="M7 21v-4M17 21v-4M3 11h18"/></svg></div><div><b>Pokylių salė</b><small>Ilgas stalas visiems</small></div></div>
@@ -412,7 +470,7 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
       <p class="lead">Sodybą nuomojame įvairioms progoms. Susisiekite – aptarsime datą ir visas Jums svarbias detales.</p>
       <div style="margin-top:30px"><a href="#kontaktai" class="btn btn-line">Teirautis dėl datos</a></div>
     </div>
-    <ul class="occ-list reveal">
+    <ul class="occ-list stagger">
       <li>Vestuvės <small>Pokylis salėje, ceremonija prie tvenkinio</small></li>
       <li>Gimtadieniai ir jubiliejai <small>Vaišės, pirtis ir linksmybės iki ryto</small></li>
       <li>Krikštynos <small>Ramioje aplinkoje su visa šeima</small></li>
@@ -456,7 +514,7 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
         <button class="filter" data-filter="viduje">Interjeras</button>
       </div>
     </div>
-    <div class="gallery" id="gallery">
+    <div class="gallery stagger" id="gallery">
       <figure class="g-item" data-cat="lauke"><img src="img/RSodyba-sm.jpg" data-full="img/RSodyba.jpg" alt="Sodybos pastatas su terasa" loading="lazy" width="700" height="467"><figcaption>Sodyba</figcaption></figure>
       <figure class="g-item" data-cat="viduje"><img src="img/1-sm.jpg" data-full="img/1.jpg" alt="Pokylių salė" loading="lazy" width="700" height="467"><figcaption>Pokylių salė</figcaption></figure>
       <figure class="g-item" data-cat="lauke"><img src="img/DSC_4701-sm.jpg" data-full="img/DSC_4701.jpg" alt="Lieptas ir gultai prie tvenkinio" loading="lazy" width="700" height="467"><figcaption>Lieptas</figcaption></figure>
@@ -483,7 +541,7 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
       <span class="eyebrow">Kontaktai</span>
       <h2>Rezervuokite datą <em>savo</em> šventei</h2>
       <p class="lead">Paskambinkite arba parašykite – mielai atsakysime į klausimus ir padėsime suplanuoti šventę.</p>
-      <div class="c-list">
+      <div class="c-list stagger">
         <a class="c-item" href="tel:+37065273320">
           <span class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>
           <span><small>Mob. tel.</small><b>+370 652 73320</b></span></a>
@@ -552,7 +610,16 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
 (() => {
   const nav = document.getElementById('nav');
   const burger = document.getElementById('burger');
-  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+  const progress = document.getElementById('progress');
+  const heroBg = document.querySelector('.hero-bg');
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const onScroll = () => {
+    const y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 60);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+    if (!calm && y < innerHeight) heroBg.style.translate = '0 ' + (y * 0.25) + 'px';
+  };
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
   burger.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
@@ -570,6 +637,14 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }), {threshold:.12});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  document.querySelectorAll('.stagger').forEach(el => {
+    [...el.children].forEach((c, i) => c.style.transitionDelay = Math.min(i, 8) * 80 + 'ms');
+    io.observe(el);
+  });
+  // po wejściu usuwamy opóźnienia, żeby hover działał od razu
+  document.querySelectorAll('.stagger').forEach(el => el.addEventListener('transitionend', e => {
+    if (e.target.parentElement === el) e.target.style.transitionDelay = '';
+  }));
 
   // gallery filter
   const items = [...document.querySelectorAll('.g-item')];
@@ -577,7 +652,10 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
     document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const f = btn.dataset.filter;
-    items.forEach(it => it.classList.toggle('hide', f !== 'all' && it.dataset.cat !== f));
+    items.forEach(it => {
+      it.classList.toggle('hide', f !== 'all' && it.dataset.cat !== f);
+      it.classList.remove('pop'); void it.offsetWidth; it.classList.add('pop');
+    });
   }));
 
   // lightbox
