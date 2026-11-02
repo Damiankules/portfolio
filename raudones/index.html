@@ -162,7 +162,7 @@ section{padding:120px 0}
 .kupolas .btn-line:hover{background:var(--cream);color:var(--forest)}
 .kupolas-actions{display:flex;flex-wrap:wrap;gap:14px}
 .kupolas-media{display:grid;gap:16px}
-.kupolas-media img{border-radius:var(--radius);width:100%;object-fit:cover;cursor:pointer}
+.kupolas-media img{border-radius:var(--radius);width:100%;height:auto;object-fit:cover;cursor:pointer}
 .kupolas-media .k1{aspect-ratio:16/10}
 .kupolas-media .k2{aspect-ratio:2.8/1}
 .tag-new{display:inline-block;background:var(--berry);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-left:12px;vertical-align:middle}
@@ -173,7 +173,7 @@ section{padding:120px 0}
 .filter.active,.filter:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
 .gallery{columns:3 300px;column-gap:16px}
 .g-item{break-inside:avoid;margin-bottom:16px;border-radius:16px;overflow:hidden;cursor:zoom-in;position:relative;transition:opacity .35s}
-.g-item img{width:100%;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.g-item img{width:100%;height:auto;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
 .g-item:hover img{transform:scale(1.05)}
 .g-item.hide{display:none}
 .g-item figcaption{position:absolute;left:12px;bottom:12px;background:rgba(255,253,249,.92);color:var(--ink);font-size:.8rem;font-weight:600;padding:6px 12px;border-radius:999px;opacity:0;transform:translateY(6px);transition:.3s}
@@ -349,8 +349,8 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
       </div>
     </div>
     <div class="about-media reveal">
-      <img class="m1" src="img/RSodyba-sm.jpg" srcset="img/RSodyba-sm.jpg 700w, img/RSodyba.jpg 1800w" sizes="(max-width:1024px) 90vw, 500px" alt="Raudonės sodybos pastatas su terasa" loading="lazy">
-      <img class="m2" src="img/2-sm.jpg" alt="Sodybos salė su židiniu" loading="lazy">
+      <img class="m1" src="img/RSodyba-sm.jpg" srcset="img/RSodyba-sm.jpg 700w, img/RSodyba.jpg 1800w" sizes="(max-width:1024px) 90vw, 500px" alt="Raudonės sodybos pastatas su terasa" loading="lazy" width="700" height="467">
+      <img class="m2" src="img/2-sm.jpg" alt="Sodybos salė su židiniu" loading="lazy" width="700" height="467">
       <div class="about-badge">Gamtos<br>apsuptyje</div>
     </div>
   </div>
@@ -368,31 +368,31 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
     </div>
     <div class="bento">
       <article class="tile t1 reveal" tabindex="0" data-open="img/1.jpg">
-        <img src="img/1-sm.jpg" srcset="img/1-sm.jpg 700w, img/1.jpg 1600w" sizes="(max-width:1024px) 100vw, 700px" alt="Pokylių salė su ilgu stalu" loading="lazy">
+        <img src="img/1-sm.jpg" srcset="img/1-sm.jpg 700w, img/1.jpg 1600w" sizes="(max-width:1024px) 100vw, 700px" alt="Pokylių salė su ilgu stalu" loading="lazy" width="700" height="467">
         <div class="tile-body"><span class="num">01</span><h3>Pokylių salė</h3><p>Šviesi salė su ilgu stalu ir dideliais langais į sodą – susės visi Jūsų svečiai, o vaizdas pro langą džiugins bet kuriuo metų laiku.</p></div>
       </article>
       <article class="tile t2 reveal" tabindex="0" data-open="img/15.jpg">
-        <img src="img/15-sm.jpg" alt="Medinė pirtis su vantomis" loading="lazy">
+        <img src="img/15-sm.jpg" alt="Medinė pirtis su vantomis" loading="lazy" width="700" height="467">
         <div class="tile-body"><span class="num">02</span><h3>Pirtis ir kubilas</h3><p>Tikra medinė pirtis su vantomis ir kubilas po atviru dangumi – geriausias šventės užbaigimas.</p></div>
       </article>
       <article class="tile t3 reveal" tabindex="0" data-open="img/DSC_4701.jpg">
-        <img src="img/DSC_4701-sm.jpg" alt="Lieptas su gultais ir pavėsinė prie tvenkinio" loading="lazy">
+        <img src="img/DSC_4701-sm.jpg" alt="Lieptas su gultais ir pavėsinė prie tvenkinio" loading="lazy" width="700" height="467">
         <div class="tile-body"><span class="num">03</span><h3>Tvenkinys ir lieptas</h3><p>Gultai, pavėsinė prie vandens, vandens dviratis ir pripučiamas batutas karštoms vasaros dienoms.</p></div>
       </article>
       <article class="tile t4 reveal" tabindex="0" data-open="img/6.jpg">
-        <img src="img/6-sm.jpg" alt="Koklinė krosnis su ugnimi" loading="lazy">
+        <img src="img/6-sm.jpg" alt="Koklinė krosnis su ugnimi" loading="lazy" width="700" height="467">
         <div class="tile-body"><span class="num">04</span><h3>Židinys</h3><p>Kokliais išklota krosnis su gyva ugnimi – jaukumas vėsiems vakarams.</p></div>
       </article>
       <article class="tile t5 reveal" tabindex="0" data-open="img/5.jpg">
-        <img src="img/5-sm.jpg" alt="Biliardo stalas palėpėje" loading="lazy">
+        <img src="img/5-sm.jpg" alt="Biliardo stalas palėpėje" loading="lazy" width="700" height="467">
         <div class="tile-body"><span class="num">05</span><h3>Biliardas</h3><p>Palėpėje – biliardo stalas ir erdvė pokalbiams bei žaidimams.</p></div>
       </article>
       <article class="tile t6 reveal" tabindex="0" data-open="img/4.jpg">
-        <img src="img/4-sm.jpg" alt="Įrengta virtuvė" loading="lazy">
+        <img src="img/4-sm.jpg" alt="Įrengta virtuvė" loading="lazy" width="700" height="468">
         <div class="tile-body"><span class="num">06</span><h3>Įrengta virtuvė</h3><p>Erdvi, pilnai įrengta virtuvė – patogu ruošti vaišes ar pasišildyti maistą.</p></div>
       </article>
       <article class="tile t7 reveal" tabindex="0" data-open="img/7.jpg">
-        <img src="img/7-sm.jpg" srcset="img/7-sm.jpg 700w, img/7.jpg 1600w" sizes="100vw" alt="Jaukus miegamasis" loading="lazy" style="object-position:center 60%">
+        <img src="img/7-sm.jpg" srcset="img/7-sm.jpg 700w, img/7.jpg 1600w" sizes="100vw" alt="Jaukus miegamasis" loading="lazy" style="object-position:center 60%" width="700" height="467">
         <div class="tile-body"><span class="num">07</span><h3>Kambariai nakvynei</h3><p>Jaukūs miegamieji ir tvarkingi vonios kambariai svečiams, norintiems pasilikti ilgiau.</p></div>
       </article>
     </div>
@@ -432,8 +432,8 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
       </div>
     </div>
     <div class="kupolas-media reveal">
-      <img class="k1" src="img/Raudones-kupolas-45-of-86-02-sm.jpg" data-open="img/Raudones-kupolas-45-of-86-02.jpg" alt="Raudonės kupolas – nauja salė šventėms" loading="lazy">
-      <img class="k2" src="img/Raudones-kupolas-45-of-86-copy-sm.jpg" data-open="img/Raudones-kupolas-45-of-86-copy.jpg" alt="Raudonės kupolų panorama" loading="lazy">
+      <img class="k1" src="img/Raudones-kupolas-45-of-86-02-sm.jpg" data-open="img/Raudones-kupolas-45-of-86-02.jpg" alt="Raudonės kupolas – nauja salė šventėms" loading="lazy" width="700" height="466">
+      <img class="k2" src="img/Raudones-kupolas-45-of-86-copy-sm.jpg" data-open="img/Raudones-kupolas-45-of-86-copy.jpg" alt="Raudonės kupolų panorama" loading="lazy" width="700" height="248">
     </div>
   </div>
 </section>
@@ -453,21 +453,21 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
       </div>
     </div>
     <div class="gallery" id="gallery">
-      <figure class="g-item" data-cat="lauke"><img src="img/RSodyba-sm.jpg" data-full="img/RSodyba.jpg" alt="Sodybos pastatas su terasa" loading="lazy"><figcaption>Sodyba</figcaption></figure>
-      <figure class="g-item" data-cat="viduje"><img src="img/1-sm.jpg" data-full="img/1.jpg" alt="Pokylių salė" loading="lazy"><figcaption>Pokylių salė</figcaption></figure>
-      <figure class="g-item" data-cat="lauke"><img src="img/DSC_4701-sm.jpg" data-full="img/DSC_4701.jpg" alt="Lieptas ir gultai prie tvenkinio" loading="lazy"><figcaption>Lieptas</figcaption></figure>
-      <figure class="g-item" data-cat="viduje"><img src="img/15-sm.jpg" data-full="img/15.jpg" alt="Pirtis" loading="lazy"><figcaption>Pirtis</figcaption></figure>
-      <figure class="g-item" data-cat="viduje"><img src="img/2-sm.jpg" data-full="img/2.jpg" alt="Salė su židiniu" loading="lazy"><figcaption>Salė</figcaption></figure>
-      <figure class="g-item" data-cat="lauke"><img src="img/DSC_1316-sm.jpg" data-full="img/DSC_1316.jpg" alt="Sodyba nuo tvenkinio pusės" loading="lazy"><figcaption>Vaizdas nuo tvenkinio</figcaption></figure>
-      <figure class="g-item" data-cat="viduje"><img src="img/3-sm.jpg" data-full="img/3.jpg" alt="Poilsio zona su sofomis" loading="lazy"><figcaption>Poilsio zona</figcaption></figure>
-      <figure class="g-item" data-cat="viduje"><img src="img/5-sm.jpg" data-full="img/5.jpg" alt="Biliardas" loading="lazy"><figcaption>Biliardas</figcaption></figure>
-      <figure class="g-item" data-cat="lauke"><img src="img/DSC_4697-sm.jpg" data-full="img/DSC_4697.jpg" alt="Tvenkinys ir pavėsinė" loading="lazy"><figcaption>Tvenkinys</figcaption></figure>
-      <figure class="g-item" data-cat="viduje"><img src="img/4-sm.jpg" data-full="img/4.jpg" alt="Virtuvė" loading="lazy"><figcaption>Virtuvė</figcaption></figure>
-      <figure class="g-item" data-cat="viduje"><img src="img/6-sm.jpg" data-full="img/6.jpg" alt="Koklinė krosnis" loading="lazy"><figcaption>Krosnis</figcaption></figure>
-      <figure class="g-item" data-cat="lauke"><img src="img/DSC_4699-sm.jpg" data-full="img/DSC_4699.jpg" alt="Sodybos panorama" loading="lazy"><figcaption>Panorama</figcaption></figure>
-      <figure class="g-item" data-cat="viduje"><img src="img/7-sm.jpg" data-full="img/7.jpg" alt="Miegamasis" loading="lazy"><figcaption>Miegamasis</figcaption></figure>
-      <figure class="g-item" data-cat="viduje"><img src="img/8-sm.jpg" data-full="img/8.jpg" alt="Kambarys su vonios kambariu" loading="lazy"><figcaption>Kambarys</figcaption></figure>
-      <figure class="g-item" data-cat="viduje"><img src="img/9-sm.jpg" data-full="img/9.jpg" alt="Vonios kambarys" loading="lazy"><figcaption>Vonios kambarys</figcaption></figure>
+      <figure class="g-item" data-cat="lauke"><img src="img/RSodyba-sm.jpg" data-full="img/RSodyba.jpg" alt="Sodybos pastatas su terasa" loading="lazy" width="700" height="467"><figcaption>Sodyba</figcaption></figure>
+      <figure class="g-item" data-cat="viduje"><img src="img/1-sm.jpg" data-full="img/1.jpg" alt="Pokylių salė" loading="lazy" width="700" height="467"><figcaption>Pokylių salė</figcaption></figure>
+      <figure class="g-item" data-cat="lauke"><img src="img/DSC_4701-sm.jpg" data-full="img/DSC_4701.jpg" alt="Lieptas ir gultai prie tvenkinio" loading="lazy" width="700" height="467"><figcaption>Lieptas</figcaption></figure>
+      <figure class="g-item" data-cat="viduje"><img src="img/15-sm.jpg" data-full="img/15.jpg" alt="Pirtis" loading="lazy" width="700" height="467"><figcaption>Pirtis</figcaption></figure>
+      <figure class="g-item" data-cat="viduje"><img src="img/2-sm.jpg" data-full="img/2.jpg" alt="Salė su židiniu" loading="lazy" width="700" height="467"><figcaption>Salė</figcaption></figure>
+      <figure class="g-item" data-cat="lauke"><img src="img/DSC_1316-sm.jpg" data-full="img/DSC_1316.jpg" alt="Sodyba nuo tvenkinio pusės" loading="lazy" width="700" height="467"><figcaption>Vaizdas nuo tvenkinio</figcaption></figure>
+      <figure class="g-item" data-cat="viduje"><img src="img/3-sm.jpg" data-full="img/3.jpg" alt="Poilsio zona su sofomis" loading="lazy" width="700" height="467"><figcaption>Poilsio zona</figcaption></figure>
+      <figure class="g-item" data-cat="viduje"><img src="img/5-sm.jpg" data-full="img/5.jpg" alt="Biliardas" loading="lazy" width="700" height="467"><figcaption>Biliardas</figcaption></figure>
+      <figure class="g-item" data-cat="lauke"><img src="img/DSC_4697-sm.jpg" data-full="img/DSC_4697.jpg" alt="Tvenkinys ir pavėsinė" loading="lazy" width="700" height="468"><figcaption>Tvenkinys</figcaption></figure>
+      <figure class="g-item" data-cat="viduje"><img src="img/4-sm.jpg" data-full="img/4.jpg" alt="Virtuvė" loading="lazy" width="700" height="468"><figcaption>Virtuvė</figcaption></figure>
+      <figure class="g-item" data-cat="viduje"><img src="img/6-sm.jpg" data-full="img/6.jpg" alt="Koklinė krosnis" loading="lazy" width="700" height="467"><figcaption>Krosnis</figcaption></figure>
+      <figure class="g-item" data-cat="lauke"><img src="img/DSC_4699-sm.jpg" data-full="img/DSC_4699.jpg" alt="Sodybos panorama" loading="lazy" width="700" height="467"><figcaption>Panorama</figcaption></figure>
+      <figure class="g-item" data-cat="viduje"><img src="img/7-sm.jpg" data-full="img/7.jpg" alt="Miegamasis" loading="lazy" width="700" height="467"><figcaption>Miegamasis</figcaption></figure>
+      <figure class="g-item" data-cat="viduje"><img src="img/8-sm.jpg" data-full="img/8.jpg" alt="Kambarys su vonios kambariu" loading="lazy" width="700" height="467"><figcaption>Kambarys</figcaption></figure>
+      <figure class="g-item" data-cat="viduje"><img src="img/9-sm.jpg" data-full="img/9.jpg" alt="Vonios kambarys" loading="lazy" width="700" height="467"><figcaption>Vonios kambarys</figcaption></figure>
     </div>
   </div>
 </section>
