@@ -44,6 +44,7 @@ jobs:
             [ -f "$f" ] && cp "$f" _site/
           done
           [ -d images ] && cp -r images _site/
+          [ -d raudones ] && cp -r raudones _site/
           # Vantage lives under /vantage/.
           mkdir -p _site/vantage
           cp -r Vantage/dist-pages/. _site/vantage/
