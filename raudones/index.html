@@ -59,7 +59,9 @@ h2 em,h1 em{font-style:italic;color:var(--berry)}
 .nav-links a{text-decoration:none;color:#fff;font-weight:500;font-size:.95rem;opacity:.9;transition:opacity .2s,color .3s}
 .nav-links a:hover{opacity:1}
 .nav .btn{padding:11px 20px}
-.nav.scrolled{background:rgba(246,241,232,.92);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);padding:8px 0}
+.nav::before{content:"";position:absolute;inset:0;z-index:-2;background:rgba(246,241,232,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);opacity:0;transition:opacity .35s}
+.nav.scrolled::before{opacity:1}
+.nav.scrolled{padding:8px 0}
 .nav.scrolled .nav-logo{background-image:url(img/RSodyba-logo-red.svg)}
 .nav.scrolled .nav-links a:not(.btn){color:var(--ink)}
 .burger{display:none;width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);background:transparent;cursor:pointer;position:relative}
@@ -300,12 +302,15 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
 }
 @media (max-width:860px){
   .burger{display:block}
-  .nav-links{position:fixed;inset:0;background:var(--forest);flex-direction:column;justify-content:center;gap:26px;transform:translateY(-100%);transition:transform .45s cubic-bezier(.7,0,.2,1);z-index:-1}
+  .nav-links{position:fixed;top:0;left:0;width:100%;height:100vh;height:100dvh;background:var(--forest);flex-direction:column;justify-content:center;gap:26px;transform:translateY(-100%);visibility:hidden;transition:transform .45s cubic-bezier(.7,0,.2,1),visibility 0s .45s;z-index:-1}
+  .nav-links a:not(.btn)::after{display:none}
   .nav-links a{font-family:var(--serif);font-size:1.8rem;color:var(--cream)!important}
   .nav-links .btn{font-family:var(--sans);font-size:1rem}
-  .nav.open .nav-links{transform:none}
+  .nav.open .nav-links{transform:none;visibility:visible;transition:transform .45s cubic-bezier(.7,0,.2,1),visibility 0s}
+  .nav.open::before{opacity:0}
   .nav.open .nav-logo{background-image:url(img/RSodyba-logo.svg)}
   .nav.open .burger{border-color:rgba(255,255,255,.6)}
+  .nav.open .nav-links a:not(.btn){color:var(--cream)}
   .nav.open .burger span::before,.nav.open .burger span::after{background:#fff}
 }
 @media (max-width:640px){
