@@ -9,7 +9,7 @@ cd ..
 rm -rf _site
 mkdir -p _site
 
-for f in index.html asme-landing.html coffee-menu.html meridian-landing.html; do
+for f in index.html asme-landing.html coffee-menu.html meridian-landing.html uolos.html; do
   [ -f "$f" ] && cp "$f" _site/
 done
 [ -d images ] && cp -r images _site/
