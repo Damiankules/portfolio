@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dekoratyvinės uolos — Komfortas ir dekoras</title>
-<meta name="description" content="Rankomis formuojamos dekoratyvinės uolos ir akmens tekstūros sienos interjerui ir eksterjerui. Nemokama konsultacija visoje Lietuvoje.">
+<title>uolos.lt — dekoratyvinės uolos</title>
+<meta name="description" content="Išskirtinės uolų kompozicijos, kuriamos rankomis. Natūraliai atrodantys uolų reljefai interjerui.">
 <meta name="theme-color" content="#1D1916">
+<link rel="icon" href="images/uolos/logo-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -39,15 +40,16 @@
   .wrap{ max-width:var(--max); margin:0 auto; padding:0 var(--gutter); }
 
   /* ---------- Typography ---------- */
-  .eyebrow{ font-size:.78rem; letter-spacing:.28em; text-transform:uppercase; color:var(--stone); margin-bottom:28px; }
+  .eyebrow{ font-size:.78rem; letter-spacing:.28em; text-transform:uppercase; color:var(--stone); margin-bottom:24px; }
   .eyebrow::before{ content:"— "; } .eyebrow::after{ content:" —"; }
   .on-dark .eyebrow{ color:rgba(244,238,230,.55); }
   .on-clay .eyebrow{ color:rgba(244,238,230,.75); }
   h1,h2,h3{ font-family:var(--serif); font-weight:400; line-height:1.08; letter-spacing:-.01em; }
   h2{ font-size:clamp(2.4rem,7vw,4.2rem); }
-  h3{ font-size:clamp(1.6rem,4.5vw,2.1rem); line-height:1.2; }
-  em{ font-style:italic; }
-  .lead{ font-size:clamp(1.05rem,2.6vw,1.25rem); color:rgba(29,25,22,.68); max-width:560px; }
+  h3{ font-size:clamp(1.5rem,4vw,1.9rem); line-height:1.2; }
+  h2 em{ color:var(--clay); }
+  .on-dark h2 em{ color:var(--clay-soft); }
+  .lead{ font-size:clamp(1.05rem,2.6vw,1.2rem); color:rgba(29,25,22,.68); max-width:520px; }
   .on-dark .lead{ color:rgba(244,238,230,.66); }
 
   /* Word-by-word reveal */
@@ -55,20 +57,8 @@
   .w > span{ display:inline-block; transform:translateY(110%); transition:transform 1.1s var(--ease); }
   .in .w > span, .split.in .w > span{ transform:none; }
 
-  /* ---------- Progress + Header ---------- */
-  .progress{ position:fixed; top:0; left:0; right:0; height:2px; background:var(--clay); transform-origin:0 50%; transform:scaleX(0); z-index:60; }
-  header{ position:sticky; top:0; z-index:50; background:rgba(236,231,224,.82); backdrop-filter:blur(14px) saturate(1.2); -webkit-backdrop-filter:blur(14px) saturate(1.2); border-bottom:1px solid transparent; transition:border-color .3s, background .3s, transform .5s var(--ease); }
-  header.scrolled{ border-color:var(--line-light); background:rgba(226,220,211,.88); }
-  header.hide{ transform:translateY(-100%); }
-  .nav{ display:flex; align-items:center; justify-content:space-between; height:84px; gap:16px; }
-  .brand{ display:flex; align-items:center; gap:14px; font-family:var(--serif); font-size:1.7rem; }
-  .brand-mark{ width:42px; height:42px; border-radius:4px; flex:none; background-image:linear-gradient(150deg,#a89d93,#3a332e), var(--rock); background-size:cover, 600%; background-position:center, 30% 40%; background-blend-mode:multiply; }
-  .nav-links{ display:none; gap:34px; font-size:.92rem; color:rgba(29,25,22,.7); }
-  .nav-links a{ position:relative; }
-  .nav-links a::after{ content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .5s var(--ease); }
-  .nav-links a:hover{ color:var(--ink); }
-  .nav-links a:hover::after{ transform:scaleX(1); transform-origin:left; }
-  .btn{ position:relative; overflow:hidden; display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:16px 28px; border-radius:999px; font-size:.95rem; font-weight:500; letter-spacing:.02em; transition:transform .25s, color .4s; white-space:nowrap; isolation:isolate; }
+  /* ---------- Buttons ---------- */
+  .btn{ position:relative; overflow:hidden; display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:16px 28px; border-radius:999px; font-size:.82rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; transition:transform .25s, color .4s; white-space:nowrap; isolation:isolate; }
   .btn::before{ content:""; position:absolute; inset:0; z-index:-1; border-radius:inherit; background:var(--clay); transform:translateY(101%); transition:transform .5s var(--ease); }
   .btn:hover::before{ transform:none; }
   .btn:active{ transform:scale(.97); }
@@ -77,40 +67,66 @@
   .btn-dark{ background:var(--ink); color:var(--cream); }
   .btn-light{ background:var(--cream); color:var(--ink); }
   .btn-light:hover{ color:var(--cream); }
-  .btn-ghost{ border:1px solid rgba(244,238,230,.4); color:var(--cream); }
+  .btn-ghost{ border:1px solid rgba(244,238,230,.45); color:var(--cream); }
+  .btn-outline{ border:1px solid var(--ink); color:var(--ink); }
+  .btn-outline:hover{ color:var(--cream); border-color:var(--clay); }
+  .btn-row{ display:flex; flex-wrap:wrap; gap:12px; }
+
+  /* ---------- Progress + Header ---------- */
+  .progress{ position:fixed; top:0; left:0; right:0; height:2px; background:var(--clay); transform-origin:0 50%; transform:scaleX(0); z-index:60; }
+  header{ position:sticky; top:0; z-index:50; background:rgba(236,231,224,.82); backdrop-filter:blur(14px) saturate(1.2); -webkit-backdrop-filter:blur(14px) saturate(1.2); border-bottom:1px solid transparent; transition:border-color .3s, background .3s, transform .5s var(--ease); }
+  header.scrolled{ border-color:var(--line-light); background:rgba(226,220,211,.88); }
+  header.hide{ transform:translateY(-100%); }
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:80px; gap:16px; }
+  .brand{ display:flex; align-items:center; gap:12px; font-family:var(--serif); font-size:1.75rem; font-weight:500; letter-spacing:-.01em; }
+  .brand img{ width:36px; height:auto; }
+  .brand .tld{ color:#9b9792; }
+  .nav-links{ display:none; gap:34px; font-size:.92rem; color:rgba(29,25,22,.7); }
+  .nav-links a{ position:relative; }
+  .nav-links a::after{ content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .5s var(--ease); }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a:hover::after{ transform:scaleX(1); transform-origin:left; }
+  .nav .btn{ padding:13px 22px; }
   @media(min-width:900px){ .nav-links{ display:flex; } }
 
   /* ---------- Hero ---------- */
-  .hero{ position:relative; min-height:calc(100svh - 84px); display:flex; align-items:flex-end; color:var(--cream); background:var(--ink); overflow:hidden; }
+  .hero{ position:relative; min-height:calc(100svh - 80px); display:flex; align-items:flex-end; color:var(--cream); background:var(--ink); overflow:hidden; }
   .hero-bg{ position:absolute; inset:-6%; background-image:linear-gradient(160deg,#6a5e55,#2c2622 70%), var(--rock); background-size:cover, cover; background-position:center; background-blend-mode:multiply; animation:drift 26s ease-in-out infinite alternate; will-change:transform; }
   @keyframes drift{ from{ transform:scale(1.02) translate(0,0); } to{ transform:scale(1.1) translate(-2%,-1.5%); } }
   .hero-light{ position:absolute; left:0; top:0; width:110vmax; height:110vmax; margin:-55vmax 0 0 -55vmax; border-radius:50%; background:radial-gradient(closest-side, rgba(255,205,150,.55), rgba(255,190,130,.16) 45%, transparent 72%); mix-blend-mode:overlay; pointer-events:none; will-change:transform; }
   .hero::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(29,25,22,.25) 0%, rgba(29,25,22,.05) 35%, rgba(29,25,22,.8) 80%, var(--ink) 100%); pointer-events:none; }
   .hero .wrap{ position:relative; z-index:2; padding-top:150px; padding-bottom:clamp(56px,10vh,110px); width:100%; }
-  .hero h1{ font-size:clamp(3rem,11vw,6.6rem); max-width:900px; margin-bottom:28px; }
+  .hero h1{ font-size:clamp(3rem,11vw,6.6rem); max-width:900px; margin-bottom:24px; }
   .hero h1 em{ color:var(--clay-soft); }
-  .hero .lead{ color:rgba(244,238,230,.75); margin-bottom:40px; }
-  .hero-ctas{ display:flex; flex-wrap:wrap; gap:12px; }
-  .hero-meta{ display:flex; gap:28px; margin-top:56px; padding-top:28px; border-top:1px solid var(--line-dark); font-size:.82rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(244,238,230,.55); flex-wrap:wrap; }
+  .hero .lead{ color:rgba(244,238,230,.78); margin-bottom:40px; }
   .fade-up{ opacity:0; transform:translateY(20px); transition:opacity 1s ease, transform 1s var(--ease); }
-  .in .fade-up, .fade-up.in{ opacity:1; transform:none; }
+  .fade-up.in{ opacity:1; transform:none; }
   .ring{ position:absolute; z-index:3; top:28px; right:var(--gutter); width:112px; height:112px; color:rgba(244,238,230,.75); }
   .ring svg{ width:100%; height:100%; animation:spin 22s linear infinite; }
-  .ring::after{ content:"✦"; position:absolute; inset:0; display:grid; place-items:center; color:var(--clay-soft); font-size:1.2rem; }
+  .ring img{ position:absolute; left:50%; top:50%; width:30%; transform:translate(-50%,-50%); filter:invert(1) brightness(1.4); opacity:.9; }
   @keyframes spin{ to{ transform:rotate(360deg); } }
   @media(min-width:900px){ .ring{ top:32%; width:170px; height:170px; } }
+  .scroll-cue{ display:none; }
+  @media(min-width:900px){
+    .scroll-cue{ display:flex; align-items:center; gap:14px; margin-top:56px; font-size:.75rem; letter-spacing:.24em; text-transform:uppercase; color:rgba(244,238,230,.5); }
+    .scroll-cue i{ position:relative; width:1px; height:44px; background:rgba(244,238,230,.2); overflow:hidden; }
+    .scroll-cue i::after{ content:""; position:absolute; left:0; top:-50%; width:1px; height:50%; background:var(--clay-soft); animation:cue 2.2s var(--ease) infinite; }
+  }
+  @keyframes cue{ to{ top:100%; } }
 
   /* ---------- Marquee ---------- */
-  .marquee{ background:var(--clay); color:var(--cream); overflow:hidden; padding:22px 0; border-block:1px solid rgba(0,0,0,.08); }
+  .marquee{ background:var(--clay); color:var(--cream); overflow:hidden; padding:22px 0; }
   .marquee-track{ display:flex; width:max-content; animation:marquee 34s linear infinite; }
   .marquee span{ font-family:var(--serif); font-style:italic; font-size:clamp(1.6rem,4.5vw,2.6rem); white-space:nowrap; padding-right:.9em; }
-  .marquee b{ font-weight:400; font-style:normal; color:var(--ink); padding-right:.9em; font-size:clamp(1.2rem,3vw,1.7rem); align-self:center; }
+  .marquee b{ font-weight:400; color:var(--ink); padding-right:.9em; font-size:clamp(1.2rem,3vw,1.7rem); align-self:center; }
   @keyframes marquee{ to{ transform:translateX(-50%); } }
 
   /* ---------- Sections ---------- */
-  section{ padding:clamp(88px,14vw,150px) 0; }
+  section{ padding:clamp(88px,13vw,140px) 0; }
   .on-dark{ background:var(--ink); color:var(--cream); }
   .on-clay{ background:var(--clay); color:var(--cream); }
+  .section-head{ display:grid; gap:24px; margin-bottom:clamp(40px,7vw,64px); }
+  @media(min-width:900px){ .section-head{ grid-template-columns:1.3fr .7fr; align-items:end; gap:64px; } .section-head .btn{ justify-self:end; } }
 
   /* Photo placeholders (procedural rock) — replace each .ph with <img> later */
   .ph{ position:absolute; inset:0; z-index:-2; display:flex; align-items:flex-start; justify-content:flex-end; padding:20px;
@@ -121,44 +137,48 @@
   .ph.warm{ background-image:linear-gradient(160deg,#d9b598,#7d5640), var(--rock); }
   .ph.plain{ background-image:linear-gradient(160deg,#ddd6cd,#b8afa5); justify-content:flex-start; }
 
-  /* Intro */
-  .intro-grid{ display:grid; gap:56px; }
-  .intro-grid h2{ margin-bottom:28px; }
-  .intro-grid h2 em{ color:var(--clay); }
-  .intro-img{ position:relative; isolation:isolate; border-radius:18px; overflow:hidden; aspect-ratio:4/5; background:var(--sand-2); }
-  .intro-img .ph{ transform:scale(1.15); }
-  .intro-img.in .ph{ transform:scale(1); }
-  .intro-badge{ position:absolute; left:20px; bottom:20px; z-index:1; background:var(--cream); color:var(--ink); border-radius:14px; padding:16px 20px; max-width:240px; box-shadow:0 20px 40px -20px rgba(0,0,0,.4); }
-  .intro-badge b{ display:block; font-family:var(--serif); font-weight:400; font-size:1.25rem; line-height:1.2; }
-  .intro-badge span{ font-size:.8rem; color:rgba(29,25,22,.6); }
-  .facts{ display:grid; grid-template-columns:1fr 1fr; gap:0; margin-top:48px; }
-  .fact{ position:relative; padding:26px 0; }
-  .fact::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:var(--line-light); transform:scaleX(0); transform-origin:left; transition:transform 1.4s var(--ease); }
-  .in .fact::after{ transform:scaleX(1); }
-  .fact:nth-child(odd){ padding-right:16px; }
-  .fact b{ display:block; font-family:var(--serif); font-weight:400; font-size:clamp(1.9rem,5vw,2.6rem); line-height:1.1; }
-  .fact > span{ font-size:.85rem; color:rgba(29,25,22,.6); }
-  @media(min-width:900px){ .intro-grid{ grid-template-columns:1.05fr .95fr; align-items:center; gap:90px; } }
+  /* Projects */
+  .projects{ display:grid; gap:16px; }
+  .project{ position:relative; border-radius:18px; overflow:hidden; aspect-ratio:4/5; background:var(--ink-2); color:var(--cream); isolation:isolate; clip-path:inset(12% 0 0 0 round 18px); opacity:0; transition:clip-path 1.4s var(--ease), opacity 1s ease; }
+  .project.in{ clip-path:inset(0 0 0 0 round 18px); opacity:1; }
+  .project .ph{ transform:scale(1.18); }
+  .project.in .ph{ transform:scale(1.02); }
+  .project:hover .ph{ transform:scale(1.08); background-position:center, var(--p2,40% 60%); }
+  .project::after{ content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, transparent 45%, rgba(29,25,22,.82) 100%); }
+  .project-info{ position:absolute; left:0; right:0; bottom:0; padding:28px clamp(22px,4vw,36px); display:flex; align-items:flex-end; justify-content:space-between; gap:16px; }
+  .project-tag{ font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; color:var(--clay-soft); margin-bottom:8px; }
+  .project-arrow{ flex:none; width:46px; height:46px; border-radius:50%; border:1px solid rgba(244,238,230,.4); display:grid; place-items:center; transition:background .4s, color .4s, transform .5s var(--ease); }
+  .project:hover .project-arrow{ background:var(--cream); color:var(--ink); transform:rotate(-45deg); }
+  @media(min-width:760px){
+    .projects{ grid-template-columns:repeat(6,1fr); gap:20px; }
+    .project{ grid-column:span 2; }
+    .project.big{ grid-column:span 4; grid-row:span 2; aspect-ratio:auto; }
+    .project.wide{ grid-column:span 3; aspect-ratio:4/3; }
+  }
 
-  /* Benefits */
-  .section-head{ margin-bottom:clamp(48px,8vw,80px); max-width:760px; }
-  .benefits{ display:grid; gap:0; }
-  .benefit{ position:relative; padding:36px 0; display:grid; grid-template-columns:52px 1fr; gap:4px 16px; }
-  .benefit::before{ content:""; position:absolute; left:0; right:0; top:0; height:1px; background:var(--line-light); transform:scaleX(0); transform-origin:left; transition:transform 1.4s var(--ease); }
-  .benefit.in::before{ transform:scaleX(1); }
-  .benefit svg{ grid-row:span 2; width:34px; height:34px; stroke:var(--clay); fill:none; stroke-width:1.3; margin-top:4px; }
-  .benefit svg *{ stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset 1.6s var(--ease) .2s; }
-  .benefit.in svg *{ stroke-dashoffset:0; }
-  .benefit h3{ font-size:1.55rem; margin-bottom:6px; transition:transform .5s var(--ease); }
-  .benefit p{ color:rgba(29,25,22,.62); }
-  .benefit:hover h3{ transform:translateX(6px); }
-  @media(min-width:760px){ .benefits{ grid-template-columns:1fr 1fr; column-gap:64px; } }
-  @media(min-width:1100px){ .benefits{ grid-template-columns:1fr 1fr 1fr; } }
+  /* Facts strip */
+  .facts{ display:grid; grid-template-columns:1fr; border-top:1px solid var(--line-dark); }
+  .fact{ position:relative; padding:36px 0; border-bottom:1px solid var(--line-dark); display:flex; align-items:baseline; gap:20px; }
+  .fact b{ font-family:var(--serif); font-weight:400; font-size:clamp(2.6rem,8vw,4rem); line-height:1; color:var(--clay-soft); min-width:5.2ch; }
+  .fact > span{ font-size:1.05rem; color:rgba(244,238,230,.75); }
+  @media(min-width:900px){
+    .facts{ grid-template-columns:repeat(3,1fr); border-bottom:1px solid var(--line-dark); }
+    .fact{ flex-direction:column; gap:14px; padding:44px 32px 44px 0; border-bottom:0; }
+    .fact + .fact{ padding-left:32px; border-left:1px solid var(--line-dark); }
+  }
+
+  /* Steps */
+  .steps{ display:grid; gap:0; margin-top:clamp(56px,8vw,88px); }
+  .step{ position:relative; padding:36px 0; }
+  .step::before{ content:""; position:absolute; left:0; right:0; top:0; height:1px; background:var(--clay-soft); transform:scaleX(0); transform-origin:left; transition:transform 1.6s var(--ease); }
+  .step.in::before{ transform:scaleX(1); }
+  .step-num{ display:block; font-family:var(--serif); font-style:italic; font-size:1.6rem; color:rgba(244,238,230,.25); margin-bottom:14px; transition:color 1s ease .4s; }
+  .step.in .step-num{ color:var(--clay-soft); }
+  .step h3{ margin-bottom:8px; }
+  .step p{ color:rgba(244,238,230,.6); }
+  @media(min-width:900px){ .steps{ grid-template-columns:repeat(3,1fr); gap:48px; } }
 
   /* Before / after */
-  .ba-head{ display:grid; gap:24px; margin-bottom:48px; }
-  .ba-head h2 em{ color:var(--clay); }
-  @media(min-width:900px){ .ba-head{ grid-template-columns:1.2fr .8fr; align-items:end; gap:64px; } }
   .ba{ --pos:50%; position:relative; isolation:isolate; border-radius:18px; overflow:hidden; aspect-ratio:4/5; user-select:none; -webkit-user-select:none; touch-action:pan-y; }
   .ba .ph{ z-index:0; }
   .ba-after{ position:absolute; inset:0; z-index:1; clip-path:inset(0 0 0 var(--pos)); }
@@ -169,74 +189,16 @@
   .ba input{ position:absolute; inset:0; z-index:3; width:100%; height:100%; opacity:0; cursor:ew-resize; margin:0; }
   @media(min-width:760px){ .ba{ aspect-ratio:16/9; } }
 
-  /* Projects */
-  .projects{ display:grid; gap:22px; }
-  .project{ position:relative; border-radius:18px; overflow:hidden; aspect-ratio:4/5; background:var(--ink-2); color:var(--cream); isolation:isolate; clip-path:inset(12% 0 0 0 round 18px); opacity:0; transition:clip-path 1.4s var(--ease), opacity 1s ease; }
-  .project.in{ clip-path:inset(0 0 0 0 round 18px); opacity:1; }
-  .project .ph{ transform:scale(1.18); }
-  .project.in .ph{ transform:scale(1.02); }
-  .project:hover .ph{ transform:scale(1.08); background-position:center, var(--p2,40% 60%); }
-  .project::after{ content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, transparent 40%, rgba(29,25,22,.82) 100%); }
-  .project-info{ position:absolute; left:0; right:0; bottom:0; padding:32px clamp(24px,5vw,40px); display:flex; align-items:flex-end; justify-content:space-between; gap:16px; }
-  .project-tag{ font-size:.75rem; letter-spacing:.22em; text-transform:uppercase; color:var(--clay-soft); margin-bottom:10px; }
-  .project h3{ font-size:clamp(1.7rem,4.5vw,2.2rem); }
-  .project-arrow{ flex:none; width:48px; height:48px; border-radius:50%; border:1px solid rgba(244,238,230,.4); display:grid; place-items:center; transition:background .4s, color .4s, transform .5s var(--ease); }
-  .project:hover .project-arrow{ background:var(--cream); color:var(--ink); transform:rotate(-45deg); }
-  .project-num{ position:absolute; top:24px; left:clamp(24px,5vw,40px); font-family:var(--serif); font-style:italic; font-size:1.1rem; color:rgba(244,238,230,.8); }
-  @media(min-width:760px){
-    .projects{ grid-template-columns:repeat(6,1fr); }
-    .project{ grid-column:span 3; }
-    .project.wide{ grid-column:span 6; aspect-ratio:16/8; }
-  }
-
-  /* Where */
-  .where{ display:flex; flex-wrap:wrap; gap:12px; margin-top:44px; }
-  .chip{ padding:14px 22px; border:1px solid var(--line-dark); border-radius:999px; font-size:.95rem; color:rgba(244,238,230,.85); transition:background .3s, border-color .3s, color .3s; opacity:0; transform:translateY(14px); }
-  .in .chip{ opacity:1; transform:none; transition:opacity .7s ease var(--d,0ms), transform .7s var(--ease) var(--d,0ms), background .3s, border-color .3s, color .3s; }
-  .chip:hover{ background:var(--clay); border-color:var(--clay); color:var(--cream); }
-
-  /* Steps */
-  .steps{ position:relative; margin-top:clamp(56px,8vw,80px); }
-  .step{ position:relative; padding:52px 0; display:grid; gap:18px; }
-  .step::before{ content:""; position:absolute; left:0; right:0; top:0; height:1px; background:var(--line-dark); }
-  .step::after{ content:""; position:absolute; left:0; right:0; top:0; height:1px; background:var(--clay-soft); transform:scaleX(0); transform-origin:left; transition:transform 1.6s var(--ease); }
-  .step.in::after{ transform:scaleX(1); }
-  .step-num{ font-family:var(--serif); font-style:italic; font-size:1.9rem; color:rgba(244,238,230,.25); transition:color 1s ease .4s; }
-  .step.in .step-num{ color:var(--clay-soft); }
-  .step p{ color:rgba(244,238,230,.6); max-width:520px; font-size:1.05rem; }
-  .steps::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:var(--line-dark); }
-  @media(min-width:900px){ .step{ grid-template-columns:120px 1fr 1.1fr; align-items:baseline; gap:40px; } }
-
-  /* Testimonial */
-  .testimonial{ text-align:center; }
-  .quote-mark{ font-family:var(--serif); font-size:7rem; line-height:.6; color:rgba(181,118,79,.35); height:60px; }
-  .testimonial blockquote{ font-family:var(--serif); font-style:italic; font-size:clamp(1.6rem,5vw,2.5rem); line-height:1.32; max-width:880px; margin:28px auto 44px; }
-  .testimonial cite{ font-style:normal; display:block; font-family:var(--serif); font-size:1.6rem; }
-  .testimonial small{ display:block; margin-top:6px; font-size:.8rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(29,25,22,.55); }
-
-  /* FAQ */
-  .faq{ border-top:1px solid var(--line-light); max-width:880px; }
-  .faq-note{ margin-top:-24px; color:rgba(29,25,22,.6); }
-  .faq-note a{ color:var(--clay); border-bottom:1px solid currentColor; }
-  @media(min-width:900px){
-    .faq-grid{ display:grid; grid-template-columns:.85fr 1.15fr; gap:80px; align-items:start; }
-    .faq-grid .section-head{ position:sticky; top:130px; margin-bottom:0; }
-    .faq-note{ margin-top:0; }
-  }
-  details{ border-bottom:1px solid var(--line-light); }
-  summary{ list-style:none; cursor:pointer; padding:28px 56px 28px 0; position:relative; font-family:var(--serif); font-size:clamp(1.25rem,3.6vw,1.6rem); line-height:1.3; transition:color .3s; }
-  summary:hover{ color:var(--clay); }
-  summary::-webkit-details-marker{ display:none; }
-  summary::before, summary::after{ content:""; position:absolute; right:8px; top:50%; width:18px; height:1.5px; background:var(--clay); transition:transform .5s var(--ease); }
-  summary::after{ transform:rotate(90deg); }
-  details[open] summary::after{ transform:rotate(0); }
-  .faq-body{ overflow:hidden; }
-  .faq-body p{ padding:0 0 30px; color:rgba(29,25,22,.65); max-width:700px; }
+  /* CTA band */
+  .cta-band{ position:relative; overflow:hidden; text-align:center; }
+  .cta-band::before{ content:""; position:absolute; inset:0; background-image:linear-gradient(#b5764f,#b5764f), var(--rock); background-size:cover, 120%; background-blend-mode:multiply; opacity:.35; pointer-events:none; }
+  .cta-band .wrap{ position:relative; }
+  .cta-band h2{ max-width:820px; margin:0 auto 22px; }
+  .cta-band h2 em{ color:var(--ink); }
+  .cta-band .lead{ color:rgba(244,238,230,.85); margin:0 auto 40px; }
+  .cta-band .btn-row{ justify-content:center; }
 
   /* Instagram */
-  .ig-head{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:40px; }
-  .ig-head h2 em{ color:var(--clay); }
-  .ig-head > div{ flex:1 1 420px; }
   .ig-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
   .ig-tile{ position:relative; isolation:isolate; aspect-ratio:1; border-radius:14px; overflow:hidden; opacity:0; transform:translateY(18px) scale(.97); transition:opacity .8s ease var(--d,0ms), transform .8s var(--ease) var(--d,0ms); }
   .in .ig-tile{ opacity:1; transform:none; }
@@ -251,28 +213,34 @@
   @media(min-width:1100px){ .ig-grid{ grid-template-columns:repeat(6,1fr); } }
 
   /* Contact */
-  .contact{ position:relative; overflow:hidden; }
-  .contact::before{ content:""; position:absolute; inset:0; background-image:linear-gradient(#b5764f,#b5764f), var(--rock); background-size:cover, 120%; background-blend-mode:multiply; opacity:.35; pointer-events:none; }
-  .contact .wrap{ position:relative; }
-  .contact h2{ margin-bottom:28px; }
-  .contact h2 em{ color:var(--ink); }
-  .contact .lead{ color:rgba(244,238,230,.85); margin-bottom:40px; }
-  .contact-list{ border-top:1px solid rgba(244,238,230,.25); }
-  .contact-item{ position:relative; display:block; padding:30px 0; border-bottom:1px solid rgba(244,238,230,.25); }
-  .contact-item small{ display:block; font-size:.78rem; letter-spacing:.24em; text-transform:uppercase; color:rgba(244,238,230,.7); margin-bottom:10px; }
+  .contact-grid{ display:grid; gap:56px; }
+  .contact h2{ margin-bottom:22px; }
+  .contact .lead{ margin-bottom:36px; }
+  .contact-list{ border-top:1px solid var(--line-dark); }
+  .contact-item{ position:relative; display:block; padding:28px 0; border-bottom:1px solid var(--line-dark); }
+  .contact-item small{ display:block; font-size:.75rem; letter-spacing:.24em; text-transform:uppercase; color:rgba(244,238,230,.5); margin-bottom:8px; }
   .contact-item span{ display:inline-block; font-family:var(--serif); font-size:clamp(1.6rem,5.5vw,2.4rem); line-height:1.2; word-break:break-word; transition:transform .5s var(--ease), color .3s; }
-  a.contact-item::after{ content:"→"; position:absolute; right:0; bottom:34px; font-size:1.4rem; opacity:0; transform:translateX(-10px); transition:opacity .4s, transform .5s var(--ease); }
-  a.contact-item:hover span{ color:var(--ink); transform:translateX(8px); }
-  a.contact-item:hover::after{ opacity:1; transform:none; }
-  .contact-grid{ display:grid; gap:64px; }
-  @media(min-width:900px){ .contact-grid{ grid-template-columns:1fr 1fr; gap:90px; align-items:start; } .contact-list{ margin-top:8px; } }
+  .contact-item::after{ content:"→"; position:absolute; right:0; bottom:32px; font-size:1.4rem; color:var(--clay-soft); opacity:0; transform:translateX(-10px); transition:opacity .4s, transform .5s var(--ease); }
+  .contact-item:hover span{ color:var(--clay-soft); transform:translateX(8px); }
+  .contact-item:hover::after{ opacity:1; transform:none; }
+  @media(min-width:900px){ .contact-grid{ grid-template-columns:1fr 1fr; gap:90px; align-items:start; } }
 
-  footer{ background:var(--ink); color:rgba(244,238,230,.5); padding:48px 0; font-size:.85rem; }
-  footer .wrap{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; }
-  footer .brand{ color:var(--cream); font-size:1.3rem; }
-  footer .brand-mark{ width:30px; height:30px; }
+  footer{ background:var(--ink); color:rgba(244,238,230,.5); padding:0 0 48px; font-size:.85rem; }
+  footer .wrap{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; padding-top:40px; }
+  footer{ border-top:1px solid var(--line-dark); padding-top:0; }
+  footer .brand{ color:var(--cream); font-size:1.4rem; }
+  footer .brand img{ width:28px; filter:invert(1) brightness(1.4); }
+  footer .brand .tld{ color:rgba(244,238,230,.45); }
   .to-top{ color:rgba(244,238,230,.7); border:1px solid var(--line-dark); border-radius:999px; padding:10px 18px; transition:background .3s, color .3s; }
   .to-top:hover{ background:var(--cream); color:var(--ink); }
+
+  /* Floating call button (mobile) */
+  .fab{ position:fixed; z-index:70; right:16px; bottom:16px; display:flex; align-items:center; gap:10px; padding:15px 22px; border-radius:999px; background:var(--clay); color:var(--cream); font-size:.8rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase; box-shadow:0 14px 34px -10px rgba(0,0,0,.5); transform:translateY(140%); transition:transform .6s var(--ease); }
+  .fab.show{ transform:none; }
+  .fab svg{ width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.6; }
+  .fab::before{ content:""; position:absolute; inset:0; border-radius:inherit; border:1px solid var(--clay); animation:pulse 2.4s ease-out infinite; }
+  @keyframes pulse{ from{ transform:scale(1); opacity:.8; } to{ transform:scale(1.35,1.6); opacity:0; } }
+  @media(min-width:900px){ .fab{ display:none; } }
 
   /* Reveal */
   .reveal{ opacity:0; transform:translateY(28px); transition:opacity 1s ease, transform 1s var(--ease); }
@@ -281,9 +249,8 @@
 
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{ animation:none !important; transition:none !important; }
-    .reveal,.fade-up,.chip,.project,.ig-tile{ opacity:1 !important; transform:none !important; clip-path:none !important; }
+    .reveal,.fade-up,.project,.ig-tile{ opacity:1 !important; transform:none !important; clip-path:none !important; }
     .w > span{ transform:none !important; }
-    .benefit svg *{ stroke-dashoffset:0 !important; }
     html{ scroll-behavior:auto; }
   }
 </style>
@@ -294,15 +261,14 @@
 
 <header id="top">
   <div class="wrap nav">
-    <a href="#top" class="brand" aria-label="Komfortas — pradžia"><span class="brand-mark" aria-hidden="true"></span>Komfortas</a>
+    <a href="#top" class="brand" aria-label="uolos.lt — pradžia"><img src="images/uolos/logo-mark.png" alt="" width="36" height="39"><span>uolos<span class="tld">.lt</span></span></a>
     <nav class="nav-links" aria-label="Pagrindinė navigacija">
-      <a href="#apie">Apie uolas</a>
-      <a href="#transformacija">Prieš / po</a>
       <a href="#darbai">Darbai</a>
-      <a href="#procesas">Procesas</a>
-      <a href="#duk">DUK</a>
+      <a href="#kaip">Kaip kuriame</a>
+      <a href="#transformacija">Prieš / po</a>
+      <a href="#kontaktai">Kontaktai</a>
     </nav>
-    <a href="#kontaktai" class="btn btn-dark">Konsultacija</a>
+    <a href="#kontaktai" class="btn btn-dark">Aptarti projektą</a>
   </div>
 </header>
 
@@ -313,106 +279,109 @@
     <div class="hero-light" aria-hidden="true"></div>
     <div class="ring" aria-hidden="true">
       <svg viewBox="0 0 100 100"><defs><path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
-        <text font-family="Inter, sans-serif" font-size="7.4" letter-spacing="1.6" fill="currentColor"><textPath href="#circ" textLength="236" lengthAdjust="spacing">RANKŲ DARBAS • VISOJE LIETUVOJE • </textPath></text></svg>
+        <text font-family="Inter, sans-serif" font-size="7.4" letter-spacing="1.6" fill="currentColor"><textPath href="#circ" textLength="236" lengthAdjust="spacing">RANKŲ DARBAS • UOLOS.LT • </textPath></text></svg>
+      <img src="images/uolos/logo-mark.png" alt="">
     </div>
     <div class="wrap">
       <p class="eyebrow fade-up">Dekoratyvinės uolos</p>
-      <h1 class="split">Gyva tekstūra.<br>Tikra <em>kiekviename</em> šešėlyje.</h1>
-      <p class="lead fade-up" style="transition-delay:.5s">Rankomis formuojame sienas, kurios atrodo kaip natūrali uoliena — tik lengvesnės, šiltesnės ir sukurtos būtent jūsų erdvei.</p>
-      <div class="hero-ctas fade-up" style="transition-delay:.65s">
-        <a href="#kontaktai" class="btn btn-light">Nemokama konsultacija <span class="arr">→</span></a>
-        <a href="#darbai" class="btn btn-ghost">Žiūrėti darbus</a>
+      <h1 class="split">Gamta, atgimstanti <em>jūsų erdvėje.</em></h1>
+      <p class="lead fade-up" style="transition-delay:.5s">Išskirtinės uolų kompozicijos, kuriamos rankomis.</p>
+      <div class="btn-row fade-up" style="transition-delay:.65s">
+        <a href="#darbai" class="btn btn-light">Peržiūrėti darbus <span class="arr">→</span></a>
+        <a href="#kontaktai" class="btn btn-ghost">Aptarkime jūsų projektą</a>
       </div>
-      <div class="hero-meta fade-up" style="transition-delay:.8s">
-        <span>Rankų darbas</span><span>Interjeras ir eksterjeras</span><span>Visoje Lietuvoje</span>
-      </div>
+      <div class="scroll-cue fade-up" style="transition-delay:.9s"><i></i>Slinkite žemyn</div>
     </div>
   </section>
 
   <!-- MARQUEE -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span>Uolos</span><b>✦</b><span>Tekstūros</span><b>✦</b><span>Šešėliai</span><b>✦</b><span>Rankų darbas</span><b>✦</b><span>Akmens charakteris</span><b>✦</b>
-      <span>Uolos</span><b>✦</b><span>Tekstūros</span><b>✦</b><span>Šešėliai</span><b>✦</b><span>Rankų darbas</span><b>✦</b><span>Akmens charakteris</span><b>✦</b>
+      <span>Uolos</span><b>✦</b><span>Reljefas</span><b>✦</b><span>Šešėliai</span><b>✦</b><span>Rankų darbas</span><b>✦</b><span>Akmens charakteris</span><b>✦</b>
+      <span>Uolos</span><b>✦</b><span>Reljefas</span><b>✦</b><span>Šešėliai</span><b>✦</b><span>Rankų darbas</span><b>✦</b><span>Akmens charakteris</span><b>✦</b>
     </div>
   </div>
 
-  <!-- INTRO -->
-  <section id="apie">
-    <div class="wrap intro-grid">
-      <div class="reveal">
-        <p class="eyebrow">Kas tai yra</p>
-        <h2 class="split">Akmuo, kurį galima <em>pajusti</em> ranka.</h2>
-        <p class="lead">Dekoratyvinė uola — tai ne plytelės ir ne tapetai. Kiekvieną įtrūkimą, briauną ir reljefą meistras formuoja tiesiai ant sienos, todėl nė viena siena nepasikartoja. Rezultatas — monumentalus natūralaus akmens įspūdis, bet be jo svorio ir kainos.</p>
-        <div class="facts">
-          <div class="fact"><b><span class="count" data-to="100">100</span>%</b><span>rankų darbas</span></div>
-          <div class="fact"><b>0</b><span>vienodų sienų</span></div>
-          <div class="fact"><b>~3 cm</b><span>vos tiek užima erdvės</span></div>
-          <div class="fact"><b>∞</b><span>spalvų ir formų</span></div>
+  <!-- PROJECTS -->
+  <section id="darbai">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Darbai</p>
+          <h2 class="split">Kiekviena uola — <em>vienetinė.</em></h2>
         </div>
+        <a href="#kontaktai" class="btn btn-outline">Noriu tokios <span class="arr">→</span></a>
       </div>
-      <div class="intro-img reveal">
-        <div class="ph" data-label="Vieta nuotraukai" style="--p:35% 30%;--s:170%"></div>
-        <div class="intro-badge"><b>Kiekviena siena — vienetinė.</b><span>Formuojama rankomis, vietoje.</span></div>
+      <div class="projects">
+        <article class="project big reveal">
+          <div class="ph dark" data-label="Vieta nuotraukai" style="--p:20% 30%;--s:120%;--p2:30% 40%"></div>
+          <div class="project-info"><div><p class="project-tag">Svetainė</p><h3>Akcentinė uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+        </article>
+        <article class="project reveal">
+          <div class="ph" data-label="Vieta nuotraukai" style="--p:70% 20%;--s:200%;--p2:60% 30%"></div>
+          <div class="project-info"><div><p class="project-tag">Miegamasis</p><h3>Šviesi uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+        </article>
+        <article class="project reveal">
+          <div class="ph warm" data-label="Vieta nuotraukai" style="--p:40% 80%;--s:220%;--p2:50% 70%"></div>
+          <div class="project-info"><div><p class="project-tag">Laiptinė</p><h3>Šilta uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+        </article>
+        <article class="project wide reveal">
+          <div class="ph light" data-label="Vieta nuotraukai" style="--p:80% 60%;--s:130%;--p2:70% 50%"></div>
+          <div class="project-info"><div><p class="project-tag">Detalė</p><h3>Reljefas iš arti</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+        </article>
+        <article class="project wide reveal">
+          <div class="ph dark" data-label="Vieta nuotraukai" style="--p:30% 70%;--s:160%;--p2:40% 60%"></div>
+          <div class="project-info"><div><p class="project-tag">Interjeras</p><h3>Tamsi uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- BENEFITS -->
-  <section style="padding-top:0">
+  <!-- FACTS + PROCESS -->
+  <section class="on-dark" id="kaip">
     <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Kodėl uola</p>
-        <h2 class="split">Ne apdaila. <em>Charakteris.</em></h2>
+      <div class="reveal">
+        <p class="eyebrow">Kaip kuriame</p>
+        <h2 class="split">Nuo eskizo iki <em>uolos.</em></h2>
       </div>
-      <div class="benefits">
-        <div class="benefit reveal">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 26 12 9l5 8 4-5 8 14z"/><path d="m12 9 2 7"/></svg>
-          <h3>Natūralus vaizdas</h3>
-          <p>Gylis, šešėliai ir smulkus grūdėtumas — iš arti sunku atskirti nuo tikro akmens.</p>
+      <div class="facts reveal" style="margin-top:clamp(40px,7vw,64px)">
+        <div class="fact"><b>5–40 cm</b><span>reljefo gylis</span></div>
+        <div class="fact"><b><span class="count" data-to="100">100</span>%</b><span>rankų darbas</span></div>
+        <div class="fact"><b>1 / 1</b><span>kiekviena uola — unikali</span></div>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <span class="step-num">01</span>
+          <h3>Pokalbis telefonu</h3>
+          <p>Išklausome jūsų idėją ir aptariame erdvę.</p>
         </div>
-        <div class="benefit reveal">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 20c4-8 16-8 20 0"/><path d="M16 6v6"/><circle cx="16" cy="22" r="3"/></svg>
-          <h3>Lengva konstrukcija</h3>
-          <p>Nereikia stiprinti sienų ar perdangų — tinka ir butui, ir gipso kartono pertvaroms.</p>
+        <div class="step reveal">
+          <span class="step-num">02</span>
+          <h3>Uolos eskizas</h3>
+          <p>Sukuriame eskizą pagal jūsų norus.</p>
         </div>
-        <div class="benefit reveal">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11"/><path d="M16 9v7l5 3"/></svg>
-          <h3>Ilgaamžiškumas</h3>
-          <p>Mineraliniai mišiniai ir apsauginė danga — paviršius nebijo drėgmės, nesitrina ir neblunka.</p>
-        </div>
-        <div class="benefit reveal">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="11" cy="12" r="6"/><circle cx="21" cy="12" r="6"/><circle cx="16" cy="21" r="6"/></svg>
-          <h3>Bet kokia spalva</h3>
-          <p>Nuo šviesaus smiltainio iki tamsaus bazalto — atspalvį derinam prie jūsų interjero.</p>
-        </div>
-        <div class="benefit reveal">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 15 16 5l12 10"/><path d="M7 13v14h18V13"/><path d="M13 27v-8h6v8"/></svg>
-          <h3>Viduje ir lauke</h3>
-          <p>Miegamasis, svetainė, laiptinė, terasa ar fasadas — technologiją pritaikome kiekvienai vietai.</p>
-        </div>
-        <div class="benefit reveal">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 27c3-9 6-14 11-17 4 3 8 9 11 17"/><path d="M11 18c2 1 4 1 6-1"/></svg>
-          <h3>Laisva forma</h3>
-          <p>Išlenktos sienos, kampai, nišos, kolonos — uola apgaubia bet kokį paviršių be siūlių.</p>
+        <div class="step reveal">
+          <span class="step-num">03</span>
+          <h3>Rankų darbas</h3>
+          <p>Formuojame uolą — su aukščiausiu realumu.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- BEFORE / AFTER -->
-  <section id="transformacija" style="padding-top:0">
+  <section id="transformacija">
     <div class="wrap">
-      <div class="ba-head reveal">
+      <div class="section-head reveal">
         <div>
-          <p class="eyebrow">Transformacija</p>
-          <h2 class="split">Gamta kūrė milijonus metų. Mes — per kelias <em>dienas.</em></h2>
+          <p class="eyebrow">Prieš / po</p>
+          <h2 class="split">Iš paprastos sienos — <em>uola.</em></h2>
         </div>
-        <p class="lead">Patraukite slankiklį ir pažiūrėkite, kaip paprasta, niekuo neišsiskirianti siena virsta uola.</p>
+        <p class="lead">Patraukite slankiklį.</p>
       </div>
       <div class="ba reveal" id="ba">
-        <div class="ph plain" data-label="Prieš — nuotrauka"></div>
-        <div class="ba-after"><div class="ph warm" data-label="Po — nuotrauka" style="--p:60% 40%;--s:120%"></div></div>
+        <div class="ph plain" data-label="Nuotrauka"></div>
+        <div class="ba-after"><div class="ph warm" data-label="Nuotrauka" style="--p:60% 40%;--s:120%"></div></div>
         <div class="ba-line"><div class="ba-knob">‹ ›</div></div>
         <span class="ba-tag l">Prieš</span><span class="ba-tag r">Po</span>
         <input type="range" min="0" max="100" value="50" aria-label="Palyginti sieną prieš ir po">
@@ -420,152 +389,46 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="darbai" style="padding-top:0">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Mūsų darbai</p>
-        <h2 class="split">Sienos, apie kurias <em>kalba</em> svečiai.</h2>
-      </div>
-      <div class="projects">
-        <article class="project wide reveal">
-          <div class="ph dark" data-label="Vieta nuotraukai" style="--p:20% 30%;--s:120%;--p2:30% 40%"></div>
-          <span class="project-num">01</span>
-          <div class="project-info"><div><p class="project-tag">Akcentinė siena</p><h3>Tamsusis bazaltas</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
-        </article>
-        <article class="project reveal">
-          <div class="ph" data-label="Vieta nuotraukai" style="--p:70% 20%;--s:200%;--p2:60% 30%"></div>
-          <span class="project-num">02</span>
-          <div class="project-info"><div><p class="project-tag">Privatus butas</p><h3>Miegamojo siena</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
-        </article>
-        <article class="project reveal">
-          <div class="ph warm" data-label="Vieta nuotraukai" style="--p:40% 80%;--s:220%;--p2:50% 70%"></div>
-          <span class="project-num">03</span>
-          <div class="project-info"><div><p class="project-tag">Restoranas</p><h3>Terakotos uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
-        </article>
-        <article class="project wide reveal">
-          <div class="ph light" data-label="Vieta nuotraukai" style="--p:80% 60%;--s:130%;--p2:70% 50%"></div>
-          <span class="project-num">04</span>
-          <div class="project-info"><div><p class="project-tag">Svetainė</p><h3>Šviesusis smiltainis</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHERE + PROCESS -->
-  <section class="on-dark" id="procesas">
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">Kur tinka</p>
-        <h2 class="split">Visur, kur norisi <em>stiprios</em> nuotaikos.</h2>
-        <div class="where">
-          <span class="chip">Miegamasis</span><span class="chip">Svetainė</span><span class="chip">Laiptinė</span><span class="chip">Vonios kambarys</span><span class="chip">SPA ir baseinai</span><span class="chip">Restoranai</span><span class="chip">Viešbučiai</span><span class="chip">Biurai</span><span class="chip">Terasos</span><span class="chip">Fasadai</span>
-        </div>
-      </div>
-
-      <div class="steps">
-        <div class="step reveal">
-          <span class="step-num">01</span>
-          <h3>Konsultacija</h3>
-          <p>Atvykstame, apžiūrime erdvę, išklausome jūsų idėjas ir pasiūlome, kokia uola čia skambėtų geriausiai. Nemokamai.</p>
-        </div>
-        <div class="step reveal">
-          <span class="step-num">02</span>
-          <h3>Pavyzdžiai ir spalva</h3>
-          <p>Paruošiame tekstūros ir atspalvio pavyzdžius — kad prieš pradedant matytumėte rezultatą gyvai, ne tik nuotraukoje.</p>
-        </div>
-        <div class="step reveal">
-          <span class="step-num">03</span>
-          <h3>Aiškus pasiūlymas</h3>
-          <p>Konkreti kaina, terminai ir darbų etapai. Jokių paslėptų išlaidų ir netikėtumų pabaigoje.</p>
-        </div>
-        <div class="step reveal">
-          <span class="step-num">04</span>
-          <h3>Skulptūra ant sienos</h3>
-          <p>Formuojame reljefą, tapome, dengiame apsauga. Dirbame švariai, o baigę paliekame tik uolą — ir garantiją.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIAL (pavyzdinis atsiliepimas — pakeisti tikru) -->
-  <section class="testimonial">
+  <!-- CTA -->
+  <section class="on-clay cta-band">
     <div class="wrap reveal">
-      <div class="quote-mark" aria-hidden="true">"</div>
-      <blockquote>Norėjome, kad miegamasis primintų kalnų namelį, bet nebūtų tamsus. Dabar kiekvieną vakarą lempa nupiešia ant uolos vis kitus šešėlius — tai mūsų mėgstamiausia siena namuose.</blockquote>
-      <cite>Ieva ir Tomas</cite>
-      <small>Privatus butas, Vilnius</small>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="duk" style="padding-top:0">
-    <div class="wrap faq-grid">
-      <div class="section-head reveal">
-        <p class="eyebrow">Dažni klausimai</p>
-        <h2 class="split" style="margin-bottom:28px">Prieš <em>pradedant.</em></h2>
-        <p class="faq-note">Neradote atsakymo? <a href="tel:+37064701728">Paskambinkite</a> — mielai patarsime.</p>
-      </div>
-      <div class="faq reveal">
-        <details>
-          <summary>Iš ko daroma dekoratyvinė uola?</summary>
-          <div class="faq-body"><p>Naudojame specialius mineralinius tinko ir betono mišinius, kurie formuojami rankomis tiesiai ant sienos. Galiausiai paviršius tonuojamas keliais sluoksniais ir padengiamas apsaugine danga.</p></div>
-        </details>
-        <details>
-          <summary>Kiek laiko trunka darbai?</summary>
-          <div class="faq-body"><p>Priklauso nuo ploto ir reljefo sudėtingumo. Vidutinio dydžio akcentinė siena dažniausiai sukuriama per 3–7 darbo dienas, įskaitant džiūvimą ir tonavimą.</p></div>
-        </details>
-        <details>
-          <summary>Ar galima uolą daryti bute ar ant gipso kartono?</summary>
-          <div class="faq-body"><p>Taip. Konstrukcija lengva ir plona, todėl nereikia stiprinti sienų. Prieš pradėdami visada įvertiname pagrindą ir, jei reikia, jį paruošiame.</p></div>
-        </details>
-        <details>
-          <summary>Kaip prižiūrėti tokią sieną?</summary>
-          <div class="faq-body"><p>Labai paprastai — pakanka retkarčiais nuvalyti dulkes minkštu šepečiu ar drėgna šluoste. Apsauginė danga saugo nuo drėgmės ir nešvarumų.</p></div>
-        </details>
-        <details>
-          <summary>Kiek kainuoja?</summary>
-          <div class="faq-body"><p>Kaina skaičiuojama individualiai pagal plotą, reljefo gylį ir spalvų sudėtingumą. Po nemokamos konsultacijos gausite tikslų pasiūlymą be paslėptų išlaidų.</p></div>
-        </details>
+      <p class="eyebrow">Kaina</p>
+      <h2 class="split">Kiekviena uola skirtinga — <em>ir kaina taip pat.</em></h2>
+      <p class="lead">Pasikalbėkime, ir pasiūlysime sprendimą būtent jūsų erdvei.</p>
+      <div class="btn-row">
+        <a href="tel:+37064701728" class="btn btn-dark">Skambinti <span class="arr">→</span></a>
+        <a href="mailto:komfortas@me.com" class="btn btn-ghost">Rašyti el. paštu</a>
       </div>
     </div>
   </section>
 
   <!-- INSTAGRAM -->
-  <section id="instagram" style="padding-top:0">
+  <section id="instagram">
     <div class="wrap reveal">
-      <div class="ig-head">
+      <div class="section-head">
         <div>
           <p class="eyebrow">Instagram</p>
-          <h2 class="split">Naujausios <em>uolos</em> — kasdien.</h2>
+          <h2 class="split">Naujausios <em>uolos.</em></h2>
         </div>
-        <a href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" class="btn btn-dark">@komfortas_ir_dekoras <span class="arr">→</span></a>
+        <a href="https://www.instagram.com/uolos.lt/" target="_blank" rel="noopener" class="btn btn-dark">@uolos.lt <span class="arr">→</span></a>
       </div>
-      <div class="ig-grid">
-          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 1"><div class="ph dark" data-label="Įrašas" style="--p:20% 30%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
-          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 2"><div class="ph " data-label="Įrašas" style="--p:70% 20%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
-          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 3"><div class="ph warm" data-label="Įrašas" style="--p:40% 70%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
-          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 4"><div class="ph light" data-label="Įrašas" style="--p:80% 50%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
-          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 5"><div class="ph " data-label="Įrašas" style="--p:30% 80%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
-          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 6"><div class="ph dark" data-label="Įrašas" style="--p:60% 60%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
-      </div>
+      <div class="ig-grid" id="ig-grid"></div>
     </div>
   </section>
 
   <!-- CONTACT -->
-  <section class="on-clay contact" id="kontaktai">
+  <section class="on-dark contact" id="kontaktai">
     <div class="wrap contact-grid">
       <div class="reveal">
-        <p class="eyebrow">Susisiekime</p>
-        <h2 class="split">Turite sieną, kuri laukia <em>uolos?</em></h2>
-        <p class="lead">Atvykstame, pasižiūrime, pakonsultuojame. Be įsipareigojimų ir nemokamai.</p>
-        <a href="tel:+37064701728" class="btn btn-dark">Skambinti dabar <span class="arr">→</span></a>
+        <p class="eyebrow">Kontaktai</p>
+        <h2 class="split">Aptarkime jūsų <em>projektą.</em></h2>
+        <p class="lead">Konsultacija — telefonu. Paskambinkite, ir per kelias minutes suprasime, kokia uola tiks jūsų erdvei.</p>
+        <a href="tel:+37064701728" class="btn btn-light">Skambinti dabar <span class="arr">→</span></a>
       </div>
       <div class="contact-list reveal">
-        <a class="contact-item" href="tel:+37064701728"><small>Skambinkite</small><span>+370 647 01728</span></a>
-        <a class="contact-item" href="mailto:komfortas@me.com"><small>Rašykite</small><span>komfortas@me.com</span></a>
-        <a class="contact-item" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener"><small>Instagram</small><span>@komfortas_ir_dekoras</span></a>
-        <div class="contact-item"><small>Dirbame</small><span>Visoje Lietuvoje</span></div>
+        <a class="contact-item" href="tel:+37064701728"><small>Telefonas</small><span>+370 647 01728</span></a>
+        <a class="contact-item" href="mailto:komfortas@me.com"><small>El. paštas</small><span>komfortas@me.com</span></a>
+        <a class="contact-item" href="https://www.instagram.com/uolos.lt/" target="_blank" rel="noopener"><small>Instagram</small><span>@uolos.lt</span></a>
       </div>
     </div>
   </section>
@@ -573,16 +436,32 @@
 
 <footer>
   <div class="wrap">
-    <span class="brand"><span class="brand-mark" aria-hidden="true"></span>Komfortas</span>
-    <span>© <span id="y">2026</span> Komfortas ir dekoras</span>
+    <span class="brand"><img src="images/uolos/logo-mark.png" alt="" width="28" height="30"><span>uolos<span class="tld">.lt</span></span></span>
+    <span>© <span id="y">2026</span> uolos.lt</span>
     <a href="#top" class="to-top">Į viršų ↑</a>
   </div>
 </footer>
+
+<a href="tel:+37064701728" class="fab" aria-label="Skambinti">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+  Skambinti
+</a>
 
 <script>
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('y').textContent = new Date().getFullYear();
+
+  /* Instagram placeholder tiles */
+  const igIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg>';
+  [['dark','20% 30%'],['','70% 20%'],['warm','40% 70%'],['light','80% 50%'],['','30% 80%'],['dark','60% 60%']].forEach(([c, p], i) => {
+    const a = document.createElement('a');
+    a.className = 'ig-tile'; a.href = 'https://www.instagram.com/uolos.lt/'; a.target = '_blank'; a.rel = 'noopener';
+    a.setAttribute('aria-label', 'Instagram įrašas ' + (i + 1));
+    a.style.setProperty('--d', (i * 90) + 'ms');
+    a.innerHTML = `<div class="ph ${c}" data-label="Įrašas" style="--p:${p};--s:260%"></div>${igIcon}`;
+    document.getElementById('ig-grid').appendChild(a);
+  });
 
   /* Split headings into words for the rise-in effect */
   document.querySelectorAll('.split').forEach(el => {
@@ -602,13 +481,6 @@
     walk(el);
     el.querySelectorAll('.w > span').forEach((s, i) => s.style.transitionDelay = (i * 70) + 'ms');
   });
-
-  /* Benefit icons: normalise path length so they can "draw" in */
-  document.querySelectorAll('.benefit svg *').forEach(p => p.setAttribute('pathLength', '1'));
-
-  /* Chips stagger */
-  document.querySelectorAll('.chip').forEach((c, i) => c.style.setProperty('--d', (i * 60) + 'ms'));
-  document.querySelectorAll('.ig-tile').forEach((c, i) => c.style.setProperty('--d', (i * 90) + 'ms'));
 
   /* Hero intro on load */
   requestAnimationFrame(() => setTimeout(() => {
@@ -659,8 +531,9 @@
   }, { threshold: .15, rootMargin: '0px 0px -40px 0px' }) : null;
   document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('in'));
 
-  /* Header hide/show + progress bar */
-  const header = document.querySelector('header'), bar = document.querySelector('.progress');
+  /* Header hide/show, progress bar, floating call button */
+  const header = document.querySelector('header'), bar = document.querySelector('.progress'), fab = document.querySelector('.fab');
+  const contact = document.getElementById('kontaktai');
   let lastY = 0;
   const onScroll = () => {
     const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
@@ -668,6 +541,8 @@
     header.classList.toggle('hide', y > lastY && y > 500);
     lastY = y;
     bar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+    const nearContact = contact.getBoundingClientRect().top < innerHeight * .8;
+    fab.classList.toggle('show', y > innerHeight * .7 && !nearContact);
   };
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
@@ -691,22 +566,6 @@
     requestAnimationFrame(loop);
   };
   if (reduce) place(); else requestAnimationFrame(loop);
-
-  /* FAQ: smooth open/close */
-  document.querySelectorAll('.faq details').forEach(d => {
-    const s = d.querySelector('summary'), b = d.querySelector('.faq-body');
-    s.addEventListener('click', ev => {
-      if (reduce || !b.animate) return;
-      ev.preventDefault();
-      if (d.open) {
-        const a = b.animate([{ height: b.offsetHeight + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 400, easing: 'cubic-bezier(.2,.7,.2,1)' });
-        a.onfinish = () => d.open = false;
-      } else {
-        d.open = true;
-        b.animate([{ height: '0px', opacity: 0 }, { height: b.offsetHeight + 'px', opacity: 1 }], { duration: 500, easing: 'cubic-bezier(.2,.7,.2,1)' });
-      }
-    });
-  });
 })();
 </script>
 </body>
