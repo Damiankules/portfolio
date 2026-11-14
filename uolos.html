@@ -226,6 +226,22 @@
   .faq-body{ overflow:hidden; }
   .faq-body p{ padding:0 0 30px; color:rgba(29,25,22,.65); max-width:700px; }
 
+  /* Instagram */
+  .ig-head{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:40px; }
+  .ig-head h2 em{ color:var(--clay); }
+  .ig-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  .ig-tile{ position:relative; isolation:isolate; aspect-ratio:1; border-radius:14px; overflow:hidden; opacity:0; transform:translateY(18px) scale(.97); transition:opacity .8s ease var(--d,0ms), transform .8s var(--ease) var(--d,0ms); }
+  .in .ig-tile{ opacity:1; transform:none; }
+  .ig-tile .ph{ padding:12px; }
+  .ig-tile .ph::before{ font-size:.6rem; padding:5px 10px; }
+  .ig-tile::after{ content:""; position:absolute; inset:0; z-index:-1; background:rgba(29,25,22,0); transition:background .4s; }
+  .ig-tile svg{ position:absolute; left:50%; top:50%; width:34px; height:34px; margin:-17px 0 0 -17px; stroke:var(--cream); fill:none; stroke-width:1.5; opacity:0; transform:scale(.7); transition:opacity .4s, transform .5s var(--ease); }
+  .ig-tile:hover::after{ background:rgba(29,25,22,.45); }
+  .ig-tile:hover svg{ opacity:1; transform:none; }
+  .ig-tile:hover .ph{ transform:scale(1.08); }
+  @media(min-width:760px){ .ig-grid{ grid-template-columns:repeat(3,1fr); gap:14px; } }
+  @media(min-width:1100px){ .ig-grid{ grid-template-columns:repeat(6,1fr); } }
+
   /* Contact */
   .contact{ position:relative; overflow:hidden; }
   .contact::before{ content:""; position:absolute; inset:0; background-image:linear-gradient(#b5764f,#b5764f), var(--rock); background-size:cover, 120%; background-blend-mode:multiply; opacity:.35; pointer-events:none; }
@@ -257,7 +273,7 @@
 
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{ animation:none !important; transition:none !important; }
-    .reveal,.fade-up,.chip,.project{ opacity:1 !important; transform:none !important; clip-path:none !important; }
+    .reveal,.fade-up,.chip,.project,.ig-tile{ opacity:1 !important; transform:none !important; clip-path:none !important; }
     .w > span{ transform:none !important; }
     .benefit svg *{ stroke-dashoffset:0 !important; }
     html{ scroll-behavior:auto; }
@@ -506,6 +522,27 @@
     </div>
   </section>
 
+  <!-- INSTAGRAM -->
+  <section id="instagram" style="padding-top:0">
+    <div class="wrap reveal">
+      <div class="ig-head">
+        <div>
+          <p class="eyebrow">Instagram</p>
+          <h2 class="split">Naujausios <em>uolos</em> — kasdien.</h2>
+        </div>
+        <a href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" class="btn btn-dark">@komfortas_ir_dekoras <span class="arr">→</span></a>
+      </div>
+      <div class="ig-grid">
+          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 1"><div class="ph dark" data-label="Įrašas" style="--p:20% 30%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
+          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 2"><div class="ph " data-label="Įrašas" style="--p:70% 20%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
+          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 3"><div class="ph warm" data-label="Įrašas" style="--p:40% 70%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
+          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 4"><div class="ph light" data-label="Įrašas" style="--p:80% 50%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
+          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 5"><div class="ph " data-label="Įrašas" style="--p:30% 80%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
+          <a class="ig-tile" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener" aria-label="Instagram įrašas 6"><div class="ph dark" data-label="Įrašas" style="--p:60% 60%;--s:260%"></div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></a>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section class="on-clay contact" id="kontaktai">
     <div class="wrap contact-grid">
@@ -517,7 +554,7 @@
       </div>
       <div class="contact-list reveal">
         <a class="contact-item" href="tel:+37064701728"><small>Skambinkite</small><span>+370 647 01728</span></a>
-        <a class="contact-item" href="mailto:info@komfortas.com"><small>Rašykite</small><span>info@komfortas.com</span></a>
+        <a class="contact-item" href="mailto:komfortas@me.com"><small>Rašykite</small><span>komfortas@me.com</span></a>
         <a class="contact-item" href="https://www.instagram.com/komfortas_ir_dekoras/" target="_blank" rel="noopener"><small>Instagram</small><span>@komfortas_ir_dekoras</span></a>
         <div class="contact-item"><small>Dirbame</small><span>Visoje Lietuvoje</span></div>
       </div>
@@ -562,6 +599,7 @@
 
   /* Chips stagger */
   document.querySelectorAll('.chip').forEach((c, i) => c.style.setProperty('--d', (i * 60) + 'ms'));
+  document.querySelectorAll('.ig-tile').forEach((c, i) => c.style.setProperty('--d', (i * 90) + 'ms'));
 
   /* Hero intro on load */
   requestAnimationFrame(() => setTimeout(() => {
