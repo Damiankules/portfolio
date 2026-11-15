@@ -208,7 +208,8 @@
   .ig-tile svg{ position:absolute; left:50%; top:50%; width:34px; height:34px; margin:-17px 0 0 -17px; stroke:var(--cream); fill:none; stroke-width:1.5; opacity:0; transform:scale(.7); transition:opacity .4s, transform .5s var(--ease); }
   .ig-tile:hover::after{ background:rgba(29,25,22,.45); }
   .ig-tile:hover svg{ opacity:1; transform:none; }
-  .ig-tile:hover .ph{ transform:scale(1.08); }
+  .ig-tile > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; transition:transform 1.2s var(--ease); }
+  .ig-tile:hover > img{ transform:scale(1.08); }
   @media(min-width:760px){ .ig-grid{ grid-template-columns:repeat(3,1fr); gap:14px; } }
   @media(min-width:1100px){ .ig-grid{ grid-template-columns:repeat(6,1fr); } }
 
@@ -246,6 +247,15 @@
   .reveal{ opacity:0; transform:translateY(28px); transition:opacity 1s ease, transform 1s var(--ease); }
   .reveal.in{ opacity:1; transform:none; }
   .project.reveal{ transform:none; }
+
+  /* Real photos */
+  .project > img{ position:absolute; left:0; top:-40px; width:100%; height:calc(100% + 80px); object-fit:cover; z-index:-2; transform:scale(1.18); translate:0 var(--py,0px); transition:transform 1.6s var(--ease); }
+  .project.in > img{ transform:scale(1.02); }
+  .project:hover > img{ transform:scale(1.08); }
+  .ba img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 60%; }
+  .ba > img{ z-index:0; }
+  .lb-media img{ object-fit:contain; transform:none; translate:none; top:0; height:100%; }
+  @media(min-width:760px){ .ba{ aspect-ratio:3/4; max-width:640px; margin:0 auto; } }
 
   /* Video reel */
   .reel{ display:grid; grid-auto-flow:column; grid-auto-columns:72%; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; padding:0 var(--gutter) 6px; margin:0 calc(var(--gutter) * -1); scrollbar-width:none; }
@@ -352,24 +362,24 @@
       </div>
       <div class="projects">
         <article class="project big reveal">
-          <div class="ph dark" data-label="Vieta nuotraukai" style="--p:20% 30%;--s:120%;--p2:30% 40%"></div>
-          <div class="project-info"><div><p class="project-tag">Svetainė</p><h3>Akcentinė uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+          <img src="images/uolos/miegamasis-viz.jpg" alt="Uolos siena miegamajame — vizualizacija" loading="lazy" decoding="async" style="object-position:center 30%">
+          <div class="project-info"><div><p class="project-tag">Vizualizacija</p><h3>Miegamojo uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
         </article>
-        <article class="project reveal">
-          <div class="ph" data-label="Vieta nuotraukai" style="--p:70% 20%;--s:200%;--p2:60% 30%"></div>
-          <div class="project-info"><div><p class="project-tag">Miegamasis</p><h3>Šviesi uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+        <article class="project  reveal">
+          <img src="images/uolos/zidinys-po.jpg" alt="Tamsi uola už židinio" loading="lazy" decoding="async" style="object-position:center 40%">
+          <div class="project-info"><div><p class="project-tag">Židinys</p><h3>Tamsi uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
         </article>
-        <article class="project reveal">
-          <div class="ph warm" data-label="Vieta nuotraukai" style="--p:40% 80%;--s:220%;--p2:50% 70%"></div>
-          <div class="project-info"><div><p class="project-tag">Laiptinė</p><h3>Šilta uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+        <article class="project  reveal">
+          <img src="images/uolos/zidinys-viz.jpg" alt="Šviesi uola už židinio — vizualizacija" loading="lazy" decoding="async" style="object-position:center 45%">
+          <div class="project-info"><div><p class="project-tag">Vizualizacija</p><h3>Uola prie židinio</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
         </article>
         <article class="project wide reveal">
-          <div class="ph light" data-label="Vieta nuotraukai" style="--p:80% 60%;--s:130%;--p2:70% 50%"></div>
+          <img src="images/uolos/detale-sviesi.jpg" alt="Uolos reljefas iš arti" loading="lazy" decoding="async" style="object-position:center">
           <div class="project-info"><div><p class="project-tag">Detalė</p><h3>Reljefas iš arti</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
         </article>
         <article class="project wide reveal">
-          <div class="ph dark" data-label="Vieta nuotraukai" style="--p:30% 70%;--s:160%;--p2:40% 60%"></div>
-          <div class="project-info"><div><p class="project-tag">Interjeras</p><h3>Tamsi uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+          <img src="images/uolos/detale-tamsi.jpg" alt="Tamsios uolos reljefas iš arti" loading="lazy" decoding="async" style="object-position:center 30%">
+          <div class="project-info"><div><p class="project-tag">Detalė</p><h3>Tamsus reljefas</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
         </article>
       </div>
     </div>
@@ -436,8 +446,8 @@
         <p class="lead">Patraukite slankiklį.</p>
       </div>
       <div class="ba reveal" id="ba">
-        <div class="ph plain" data-label="Nuotrauka"></div>
-        <div class="ba-after"><div class="ph warm" data-label="Nuotrauka" style="--p:60% 40%;--s:120%"></div></div>
+        <img src="images/uolos/zidinys-pries.jpg" alt="Siena su plytelėmis prieš darbus" loading="lazy" decoding="async">
+        <div class="ba-after"><img src="images/uolos/zidinys-po.jpg" alt="Ta pati siena — tamsi uola po darbų" loading="lazy" decoding="async"></div>
         <div class="ba-line"><div class="ba-knob">‹ ›</div></div>
         <span class="ba-tag l">Prieš</span><span class="ba-tag r">Po</span>
         <input type="range" min="0" max="100" value="50" aria-label="Palyginti sieną prieš ir po">
@@ -523,12 +533,12 @@
 
   /* Instagram placeholder tiles */
   const igIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg>';
-  [['dark','20% 30%'],['','70% 20%'],['warm','40% 70%'],['light','80% 50%'],['','30% 80%'],['dark','60% 60%']].forEach(([c, p], i) => {
+  ['zidinys-po.jpg','miegamasis-viz.jpg','detale-sviesi.jpg','zidinys-viz.jpg','detale-tamsi.jpg','sviesa.jpg'].forEach((img, i) => {
     const a = document.createElement('a');
     a.className = 'ig-tile'; a.href = 'https://www.instagram.com/uolos.lt/'; a.target = '_blank'; a.rel = 'noopener';
     a.setAttribute('aria-label', 'Instagram įrašas ' + (i + 1));
     a.style.setProperty('--d', (i * 90) + 'ms');
-    a.innerHTML = `<div class="ph ${c}" data-label="Įrašas" style="--p:${p};--s:260%"></div>${igIcon}`;
+    a.innerHTML = `<img src="images/uolos/${img}" alt="" loading="lazy" decoding="async">${igIcon}`;
     document.getElementById('ig-grid').appendChild(a);
   });
 
@@ -614,7 +624,7 @@
     parallax();
   };
   /* Photo-card parallax: the rock inside each card drifts as you scroll */
-  const layers = [...document.querySelectorAll('.project .ph')];
+  const layers = [...document.querySelectorAll('.project > img, .project > .ph')];
   let ticking = false;
   const parallax = () => {
     if (ticking) return; ticking = true;
