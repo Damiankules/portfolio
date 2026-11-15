@@ -366,8 +366,8 @@
 <main>
   <!-- HERO -->
   <section class="hero on-dark" aria-label="Įvadas">
-    <div class="hero-bg" aria-hidden="true"><video src="images/uolos/hero.mp4" poster="images/uolos/hero.jpg" autoplay muted loop playsinline preload="auto"></video></div>
-    <div class="hero-frame fade-up" aria-hidden="true"><video src="images/uolos/hero.mp4" poster="images/uolos/hero.jpg" autoplay muted loop playsinline preload="auto"></video></div>
+    <div class="hero-bg" aria-hidden="true"><video src="images/uolos/hero.mp4" poster="images/uolos/hero.jpg" autoplay muted loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto"></video></div>
+    <div class="hero-frame fade-up" aria-hidden="true"></div>
     <div class="hero-light" aria-hidden="true"></div>
     <div class="ring" aria-hidden="true">
       <svg viewBox="0 0 100 100"><defs><path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
@@ -623,8 +623,22 @@
   });
 
   /* Hero videos: keep the sharp frame in sync with the blurred background */
+  /* Second (sharp, framed) copy only on desktop, so phones load a single video */
+  if (matchMedia('(min-width:900px)').matches) {
+    const f = document.querySelector('.hero-bg video').cloneNode(true);
+    document.querySelector('.hero-frame').appendChild(f);
+  }
   const hv = [...document.querySelectorAll('.hero video')];
-  hv.forEach(v => { v.muted = true; v.play().catch(() => {}); });
+  const playAll = () => hv.forEach(v => {
+    v.muted = true; v.defaultMuted = true; v.setAttribute('muted', '');
+    if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+  });
+  hv.forEach(v => { v.addEventListener('loadeddata', playAll); v.addEventListener('canplay', playAll); });
+  playAll();
+  /* If the browser blocked autoplay (power saving, in-app browser), start on the first touch or scroll */
+  const kick = () => { playAll(); if (hv.every(v => !v.paused)) ['touchstart','pointerdown','scroll','click'].forEach(e => removeEventListener(e, kick)); };
+  ['touchstart','pointerdown','scroll','click'].forEach(e => addEventListener(e, kick, { passive: true }));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) playAll(); });
   if (hv.length === 2) setInterval(() => { if (Math.abs(hv[0].currentTime - hv[1].currentTime) > .25) hv[0].currentTime = hv[1].currentTime; }, 2000);
 
   /* Hero intro on load */
