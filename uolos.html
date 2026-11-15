@@ -254,6 +254,12 @@
   .project:hover > img{ transform:scale(1.08); }
   .ba img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 60%; }
   .ba > img{ z-index:0; }
+  .ba img{ transition:opacity .4s ease; }
+  .ba.swapping img{ opacity:0; }
+  .ba-tabs{ display:flex; justify-content:center; gap:10px; margin-bottom:24px; }
+  .ba-tab{ font:inherit; font-size:.8rem; letter-spacing:.16em; text-transform:uppercase; padding:12px 22px; border-radius:999px; border:1px solid var(--line-light); background:transparent; color:var(--ink); cursor:pointer; transition:background .3s, color .3s, border-color .3s; }
+  .ba-tab:hover{ border-color:var(--ink); }
+  .ba-tab.active{ background:var(--ink); color:var(--cream); border-color:var(--ink); }
   .lb-media img{ object-fit:contain; transform:none; translate:none; top:0; height:100%; }
   @media(min-width:760px){ .ba{ aspect-ratio:3/4; max-width:640px; margin:0 auto; } }
 
@@ -362,24 +368,24 @@
       </div>
       <div class="projects">
         <article class="project big reveal">
-          <img src="images/uolos/miegamasis-viz.jpg" alt="Uolos siena miegamajame — vizualizacija" loading="lazy" decoding="async" style="object-position:center 30%">
-          <div class="project-info"><div><p class="project-tag">Vizualizacija</p><h3>Miegamojo uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+          <img src="images/uolos/miegamasis-po.jpg" alt="Šviesi uolos siena miegamajame su sieniniais šviestuvais" loading="lazy" decoding="async" style="object-position:center 55%">
+          <div class="project-info"><div><p class="project-tag">Miegamasis</p><h3>Šviesi uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
         </article>
         <article class="project  reveal">
           <img src="images/uolos/zidinys-po.jpg" alt="Tamsi uola už židinio" loading="lazy" decoding="async" style="object-position:center 40%">
           <div class="project-info"><div><p class="project-tag">Židinys</p><h3>Tamsi uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
         </article>
         <article class="project  reveal">
-          <img src="images/uolos/zidinys-viz.jpg" alt="Šviesi uola už židinio — vizualizacija" loading="lazy" decoding="async" style="object-position:center 45%">
+          <img src="images/uolos/miegamasis-lempos.jpg" alt="Šviestuvų šviesa ant uolos reljefo" loading="lazy" decoding="async" style="object-position:center 40%">
+          <div class="project-info"><div><p class="project-tag">Miegamasis</p><h3>Šviesa ir šešėliai</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+        </article>
+        <article class="project wide reveal">
+          <img src="images/uolos/miegamasis-viz.jpg" alt="Uolos siena miegamajame — vizualizacija" loading="lazy" decoding="async" style="object-position:center 30%">
+          <div class="project-info"><div><p class="project-tag">Vizualizacija</p><h3>Miegamojo uola</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
+        </article>
+        <article class="project wide reveal">
+          <img src="images/uolos/zidinys-viz.jpg" alt="Šviesi uola už židinio — vizualizacija" loading="lazy" decoding="async" style="object-position:center 50%">
           <div class="project-info"><div><p class="project-tag">Vizualizacija</p><h3>Uola prie židinio</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
-        </article>
-        <article class="project wide reveal">
-          <img src="images/uolos/detale-sviesi.jpg" alt="Uolos reljefas iš arti" loading="lazy" decoding="async" style="object-position:center">
-          <div class="project-info"><div><p class="project-tag">Detalė</p><h3>Reljefas iš arti</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
-        </article>
-        <article class="project wide reveal">
-          <img src="images/uolos/detale-tamsi.jpg" alt="Tamsios uolos reljefas iš arti" loading="lazy" decoding="async" style="object-position:center 30%">
-          <div class="project-info"><div><p class="project-tag">Detalė</p><h3>Tamsus reljefas</h3></div><span class="project-arrow" aria-hidden="true">→</span></div>
         </article>
       </div>
     </div>
@@ -445,9 +451,13 @@
         </div>
         <p class="lead">Patraukite slankiklį.</p>
       </div>
+      <div class="ba-tabs reveal" role="tablist" aria-label="Pasirinkite projektą">
+        <button class="ba-tab active" role="tab" aria-selected="true" data-before="miegamasis-pries.jpg" data-after="miegamasis-po.jpg" data-pos="center 45%">Miegamasis</button>
+        <button class="ba-tab" role="tab" aria-selected="false" data-before="zidinys-pries.jpg" data-after="zidinys-po.jpg" data-pos="center 60%">Židinys</button>
+      </div>
       <div class="ba reveal" id="ba">
-        <img src="images/uolos/zidinys-pries.jpg" alt="Siena su plytelėmis prieš darbus" loading="lazy" decoding="async">
-        <div class="ba-after"><img src="images/uolos/zidinys-po.jpg" alt="Ta pati siena — tamsi uola po darbų" loading="lazy" decoding="async"></div>
+        <img id="ba-before" src="images/uolos/miegamasis-pries.jpg" alt="Miegamojo siena prieš darbus" loading="lazy" decoding="async">
+        <div class="ba-after"><img id="ba-after" src="images/uolos/miegamasis-po.jpg" alt="Ta pati siena — šviesi uola po darbų" loading="lazy" decoding="async"></div>
         <div class="ba-line"><div class="ba-knob">‹ ›</div></div>
         <span class="ba-tag l">Prieš</span><span class="ba-tag r">Po</span>
         <input type="range" min="0" max="100" value="50" aria-label="Palyginti sieną prieš ir po">
@@ -533,7 +543,7 @@
 
   /* Instagram placeholder tiles */
   const igIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg>';
-  ['zidinys-po.jpg','miegamasis-viz.jpg','detale-sviesi.jpg','zidinys-viz.jpg','detale-tamsi.jpg','sviesa.jpg'].forEach((img, i) => {
+  ['miegamasis-po.jpg','zidinys-po.jpg','miegamasis-lempos.jpg','miegamasis-viz.jpg','zidinys-viz.jpg','tekstura.jpg'].forEach((img, i) => {
     const a = document.createElement('a');
     a.className = 'ig-tile'; a.href = 'https://www.instagram.com/uolos.lt/'; a.target = '_blank'; a.rel = 'noopener';
     a.setAttribute('aria-label', 'Instagram įrašas ' + (i + 1));
@@ -583,6 +593,17 @@
   let touched = false;
   const setPos = v => ba.style.setProperty('--pos', v + '%');
   range.addEventListener('input', () => { touched = true; setPos(range.value); });
+  const imB = document.getElementById('ba-before'), imA = document.getElementById('ba-after');
+  document.querySelectorAll('.ba-tab').forEach(t => t.addEventListener('click', () => {
+    if (t.classList.contains('active')) return;
+    document.querySelectorAll('.ba-tab').forEach(x => { x.classList.toggle('active', x === t); x.setAttribute('aria-selected', x === t); });
+    ba.classList.add('swapping');
+    setTimeout(() => {
+      imB.src = 'images/uolos/' + t.dataset.before; imA.src = 'images/uolos/' + t.dataset.after;
+      imB.style.objectPosition = imA.style.objectPosition = t.dataset.pos;
+      Promise.all([imB, imA].map(i => i.decode ? i.decode().catch(() => {}) : 0)).then(() => { ba.classList.remove('swapping'); setPos(50); range.value = 50; });
+    }, 300);
+  }));
   const hintSlider = () => {
     const keys = [50, 78, 24, 50], seg = 900, t0 = performance.now() + 400;
     const step = t => {
