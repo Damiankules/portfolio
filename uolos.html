@@ -444,9 +444,9 @@
         <p class="lead">Šviesa, šešėliai ir tekstūra — tikrame mūsų darbe.</p>
       </div>
       <div class="reel">
-        <div class="clip" style="background-image:url(images/uolos/sviesa.jpg)"><video src="images/uolos/sviesa.mp4" poster="images/uolos/sviesa.jpg" muted loop playsinline preload="none" aria-label="Šviesa ant uolos reljefo"></video><span>Šviesa</span></div>
-        <div class="clip" style="--d:120ms;background-image:url(images/uolos/siena.jpg)"><video src="images/uolos/siena.mp4" poster="images/uolos/siena.jpg" muted loop playsinline preload="none" aria-label="Uolos siena"></video><span>Reljefas</span></div>
-        <div class="clip" style="--d:240ms;background-image:url(images/uolos/tekstura.jpg)"><video src="images/uolos/tekstura.mp4" poster="images/uolos/tekstura.jpg" muted loop playsinline preload="none" aria-label="Uolos tekstūra iš arti"></video><span>Tekstūra</span></div>
+        <div class="clip" style="background-image:url(images/uolos/sviesa.jpg)"><video src="images/uolos/sviesa.mp4" poster="images/uolos/sviesa.jpg" muted loop playsinline webkit-playsinline disablepictureinpicture preload="metadata" aria-label="Šviesa ant uolos reljefo"></video><span>Šviesa</span></div>
+        <div class="clip" style="--d:120ms;background-image:url(images/uolos/siena.jpg)"><video src="images/uolos/siena.mp4" poster="images/uolos/siena.jpg" muted loop playsinline webkit-playsinline disablepictureinpicture preload="metadata" aria-label="Uolos siena"></video><span>Reljefas</span></div>
+        <div class="clip" style="--d:240ms;background-image:url(images/uolos/tekstura.jpg)"><video src="images/uolos/tekstura.mp4" poster="images/uolos/tekstura.jpg" muted loop playsinline webkit-playsinline disablepictureinpicture preload="metadata" aria-label="Uolos tekstūra iš arti"></video><span>Tekstūra</span></div>
       </div>
     </div>
   </section>
@@ -754,11 +754,18 @@
   requestAnimationFrame(loop);
 
   /* Autoplay reel videos only while visible */
-  const vio = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
-    const v = e.target;
-    if (e.isIntersecting) { v.preload = 'auto'; v.play().catch(() => {}); } else v.pause();
-  }), { threshold: .35 }) : null;
-  document.querySelectorAll('.clip video').forEach(v => vio ? vio.observe(v) : v.play().catch(() => {}));
+  /* Watch the whole reel section (not each clip): on phones two clips sit off to the side.
+     Start loading well before it scrolls into view, play all three together. */
+  const reelVids = [...document.querySelectorAll('.clip video')];
+  const startReel = () => reelVids.forEach(v => { v.muted = true; v.preload = 'auto'; if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } });
+  const stopReel = () => reelVids.forEach(v => v.pause());
+  const reel = document.querySelector('.reel');
+  if ('IntersectionObserver' in window && reel) {
+    new IntersectionObserver(([e]) => { if (e.isIntersecting) reelVids.forEach(v => { v.preload = 'auto'; v.load && v.readyState === 0 && v.load(); }); }, { rootMargin: '900px 0px' }).observe(reel);
+    new IntersectionObserver(([e]) => e.isIntersecting ? startReel() : stopReel(), { rootMargin: '150px 0px' }).observe(reel);
+  } else startReel();
+  reelVids.forEach(v => v.addEventListener('canplay', () => { if (reel && reel.getBoundingClientRect().top < innerHeight + 150 && reel.getBoundingClientRect().bottom > -150) startReel(); }));
+  ['touchstart','scroll'].forEach(ev => addEventListener(ev, () => { if (reel && reel.getBoundingClientRect().top < innerHeight && reel.getBoundingClientRect().bottom > 0 && reelVids.some(v => v.paused)) startReel(); }, { passive: true }));
 
   /* Project gallery lightbox */
   const cards = [...document.querySelectorAll('.project')];
