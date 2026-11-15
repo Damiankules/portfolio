@@ -92,9 +92,10 @@
   /* ---------- Hero ---------- */
   .hero{ position:relative; min-height:calc(100svh - 80px); display:flex; align-items:flex-end; color:var(--cream); background:var(--ink); overflow:hidden; }
   /* HERO PHOTO: change --hero to the client's best photo (horizontal, min. 1920px wide) */
-  .hero{ --hero:url('images/uolos/zidinys-po.jpg'); --hero-pos:center 62%; }
-  @media(min-width:900px){ .hero{ --hero-pos:center 6%; } }
+  .hero{ --hero:url('images/uolos/hero.jpg'); --hero-pos:center 50%; }
   .hero-bg{ position:absolute; inset:-6%; background:var(--hero) var(--hero-pos)/cover no-repeat, var(--ink); animation:kenburns 24s ease-in-out infinite alternate; will-change:transform; }
+  .hero-bg video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .hero-frame{ display:none; }
   @keyframes kenburns{ from{ transform:scale(1.04); } to{ transform:scale(1.14) translate(-1.5%,-1%); } }
   @keyframes drift{ from{ transform:scale(1.02) translate(0,0); } to{ transform:scale(1.1) translate(-2%,-1.5%); } }
   .hero-light{ position:absolute; left:0; top:0; width:110vmax; height:110vmax; margin:-55vmax 0 0 -55vmax; border-radius:50%; background:radial-gradient(closest-side, rgba(255,205,150,.55), rgba(255,190,130,.16) 45%, transparent 72%); mix-blend-mode:overlay; pointer-events:none; will-change:transform; }
@@ -117,6 +118,20 @@
     .scroll-cue i::after{ content:""; position:absolute; left:0; top:-50%; width:1px; height:50%; background:var(--clay-soft); animation:cue 2.2s var(--ease) infinite; }
   }
   @keyframes cue{ to{ top:100%; } }
+
+  @media(min-width:900px){
+    .hero{ --fw:min(25vw, 330px, calc((100svh - 230px) * .5625)); --fr:max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter))); --fb:64px; }
+    .hero .wrap{ padding-top:90px; padding-bottom:var(--fb); }
+    .hero .scroll-cue{ display:none; }
+    .hero .lead{ margin-bottom:32px; }
+    .hero-bg{ filter:blur(14px) brightness(.55) saturate(.9); }
+    .hero-frame{ display:block; position:absolute; z-index:2; right:var(--fr); bottom:var(--fb); width:var(--fw); aspect-ratio:9/16; border-radius:22px; overflow:hidden; box-shadow:0 40px 80px -30px rgba(0,0,0,.7), 0 0 0 1px rgba(244,238,230,.12); opacity:0; translate:0 40px; transition:opacity 1.2s ease .6s, translate 1.4s var(--ease) .6s; }
+    .hero-frame.in{ opacity:1; translate:0 0; }
+    .hero-frame video{ width:100%; height:100%; object-fit:cover; display:block; }
+    .hero .wrap > *{ max-width:calc(100% - var(--fw) - 56px) !important; }
+    .hero h1{ font-size:clamp(3rem,5vw,5rem); }
+    .ring{ top:auto !important; bottom:calc(var(--fb) - 45px); right:calc(var(--fr) + var(--fw) - 85px); width:140px !important; height:140px !important; }
+  }
 
   /* ---------- Marquee ---------- */
   .marquee{ background:var(--clay); color:var(--cream); overflow:hidden; padding:22px 0; }
@@ -333,7 +348,8 @@
 <main>
   <!-- HERO -->
   <section class="hero on-dark" aria-label="Įvadas">
-    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-bg" aria-hidden="true"><video src="images/uolos/hero.mp4" poster="images/uolos/hero.jpg" autoplay muted loop playsinline preload="auto"></video></div>
+    <div class="hero-frame fade-up" aria-hidden="true"><video src="images/uolos/hero.mp4" poster="images/uolos/hero.jpg" autoplay muted loop playsinline preload="auto"></video></div>
     <div class="hero-light" aria-hidden="true"></div>
     <div class="ring" aria-hidden="true">
       <svg viewBox="0 0 100 100"><defs><path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
@@ -574,6 +590,11 @@
     walk(el);
     el.querySelectorAll('.w > span').forEach((s, i) => s.style.transitionDelay = (i * 70) + 'ms');
   });
+
+  /* Hero videos: keep the sharp frame in sync with the blurred background */
+  const hv = [...document.querySelectorAll('.hero video')];
+  hv.forEach(v => { v.muted = true; v.play().catch(() => {}); });
+  if (hv.length === 2) setInterval(() => { if (Math.abs(hv[0].currentTime - hv[1].currentTime) > .25) hv[0].currentTime = hv[1].currentTime; }, 2000);
 
   /* Hero intro on load */
   requestAnimationFrame(() => setTimeout(() => {
