@@ -342,6 +342,29 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
   .callbar .btn{justify-content:center;padding:13px 10px}
   .scroll-hint{display:none}
 }
+
+/* EKRANY DOTYKOWE – bez „przyklejonych” efektów najechania */
+@media (hover:none){
+  .tile p{max-height:none;opacity:.88}
+  .tile:hover img,.g-item:hover img{transform:none}
+  .g-item figcaption{opacity:1;transform:none;font-size:.72rem;padding:4px 10px;left:8px;bottom:8px}
+  .fact:hover{transform:none;box-shadow:none}
+  .fact:hover .fact-ico{background:var(--sand);color:var(--berry)}
+  .btn:hover{transform:none}
+  .btn:hover svg{transform:none}
+  .btn-primary:hover{background:var(--berry)}
+  .btn-primary:hover::after{left:-75%;transition:none}
+  .btn-ghost:hover{background:rgba(255,255,255,.08);color:#fff}
+  .btn-line:hover{background:transparent;color:var(--ink)}
+  .kupolas .btn-line:hover{background:transparent;color:var(--cream)}
+  .filter:hover:not(.active){background:transparent;color:var(--ink);border-color:var(--line)}
+  .occ-list li:hover{padding-left:4px;color:inherit}
+  .occ-list li:hover::before{opacity:0}
+  a.c-item:hover{transform:none;border-color:var(--line)}
+  .c-item:hover .c-ico svg{animation:none}
+  .btn:active,.c-item:active,.filter:active{transform:scale(.97)}
+  .tile:active img,.g-item:active img{transform:scale(1.03)}
+}
 </style>
 </head>
 <body>
@@ -535,7 +558,7 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
     <div class="gallery stagger" id="gallery">
       <figure class="g-item" data-cat="lauke"><img src="img/RSodyba-sm.jpg" data-full="img/RSodyba.jpg" alt="Sodybos pastatas su terasa" loading="lazy" width="700" height="467"><figcaption>Sodyba</figcaption></figure>
       <figure class="g-item" data-cat="viduje"><img src="img/1-sm.jpg" data-full="img/1.jpg" alt="Pokylių salė" loading="lazy" width="700" height="467"><figcaption>Pokylių salė</figcaption></figure>
-      <figure class="g-item" data-cat="lauke"><img src="img/tvenkinys-ruduo-sm.jpg" data-full="img/tvenkinys-ruduo.jpg" alt="Sodyba prie tvenkinio rudenį" loading="lazy" width="700" height="467"><figcaption>Tvenkinys</figcaption></figure>
+      <figure class="g-item" data-cat="lauke"><img src="img/tvenkinys-ruduo-sm.jpg" data-full="img/tvenkinys-ruduo.jpg" alt="Sodyba prie tvenkinio rudenį" loading="lazy" width="700" height="467"><figcaption>Tvenkinys rudenį</figcaption></figure>
       <figure class="g-item" data-cat="viduje"><img src="img/sale-ziema-sm.jpg" data-full="img/sale-ziema.jpg" alt="Pokylių salė su vaizdu į žiemos kiemą" loading="lazy" width="700" height="467"><figcaption>Salė žiemą</figcaption></figure>
       <figure class="g-item" data-cat="lauke"><img src="img/sodyba-ziema-sm.jpg" data-full="img/sodyba-ziema.jpg" alt="Sodyba žiemą su girliandomis" loading="lazy" width="700" height="467"><figcaption>Sodyba žiemą</figcaption></figure>
       <figure class="g-item" data-cat="lauke"><img src="img/kiemas-ziema-sm.jpg" data-full="img/kiemas-ziema.jpg" alt="Sodybos kiemas žiemą su girliandomis" loading="lazy" width="700" height="467"><figcaption>Kiemas žiemą</figcaption></figure>
@@ -547,7 +570,7 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
       <figure class="g-item" data-cat="lauke"><img src="img/DSC_1316-sm.jpg" data-full="img/DSC_1316.jpg" alt="Sodyba nuo tvenkinio pusės" loading="lazy" width="700" height="467"><figcaption>Vaizdas nuo tvenkinio</figcaption></figure>
       <figure class="g-item" data-cat="viduje"><img src="img/3-sm.jpg" data-full="img/3.jpg" alt="Poilsio zona su sofomis" loading="lazy" width="700" height="467"><figcaption>Poilsio zona</figcaption></figure>
       <figure class="g-item" data-cat="viduje"><img src="img/5-sm.jpg" data-full="img/5.jpg" alt="Biliardas" loading="lazy" width="700" height="467"><figcaption>Biliardas</figcaption></figure>
-      <figure class="g-item" data-cat="lauke"><img src="img/DSC_4697-sm.jpg" data-full="img/DSC_4697.jpg" alt="Tvenkinys ir pavėsinė" loading="lazy" width="700" height="468"><figcaption>Tvenkinys</figcaption></figure>
+      <figure class="g-item" data-cat="lauke"><img src="img/DSC_4697-sm.jpg" data-full="img/DSC_4697.jpg" alt="Tvenkinys ir pavėsinė" loading="lazy" width="700" height="468"><figcaption>Tvenkinys vasarą</figcaption></figure>
       <figure class="g-item" data-cat="viduje"><img src="img/4-sm.jpg" data-full="img/4.jpg" alt="Virtuvė" loading="lazy" width="700" height="468"><figcaption>Virtuvė</figcaption></figure>
       <figure class="g-item" data-cat="viduje"><img src="img/6-sm.jpg" data-full="img/6.jpg" alt="Koklinė krosnis" loading="lazy" width="700" height="467"><figcaption>Krosnis</figcaption></figure>
       <figure class="g-item" data-cat="lauke"><img src="img/DSC_4699-sm.jpg" data-full="img/DSC_4699.jpg" alt="Sodybos panorama" loading="lazy" width="700" height="467"><figcaption>Panorama</figcaption></figure>
@@ -633,7 +656,7 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
   const burger = document.getElementById('burger');
   const progress = document.getElementById('progress');
   const heroBg = document.querySelector('.hero-bg');
-  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover:hover) and (min-width:861px)').matches;
   const onScroll = () => {
     const y = window.scrollY;
     nav.classList.toggle('scrolled', y > 60);
@@ -658,7 +681,7 @@ footer{background:var(--ink);color:rgba(246,241,232,.7);padding:70px 0 40px}
   // reveal
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-  }), {threshold:.12});
+  }), {threshold:0, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   document.querySelectorAll('.stagger').forEach(el => {
     [...el.children].forEach((c, i) => c.style.transitionDelay = Math.min(i, 8) * 80 + 'ms');
