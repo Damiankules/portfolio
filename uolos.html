@@ -247,6 +247,32 @@
   .reveal.in{ opacity:1; transform:none; }
   .project.reveal{ transform:none; }
 
+  /* Lightbox (project gallery) */
+  .project{ cursor:pointer; }
+  .project:focus-visible{ outline:2px solid var(--clay); outline-offset:4px; }
+  .lb{ position:fixed; inset:0; z-index:150; display:grid; place-items:center; padding:72px var(--gutter) 24px; visibility:hidden; opacity:0; transition:opacity .45s ease, visibility 0s linear .45s; }
+  .lb.open{ visibility:visible; opacity:1; transition:opacity .45s ease; }
+  .lb-backdrop{ position:absolute; inset:0; background:rgba(20,17,15,.94); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+  .lb-fig{ position:relative; width:min(1100px,100%); display:grid; gap:20px; transform:translateY(24px) scale(.97); transition:transform .6s var(--ease); }
+  .lb.open .lb-fig{ transform:none; }
+  .lb-media{ position:relative; isolation:isolate; overflow:hidden; border-radius:18px; aspect-ratio:4/5; max-height:66svh; width:100%; background:var(--ink-2); }
+  .lb-media > *{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .lb-media .ph{ z-index:0; translate:none; transform:none; padding:20px; }
+  .lb-media.swap > *{ animation:lbIn .6s var(--ease); }
+  @keyframes lbIn{ from{ opacity:0; transform:scale(1.04); } to{ opacity:1; transform:none; } }
+  .lb-cap{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:16px; color:var(--cream); }
+  .lb-cap .project-tag{ margin-bottom:6px; }
+  .lb-cap h3{ font-size:clamp(1.6rem,4.5vw,2.4rem); }
+  .lb-count{ font-family:var(--sans); font-size:.78rem; letter-spacing:.2em; color:rgba(244,238,230,.5); margin-left:12px; }
+  .lb-btn{ position:absolute; z-index:2; width:52px; height:52px; border-radius:50%; border:1px solid rgba(244,238,230,.3); background:rgba(29,25,22,.5); color:var(--cream); font-size:1.2rem; cursor:pointer; display:grid; place-items:center; transition:background .3s, color .3s, transform .3s var(--ease); }
+  .lb-btn:hover{ background:var(--cream); color:var(--ink); }
+  .lb-btn:active{ transform:scale(.92); }
+  .lb-close{ top:14px; right:var(--gutter); }
+  .lb-prev, .lb-next{ top:50%; margin-top:-60px; }
+  .lb-prev{ left:calc(var(--gutter) + 12px); } .lb-next{ right:calc(var(--gutter) + 12px); }
+  @media(min-width:760px){ .lb-media{ aspect-ratio:16/10; } .lb-prev{ left:24px; } .lb-next{ right:24px; } .lb-prev, .lb-next{ margin-top:-26px; } }
+  body.lb-lock{ overflow:hidden; }
+
   /* Parallax layer inside photo cards (driven by scroll in JS) */
   .project .ph{ inset:-40px 0; padding-top:60px; translate:0 var(--py,0px); }
 
@@ -444,6 +470,20 @@
   </div>
 </footer>
 
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Darbų galerija">
+  <div class="lb-backdrop" data-close></div>
+  <figure class="lb-fig">
+    <div class="lb-media" id="lb-media"></div>
+    <figcaption class="lb-cap">
+      <div><p class="project-tag" id="lb-tag"></p><h3><span id="lb-title"></span><span class="lb-count" id="lb-count"></span></h3></div>
+      <a href="#kontaktai" class="btn btn-light" data-close>Noriu tokios uolos <span class="arr">→</span></a>
+    </figcaption>
+  </figure>
+  <button class="lb-btn lb-close" data-close aria-label="Uždaryti">✕</button>
+  <button class="lb-btn lb-prev" aria-label="Ankstesnis darbas">←</button>
+  <button class="lb-btn lb-next" aria-label="Kitas darbas">→</button>
+</div>
+
 <a href="tel:+37064701728" class="fab" aria-label="Skambinti">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
   Skambinti
@@ -583,6 +623,46 @@
     requestAnimationFrame(loop);
   };
   requestAnimationFrame(loop);
+
+  /* Project gallery lightbox */
+  const cards = [...document.querySelectorAll('.project')];
+  const lb = document.getElementById('lb'), lbMedia = document.getElementById('lb-media');
+  const lbTag = document.getElementById('lb-tag'), lbTitle = document.getElementById('lb-title'), lbCount = document.getElementById('lb-count');
+  let cur = 0, lastFocus = null;
+  const show = i => {
+    cur = (i + cards.length) % cards.length;
+    const card = cards[cur], media = card.firstElementChild.cloneNode(true);
+    media.style.removeProperty('--py');
+    lbMedia.classList.remove('swap'); void lbMedia.offsetWidth;
+    lbMedia.replaceChildren(media); lbMedia.classList.add('swap');
+    lbTag.textContent = card.querySelector('.project-tag').textContent;
+    lbTitle.textContent = card.querySelector('h3').textContent;
+    lbCount.textContent = `${cur + 1} / ${cards.length}`;
+  };
+  const open = i => { lastFocus = document.activeElement; show(i); lb.classList.add('open'); document.body.classList.add('lb-lock'); lb.querySelector('.lb-close').focus({ preventScroll: true }); };
+  const close = () => { lb.classList.remove('open'); document.body.classList.remove('lb-lock'); if (lastFocus) lastFocus.focus({ preventScroll: true }); };
+  cards.forEach((c, i) => {
+    c.tabIndex = 0; c.setAttribute('role', 'button');
+    c.setAttribute('aria-label', 'Atidaryti: ' + c.querySelector('h3').textContent);
+    c.addEventListener('click', () => open(i));
+    c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); } });
+  });
+  lb.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', close));
+  lb.querySelector('.lb-prev').addEventListener('click', () => show(cur - 1));
+  lb.querySelector('.lb-next').addEventListener('click', () => show(cur + 1));
+  addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(cur - 1);
+    if (e.key === 'ArrowRight') show(cur + 1);
+  });
+  let sx = null;
+  lbMedia.addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
+  lbMedia.addEventListener('touchend', e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx; sx = null;
+    if (Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1));
+  });
 })();
 </script>
 </body>
