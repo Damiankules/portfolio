@@ -13,7 +13,7 @@
 <meta property="og:description" content="Unikalūs uolų reljefai ir dekoratyvinės akmens kompozicijos, kuriamos rankomis.">
 <meta property="og:image" content="images/uolos/og.jpg">
 <link rel="icon" href="images/uolos/logo-mark.png">
-<link rel="preload" as="image" href="images/uolos/miegamasis-po.webp" type="image/webp">
+<link rel="preload" as="image" href="images/uolos/miegamasis-viz.webp" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -109,11 +109,22 @@
   /* ---------- Hero ---------- */
   .hero{ position:relative; display:grid; background:var(--cream); }
   .hero-media{ position:relative; overflow:hidden; height:56svh; min-height:360px; background:var(--sand); }
-  .hero-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 42%; transform:scale(1.12); animation:heroIn 2.4s var(--ease) forwards, kenburns 26s ease-in-out 2.4s infinite alternate; }
+  .hero-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1.1); transition:opacity 1.8s ease; }
+  .hero-media img.on{ opacity:1; z-index:1; animation:slideZoom 9s linear forwards; }
+  .hero-media img.off{ opacity:0; z-index:0; transition:opacity 1.8s ease; }
+  @keyframes slideZoom{ from{ transform:scale(1.1) translate(var(--fx,0),var(--fy,0)); } to{ transform:scale(1.01) translate(0,0); } }
+  .hero-dots{ position:absolute; z-index:3; right:16px; top:16px; display:flex; gap:6px; }
+  .hero-dots button{ filter:drop-shadow(0 1px 4px rgba(0,0,0,.35)); }
+  .hero-dots button{ position:relative; width:36px; height:16px; border:0; background:none; cursor:pointer; padding:0; }
+  .hero-dots button::before, .hero-dots button::after{ content:""; position:absolute; left:0; right:0; top:7px; height:2px; background:rgba(247,244,238,.4); }
+  .hero-dots button::after{ background:var(--cream); transform:scaleX(0); transform-origin:left; }
+  .hero-dots button.on::after{ animation:dotFill var(--dur,6.5s) linear forwards; }
+  .hero-dots button.done::after{ transform:scaleX(1); }
+  @keyframes dotFill{ to{ transform:scaleX(1); } }
   @keyframes heroIn{ to{ transform:scale(1.02); } }
   @keyframes kenburns{ from{ transform:scale(1.02); } to{ transform:scale(1.09) translate(-1%,-1%); } }
-  .hero-media::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent 70%, rgba(41,38,34,.28)); pointer-events:none; }
-  .hero-tag{ position:absolute; z-index:1; left:20px; bottom:18px; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--cream); display:flex; align-items:center; gap:10px; }
+  .hero-media::after{ content:""; position:absolute; inset:0; z-index:2; background:linear-gradient(180deg, rgba(41,38,34,.18) 0%, transparent 18%, transparent 62%, rgba(41,38,34,.5)); pointer-events:none; }
+  .hero-tag{ position:absolute; z-index:3; transition:opacity .6s ease; left:20px; bottom:18px; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--cream); display:flex; align-items:center; gap:10px; }
   .hero-tag::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--clay); box-shadow:0 0 0 4px rgba(183,124,91,.3); }
   .hero-text{ padding:44px var(--gutter) 64px; }
   .hero h1{ font-size:clamp(2.6rem,9.5vw,5rem); margin-bottom:22px; }
@@ -130,6 +141,7 @@
     .hero .sub{ max-width:34ch; }
     .hero .btn{ padding:16px 24px; }
     .hero-tag{ left:28px; bottom:26px; }
+    .hero-dots{ top:auto; right:28px; bottom:26px; gap:8px; }
   }
 
   /* ---------- Sections ---------- */
@@ -337,7 +349,8 @@
   .pcard.reveal, .arch.reveal{ transform:none; }
 
   @media(prefers-reduced-motion:reduce){
-    .hero-media img{ animation:heroIn 1.2s var(--ease) forwards; }
+    .hero-media img.on{ animation:none; transform:none; }
+    .hero-dots button.on::after{ animation:none; transform:scaleX(1); }
     html{ scroll-behavior:auto; }
   }
 </style>
@@ -364,9 +377,13 @@
 <main>
   <!-- 3. HERO -->
   <section class="hero" aria-label="Įvadas" style="padding:0">
-    <div class="hero-media">
-      <img src="images/uolos/miegamasis-po.webp" alt="Šviesus rankomis suformuotas uolos reljefas miegamajame su sieniniais šviestuvais" width="720" height="1280" fetchpriority="high">
-      <span class="hero-tag">Įgyvendintas projektas · Miegamasis</span>
+    <div class="hero-media" id="hero-slides">
+      <img class="on" src="images/uolos/miegamasis-viz.webp" alt="Vizualizacija: uolos reljefas miegamajame su šviestuvais" fetchpriority="high" data-tag="Vizualizacija · Miegamasis" style="object-position:center 35%;--fx:-1.5%;--fy:1%">
+      <img src="images/uolos/miegamasis-lempos.webp" alt="Įgyvendintas projektas: šviestuvų šviesa ant uolos reljefo" data-tag="Įgyvendintas projektas · Miegamasis" style="object-position:center 30%;--fx:1.5%;--fy:-1%">
+      <img src="images/uolos/zidinys-viz.webp" alt="Vizualizacija: šviesi uola prie židinio" data-tag="Vizualizacija · Svetainė su židiniu" style="object-position:center 45%;--fx:-1%;--fy:-1.5%">
+      <img src="images/uolos/akmeniskumas.webp" alt="Uolos paviršiaus faktūra iš arti" data-tag="Detalė · Paviršiaus faktūra" style="object-position:center 50%;--fx:1%;--fy:1.5%">
+      <span class="hero-tag" id="hero-tag">Vizualizacija · Miegamasis</span>
+      <div class="hero-dots" id="hero-dots" aria-label="Nuotraukos"></div>
     </div>
     <div class="hero-text">
       <p class="eyebrow fade-up">Dekoratyviniai uolų reljefai</p>
@@ -689,6 +706,29 @@
     walk(el);
     el.querySelectorAll('.w > span').forEach((s, i) => s.style.transitionDelay = (i * 60) + 'ms');
   });
+
+  /* ---------- Hero slideshow ---------- */
+  (() => {
+    const box = document.getElementById('hero-slides'), slides = [...box.querySelectorAll('img')];
+    const tag = document.getElementById('hero-tag'), dotsBox = document.getElementById('hero-dots');
+    const DUR = 6500; let i = 0, timer = null;
+    const dots = slides.map((_, k) => { const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Nuotrauka ' + (k + 1)); b.style.setProperty('--dur', DUR + 'ms'); b.addEventListener('click', () => go(k)); dotsBox.appendChild(b); return b; });
+    const go = n => {
+      const prev = slides[i]; i = (n + slides.length) % slides.length;
+      if (prev !== slides[i]) { prev.classList.remove('on'); prev.classList.add('off'); setTimeout(() => prev.classList.remove('off'), 1900); }
+      const s = slides[i]; s.classList.remove('off'); void s.offsetWidth; s.classList.add('on');
+      tag.style.opacity = 0; setTimeout(() => { tag.textContent = s.dataset.tag; tag.style.opacity = 1; }, 350);
+      dots.forEach((d, k) => { d.classList.remove('on'); d.classList.toggle('done', k < i); });
+      void dots[i].offsetWidth; dots[i].classList.add('on');
+      slides[(i + 1) % slides.length].loading = 'eager';
+      clearTimeout(timer); timer = setTimeout(() => go(i + 1), DUR);
+    };
+    let sx = null;
+    box.addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
+    box.addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1)); });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) clearTimeout(timer); else go(i); });
+    go(0);
+  })();
 
   /* ---------- Hero intro ---------- */
   requestAnimationFrame(() => setTimeout(() => {
