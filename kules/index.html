@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Damian Kulesz — svetainių kūrimas verslui</title>
+<meta name="description" content="Kuriu individualias svetaines verslui Lietuvoje: dizainas, pritaikymas telefonui, užklausų forma, domeno prijungimas ir priežiūra.">
+<meta name="theme-color" content="#0E0E0E">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="lt_LT">
+<meta property="og:title" content="Damian Kulesz — svetainių kūrimas verslui">
+<meta property="og:description" content="Svetainės, kurios atrodo brangiai ir atneša klientų.">
+<meta property="og:image" content="images/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E0E0E; --bg-2:#161616; --card:#1A1A1A;
+    --fg:#F2EFEA; --muted:rgba(242,239,234,.62); --dim:rgba(242,239,234,.4);
+    --line:rgba(242,239,234,.12); --accent:#C98F6A;
+    --head:'Space Grotesk', system-ui, sans-serif; --body:'Inter', system-ui, sans-serif;
+    --gutter:clamp(20px,5vw,56px); --max:1180px; --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body{ background:var(--bg); color:var(--fg); font-family:var(--body); line-height:1.6; overflow-x:hidden; }
+  img{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  button, input, textarea{ font:inherit; color:inherit; }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 var(--gutter); }
+  .glow{ position:absolute; inset:0; pointer-events:none; background:radial-gradient(55% 45% at 85% 0%, rgba(201,143,106,.20), transparent 70%), radial-gradient(45% 40% at 0% 100%, rgba(120,120,160,.12), transparent 70%); }
+
+  .tag{ font-family:var(--head); font-size:.78rem; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; }
+  h1,h2,h3{ font-family:var(--head); font-weight:700; letter-spacing:-.02em; line-height:1.04; }
+  h1{ font-size:clamp(2.6rem,8vw,5.6rem); }
+  h2{ font-size:clamp(2rem,5.5vw,3.6rem); }
+  h3{ font-size:clamp(1.3rem,3vw,1.6rem); font-weight:500; letter-spacing:-.01em; }
+  .accent{ color:var(--accent); }
+  .lead{ font-size:clamp(1.02rem,2.2vw,1.2rem); color:var(--muted); max-width:56ch; }
+
+  .btn{ display:inline-flex; align-items:center; gap:10px; padding:16px 26px; border-radius:999px; font-family:var(--head); font-weight:500; font-size:.98rem; transition:transform .25s, background .3s, color .3s, border-color .3s; cursor:pointer; border:0; }
+  .btn:active{ transform:scale(.97); }
+  .btn .arr{ transition:transform .4s var(--ease); }
+  .btn:hover .arr{ transform:translateX(4px); }
+  .btn-main{ background:var(--fg); color:var(--bg); }
+  .btn-main:hover{ background:var(--accent); color:var(--bg); }
+  .btn-line{ border:1px solid rgba(242,239,234,.3); background:transparent; }
+  .btn-line:hover{ border-color:var(--fg); }
+
+  /* header */
+  header{ position:sticky; top:0; z-index:50; background:rgba(14,14,14,.78); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid transparent; transition:border-color .3s; }
+  header.scrolled{ border-color:var(--line); }
+  .nav{ height:72px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .logo{ font-family:var(--head); font-weight:700; font-size:1.5rem; letter-spacing:-.03em; }
+  .nav-links{ display:none; gap:30px; font-size:.92rem; color:var(--muted); }
+  .nav-links a:hover{ color:var(--fg); }
+  .nav .btn{ padding:11px 20px; font-size:.9rem; }
+  @media(min-width:860px){ .nav-links{ display:flex; } }
+
+  /* hero */
+  .hero{ position:relative; padding:clamp(70px,12vw,150px) 0 clamp(70px,10vw,120px); overflow:hidden; }
+  .hero .wrap{ position:relative; }
+  .hero h1{ max-width:15ch; margin-bottom:28px; }
+  .hero .lead{ margin-bottom:40px; }
+  .row{ display:flex; flex-wrap:wrap; gap:12px; }
+  .hero-meta{ display:flex; flex-wrap:wrap; gap:10px; margin-top:56px; }
+  .pill{ padding:9px 16px; border:1px solid var(--line); border-radius:999px; font-size:.85rem; color:var(--muted); }
+
+  section{ padding:clamp(80px,11vw,140px) 0; position:relative; }
+  .head{ display:grid; gap:18px; margin-bottom:clamp(40px,6vw,64px); }
+  @media(min-width:860px){ .head{ grid-template-columns:1.2fr .8fr; align-items:end; gap:60px; } }
+
+  /* work */
+  .work{ display:grid; gap:28px; }
+  .case{ position:relative; display:grid; gap:22px; padding:clamp(18px,3vw,28px); background:var(--card); border:1px solid var(--line); border-radius:24px; overflow:hidden; transition:border-color .4s, transform .5s var(--ease); }
+  .case:hover{ border-color:rgba(242,239,234,.28); transform:translateY(-4px); }
+  .shot{ position:relative; border-radius:14px; overflow:hidden; background:#000; aspect-ratio:16/10; }
+  .shot > img{ width:100%; height:100%; object-fit:cover; object-position:top; transition:transform 1.4s var(--ease); }
+  .case:hover .shot > img{ transform:scale(1.03); }
+  .shot .ph{ position:absolute; right:4%; bottom:-14%; width:24%; border-radius:16px; overflow:hidden; border:5px solid #050505; box-shadow:0 20px 50px -10px rgba(0,0,0,.8); }
+  .case-meta{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:14px 24px; }
+  .case-meta p{ color:var(--muted); margin-top:6px; max-width:52ch; }
+  .badge{ display:inline-block; font-family:var(--head); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; padding:6px 12px; border-radius:999px; margin-bottom:12px; }
+  .badge.real{ background:var(--accent); color:var(--bg); }
+  .badge.concept{ border:1px solid rgba(242,239,234,.3); color:var(--muted); }
+  .case .go{ font-family:var(--head); font-size:.92rem; display:inline-flex; gap:8px; align-items:center; border-bottom:1px solid currentColor; padding-bottom:4px; white-space:nowrap; }
+  .case:hover .go{ color:var(--accent); }
+  @media(min-width:860px){
+    .work{ grid-template-columns:repeat(3,1fr); }
+    .case.big{ grid-column:1 / -1; grid-template-columns:1.6fr 1fr; align-items:center; gap:40px; }
+    .case.big .shot{ aspect-ratio:16/10; }
+    .case.big .case-meta{ flex-direction:column; align-items:flex-start; }
+  }
+
+  /* services */
+  .services{ display:grid; gap:0; border-top:1px solid var(--line); }
+  .svc{ display:grid; grid-template-columns:60px 1fr; gap:6px 16px; padding:28px 0; border-bottom:1px solid var(--line); }
+  .svc b{ grid-row:span 2; font-family:var(--head); font-weight:500; color:var(--accent); font-size:1rem; padding-top:4px; }
+  .svc p{ color:var(--muted); }
+  @media(min-width:860px){ .services{ grid-template-columns:1fr 1fr; column-gap:64px; } }
+
+  /* process */
+  .steps{ display:grid; gap:16px; }
+  .step{ padding:28px; background:var(--card); border:1px solid var(--line); border-radius:20px; }
+  .step span{ font-family:var(--head); color:var(--accent); font-size:.95rem; }
+  .step h3{ margin:14px 0 8px; }
+  .step p{ color:var(--muted); font-size:.96rem; }
+  @media(min-width:860px){ .steps{ grid-template-columns:repeat(4,1fr); } }
+
+  /* price */
+  .price{ position:relative; overflow:hidden; border:1px solid var(--line); border-radius:28px; padding:clamp(32px,6vw,72px); background:var(--bg-2); }
+  .price .inner{ position:relative; display:grid; gap:28px; }
+  @media(min-width:860px){ .price .inner{ grid-template-columns:1.2fr .8fr; align-items:end; gap:60px; } }
+
+  /* contact */
+  .contact-grid{ display:grid; gap:48px; }
+  .mail{ display:inline-block; margin-top:28px; font-family:var(--head); font-size:clamp(1.2rem,3.6vw,1.8rem); border-bottom:1px solid var(--line); padding-bottom:6px; word-break:break-all; transition:color .3s, border-color .3s; }
+  .mail:hover{ color:var(--accent); border-color:var(--accent); }
+  .form{ display:grid; gap:22px; padding:clamp(24px,4vw,40px); background:var(--card); border:1px solid var(--line); border-radius:24px; }
+  .two{ display:grid; gap:22px; }
+  @media(min-width:600px){ .two{ grid-template-columns:1fr 1fr; } }
+  .field{ display:grid; gap:8px; }
+  .field label{ font-family:var(--head); font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); }
+  .field input, .field textarea{ width:100%; background:transparent; border:0; border-bottom:1px solid rgba(242,239,234,.22); padding:10px 0 12px; color:var(--fg); font-size:1rem; outline:none; border-radius:0; transition:border-color .3s; }
+  .field textarea{ min-height:110px; resize:vertical; }
+  .field input:focus, .field textarea:focus{ border-color:var(--accent); }
+  .field input::placeholder, .field textarea::placeholder{ color:rgba(242,239,234,.28); }
+  .form .btn{ justify-self:start; }
+  .note{ font-size:.82rem; color:var(--dim); }
+  .status{ display:none; padding:14px 16px; border-left:2px solid var(--accent); background:rgba(201,143,106,.12); }
+  .status.show{ display:block; }
+  .hp{ position:absolute; left:-9999px; }
+  @media(min-width:860px){ .contact-grid{ grid-template-columns:.9fr 1.1fr; gap:72px; align-items:start; } }
+
+  footer{ border-top:1px solid var(--line); padding:32px 0 40px; color:var(--dim); font-size:.85rem; }
+  footer .wrap{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; }
+
+  /* reveal */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .9s ease, transform .9s var(--ease); }
+  .reveal.in{ opacity:1; transform:none; }
+  @media(prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; transition:none; } html{ scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Pradžia">DK<span class="accent">.</span></a>
+    <nav class="nav-links" aria-label="Navigacija">
+      <a href="#darbai">Darbai</a>
+      <a href="#paslaugos">Paslaugos</a>
+      <a href="#procesas">Procesas</a>
+      <a href="#kontaktai">Kontaktai</a>
+    </nav>
+    <a href="#kontaktai" class="btn btn-main">Parašyti</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="glow"></div>
+    <div class="wrap">
+      <p class="tag reveal">Damian Kulesz · Svetainių kūrimas</p>
+      <h1 class="reveal">Svetainės, kurios atrodo <span class="accent">brangiai</span> ir atneša klientų.</h1>
+      <p class="lead reveal">Kuriu individualias svetaines verslui Lietuvoje — be šablonų. Dizainas, pritaikymas telefonui, užklausų forma, domeno prijungimas ir priežiūra — viskas vienoje vietoje.</p>
+      <div class="row reveal">
+        <a href="#darbai" class="btn btn-main">Peržiūrėti darbus <span class="arr">→</span></a>
+        <a href="#kontaktai" class="btn btn-line">Aptarti projektą</a>
+      </div>
+      <div class="hero-meta reveal">
+        <span class="pill">Individualus dizainas</span><span class="pill">Pritaikyta telefonui</span><span class="pill">Greitas paleidimas</span><span class="pill">Priežiūra</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="darbai" style="padding-top:0">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><p class="tag">Darbai</p><h2>Naujausi projektai</h2></div>
+        <p class="lead">Tikras kliento projektas ir dizaino koncepcijos, parodančios, ką galiu sukurti jūsų verslui.</p>
+      </div>
+      <div class="work">
+        <a class="case big reveal" href="https://uolos.lt" target="_blank" rel="noopener">
+          <div class="shot"><img src="images/uolos-d.webp" alt="uolos.lt svetainė kompiuteryje" loading="lazy"><div class="ph"><img src="images/uolos-m.webp" alt="" loading="lazy"></div></div>
+          <div class="case-meta">
+            <div>
+              <span class="badge real">Klientas</span>
+              <h3>uolos.lt</h3>
+              <p>Premium svetainė dekoratyvinių uolų reljefų studijai: projektų galerijos, „Prieš / Po“ palyginimas, užklausų forma su nuotraukos pridėjimu. Domenas prijungtas ir paleista.</p>
+            </div>
+            <span class="go">Atidaryti svetainę →</span>
+          </div>
+        </a>
+        <div class="case reveal">
+          <div class="shot"><img src="images/meridian-landing-d.webp" alt="Meridian Coffee koncepcija" loading="lazy"><div class="ph"><img src="images/meridian-landing-m.webp" alt="" loading="lazy"></div></div>
+          <div class="case-meta"><div><span class="badge concept">Koncepcija</span><h3>Meridian Coffee</h3><p>Kavinė: rezervacijos, meniu, lokacijos.</p></div></div>
+        </div>
+        <div class="case reveal">
+          <div class="shot"><img src="images/coffee-menu-d.webp" alt="Kavinės meniu koncepcija" loading="lazy"><div class="ph"><img src="images/coffee-menu-m.webp" alt="" loading="lazy"></div></div>
+          <div class="case-meta"><div><span class="badge concept">Koncepcija</span><h3>Kavinės meniu</h3><p>Interaktyvus meniu su filtrais.</p></div></div>
+        </div>
+        <div class="case reveal">
+          <div class="shot"><img src="images/asme-landing-d.webp" alt="Asme koncepcija" loading="lazy"><div class="ph"><img src="images/asme-landing-m.webp" alt="" loading="lazy"></div></div>
+          <div class="case-meta"><div><span class="badge concept">Koncepcija</span><h3>Asme</h3><p>Landing puslapis su „liquid glass“ efektu.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="paslaugos" style="padding-top:0">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><p class="tag">Ką gaunate</p><h2>Ne tik gražus puslapis</h2></div>
+        <p class="lead">Pasirūpinu viskuo — nuo dizaino iki svetainės paleidimo jūsų domene.</p>
+      </div>
+      <div class="services">
+        <div class="svc reveal"><b>01</b><h3>Individualus dizainas</h3><p>Pagal jūsų verslą, stilių ir klientus — ne šablonas.</p></div>
+        <div class="svc reveal"><b>02</b><h3>Pritaikyta telefonui</h3><p>Gerai atrodo ir veikia bet kuriame ekrane.</p></div>
+        <div class="svc reveal"><b>03</b><h3>Užklausų forma</h3><p>Klientų užklausos ateina tiesiai į jūsų el. paštą.</p></div>
+        <div class="svc reveal"><b>04</b><h3>Domenas ir paleidimas</h3><p>Prijungiu jūsų domeną ir paleidžiu svetainę.</p></div>
+        <div class="svc reveal"><b>05</b><h3>Greitis ir Google</h3><p>Optimizuotos nuotraukos, tvarkingi pavadinimai ir aprašymai paieškai.</p></div>
+        <div class="svc reveal"><b>06</b><h3>Priežiūra</h3><p>Vėliau pakeičiu nuotraukas ar tekstus, kai tik prireikia.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="procesas" style="padding-top:0">
+    <div class="wrap">
+      <div class="head reveal">
+        <div><p class="tag">Kaip dirbu</p><h2>Nuo idėjos iki veikiančios svetainės</h2></div>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><span>01</span><h3>Pokalbis</h3><p>Jūsų verslas, tikslai ir patinkantys pavyzdžiai.</p></div>
+        <div class="step reveal"><span>02</span><h3>Dizainas</h3><p>Parodau pirmą versiją ir tobuliname kartu.</p></div>
+        <div class="step reveal"><span>03</span><h3>Turinys</h3><p>Jūsų tekstai ir nuotraukos — arba padedu juos paruošti.</p></div>
+        <div class="step reveal"><span>04</span><h3>Paleidimas</h3><p>Jūsų domenas, forma, viskas veikia.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="price reveal">
+        <div class="glow"></div>
+        <div class="inner">
+          <div><p class="tag">Kaina</p><h2>Kaina — individuali</h2></div>
+          <div>
+            <p class="lead">Kiekvienas projektas skirtingas. Parašykite, kokios svetainės reikia — atsiųsiu tikslų pasiūlymą be įsipareigojimų.</p>
+            <div class="row" style="margin-top:28px"><a href="#kontaktai" class="btn btn-main">Gauti pasiūlymą <span class="arr">→</span></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontaktai" style="padding-top:0">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <p class="tag">Kontaktai</p>
+        <h2>Papasakokite apie savo projektą</h2>
+        <p class="lead" style="margin-top:20px">Trumpai aprašykite, ko reikia — atsakysiu kuo greičiau.</p>
+        <a class="mail" href="mailto:kulesdamian07@gmail.com">kulesdamian07@gmail.com</a>
+      </div>
+      <form class="form reveal" id="form" action="https://formsubmit.co/kulesdamian07@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nauja užklausa — svetainės kūrimas">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" id="f-next" value="">
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="status" id="f-status" role="status"></div>
+        <div class="two">
+          <div class="field"><label for="f-name">Vardas *</label><input id="f-name" name="Vardas" required autocomplete="name"></div>
+          <div class="field"><label for="f-email">El. paštas *</label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
+        </div>
+        <div class="field"><label for="f-biz">Verslas / esama svetainė</label><input id="f-biz" name="Verslas" placeholder="Pvz. kavinė Vilniuje, www.pavyzdys.lt"></div>
+        <div class="field"><label for="f-msg">Ko reikia? *</label><textarea id="f-msg" name="Žinutė" required placeholder="Kokios svetainės reikia, terminai, patinkantys pavyzdžiai…"></textarea></div>
+        <button class="btn btn-main" type="submit">Siųsti užklausą <span class="arr">→</span></button>
+        <p class="note">Jūsų duomenys naudojami tik atsakyti į užklausą.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© <span id="y">2026</span> Damian Kulesz</span><span>Svetainių kūrimas · Lietuva</span></div>
+</footer>
+
+<script>
+(() => {
+  document.getElementById('y').textContent = new Date().getFullYear();
+  const header = document.querySelector('header');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 10), { passive: true });
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .12, rootMargin: '0px 0px -40px 0px' }) : null;
+  document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = (i % 4) * 70 + 'ms'; io ? io.observe(el) : el.classList.add('in'); });
+
+  const form = document.getElementById('form'), status = document.getElementById('f-status');
+  form.addEventListener('submit', () => {
+    document.getElementById('f-next').value = location.href.split('#')[0].split('?')[0] + '?issiusta=1#kontaktai';
+    form.querySelector('button[type=submit]').textContent = 'Siunčiama…';
+  });
+  if (/[?&]issiusta=1/.test(location.search)) {
+    status.textContent = 'Ačiū! Užklausa gauta — atsakysiu kuo greičiau.';
+    status.classList.add('show');
+    form.querySelectorAll('.field, .two, button, .note').forEach(el => el.style.display = 'none');
+  }
+})();
+</script>
+</body>
+</html>
