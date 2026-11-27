@@ -8,7 +8,7 @@ export interface ContactValues {
 
 export type ContactErrors = Partial<Record<keyof ContactValues, string>>;
 
-export const MAX_FILE_MB = 8;
+export const MAX_FILE_MB = 5;
 const ACCEPTED = ["image/jpeg", "image/png", "image/webp", "image/heic", "application/pdf"];
 
 export function validateContact(v: ContactValues): ContactErrors {

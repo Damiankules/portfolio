@@ -4,7 +4,7 @@ import { site } from "@/data/site";
 export const dynamic = "force-static";
 
 /** Technical files that should not appear in search results. */
-const PRIVATE = ["/contact-form.html"];
+const PRIVATE: string[] = [];
 
 /**
  * AI crawlers listed explicitly so their access is a visible decision.
@@ -22,8 +22,8 @@ const AI_BOTS = [
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      { userAgent: "*", allow: "/", disallow: PRIVATE },
-      { userAgent: AI_BOTS, allow: "/", disallow: PRIVATE },
+      { userAgent: "*", allow: "/", ...(PRIVATE.length ? { disallow: PRIVATE } : {}) },
+      { userAgent: AI_BOTS, allow: "/", ...(PRIVATE.length ? { disallow: PRIVATE } : {}) },
     ],
     sitemap: `${site.url}/sitemap.xml`,
   };

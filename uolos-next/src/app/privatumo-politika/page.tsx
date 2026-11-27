@@ -28,7 +28,7 @@ export default function PrivacyPage() {
           <p>Duomenis naudojame tik tam, kad atsakytume į jūsų užklausą, parengtume pasiūlymą ir susisiektume dėl projekto. Duomenų tvarkymo pagrindas — jūsų sutikimas ir veiksmai prieš sudarant sutartį (BDAR 6 str. 1 d. a ir b punktai).</p>
 
           <h2>Kas gali matyti duomenis</h2>
-          <p>Svetainė ir užklausų forma veikia per „Netlify, Inc.“ paslaugas (svetainės talpinimas ir formų apdorojimas). Duomenų neparduodame ir neperduodame tretiesiems asmenims rinkodaros tikslais.</p>
+          <p>Svetainė talpinama „Netlify, Inc.“ serveriuose, o užklausų forma siunčiama el. paštu per „FormSubmit“ (formsubmit.co) paslaugą. Duomenų neparduodame ir neperduodame tretiesiems asmenims rinkodaros tikslais.</p>
 
           <h2>Kiek laiko saugome</h2>
           <p>Duomenis saugome tik tiek, kiek reikia atsakyti į užklausą ir vykdyti projektą, arba tiek, kiek reikalauja teisės aktai.</p>
