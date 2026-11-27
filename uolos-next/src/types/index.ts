@@ -42,3 +42,16 @@ export interface NavItem {
   href: string;
   label: string;
 }
+
+export interface PageInfo {
+  path: string;
+  title: string;
+  description: string;
+  priority: number;
+  changeFrequency: "monthly" | "yearly";
+}
+
+export interface ProcessStep {
+  title: string;
+  text: string;
+}

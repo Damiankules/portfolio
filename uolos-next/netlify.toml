@@ -33,3 +33,8 @@
   from = "/uolos.html"
   to = "/"
   status = 301
+
+[[headers]]
+  for = "/*.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
